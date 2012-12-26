@@ -1,0 +1,33 @@
+/* apply a natural box layout model to all elements
+/* see: http://paulirish.com/2012/box-sizing-border-box-ftw/ */
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+}
+
+.widget {
+  border: dashed 1px #000;
+}
+
+.content-widget {
+  color: #fff;
+  float: left;
+  width: 33.33333333%;
+}
+
+.widget-one {
+  background: #900;
+}
+
+.widget-two {
+  background: #090;
+}
+
+.widget-three {
+  background: #009;
+}
