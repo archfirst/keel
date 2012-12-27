@@ -30,7 +30,7 @@ function(app) {
     goToPage: function(page) {
 
       // If we do not receive a page argument, just go home
-      if (!page) {
+      if (!page || page === "index.html") {
 
         page = 'home';
 
