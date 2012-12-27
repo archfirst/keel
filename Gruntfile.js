@@ -100,7 +100,10 @@ module.exports = function(grunt) {
               exclude: ['main']
             }
           ],
-          wrap: true
+          wrap: true,
+          onBuildWrite: function(moduleName, path, contents) {
+            return contents.replace(/\/src/g, '/dist');
+          }
         }
       }
     },

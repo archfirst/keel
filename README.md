@@ -1,6 +1,6 @@
 # backbone-arch-demo
 
-This is an example of a preferred Backbone.js architecture.
+An example of a preferred Backbone.js architecture.
 
 ## Organization
 The application is built in a single `index.html` located in the root directory. The application is further organized into two sub-directories:

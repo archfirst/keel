@@ -11,7 +11,7 @@ function() {
   var app = {
 
     // The root path to run the application.
-    root: "/",
+    root: "/src/",
 
     // Previously 'widgets' - an object with a common create method for requiring in a module and firing its callback
     modules: {
