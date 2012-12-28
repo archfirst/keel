@@ -1,17 +1,31 @@
 
 app/css/index.css
 ----------------
-app/css/../../libs/css/normalize.css
-app/css/main.css
 app/css/index.css
 
 app/css/main.css
 ----------------
 app/css/main.css
 
-libs/css/normalize.css
+app/css/normalize.css
 ----------------
-libs/css/normalize.css
+app/css/normalize.css
+
+app/css/widgetone.css
+----------------
+app/css/widgetone.css
+
+app/css/widgets.css
+----------------
+app/css/widgets.css
+
+app/css/widgetthree.css
+----------------
+app/css/widgetthree.css
+
+app/css/widgettwo.css
+----------------
+app/css/widgettwo.css
 
 app/main.js
 ----------------

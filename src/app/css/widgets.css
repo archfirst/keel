@@ -1,0 +1,11 @@
+/* line 3, ../sass/widgets.scss */
+.widget {
+  border: dashed 1px #000;
+}
+
+/* line 7, ../sass/widgets.scss */
+.content-widget {
+  color: #fff;
+  float: left;
+  width: 33.33333333%;
+}

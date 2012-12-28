@@ -13,6 +13,29 @@ module.exports = function(grunt) {
       clean: [ "dist", "docs/*.html" ]
     },
 
+    // ### compass
+    // grunt-contrib-compass npm task
+    compass: {
+      dist: {
+        options: {
+          sassDir: "dist/app/sass",
+          cssDir: "dist/app/css",
+          imagesDir: "dist/app/img",
+          javascriptsDir: "dist/app",
+          environment: "production"
+        }
+      },
+      dev: {
+        options: {
+          sassDir: "src/app/sass",
+          cssDir: "src/app/css",
+          imagesDir: "src/app/img",
+          javascriptsDir: "src/app",
+          environment: "development"
+        }
+      }
+    },
+
     // ### copy
     // grunt-contrib-copy npm task
     // Copy all source files to destination directory
@@ -119,6 +142,13 @@ module.exports = function(grunt) {
         options: {
           interrupt: true
         }
+      },
+      compass: {
+        files: 'src/sass/*',
+        tasks: ['compass:dev'],
+        options: {
+          interrupt: true
+        }
       }
     }
 
@@ -132,6 +162,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
-  grunt.registerTask( "default", [ "clean", "jshint", "copy", "requirejs" ] );
+  grunt.registerTask( "default", [ "clean", "jshint", "copy", "requirejs", "compass:dist" ] );
 
 };

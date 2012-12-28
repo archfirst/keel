@@ -1,13 +1,13 @@
+@import "_colors";
+
 /* apply a natural box layout model to all elements
 /* see: http://paulirish.com/2012/box-sizing-border-box-ftw/ */
-/* line 5, ../sass/main.scss */
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 11, ../sass/main.scss */
 html, body {
   width: 100%;
 }

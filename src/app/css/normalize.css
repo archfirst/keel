@@ -1,4 +1,3 @@
-/*--- Normalization. ---*/
 /* normalize.css v2.0.1 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
@@ -382,48 +381,3 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
-/*--- Application stylesheets. ---*/
-/* apply a natural box layout model to all elements
-/* see: http://paulirish.com/2012/box-sizing-border-box-ftw/ */
-/* line 5, ../sass/main.scss */
-* {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-/* line 11, ../sass/main.scss */
-html, body {
-  width: 100%;
-}
-
-/*--- Widget stylesheets. ---*/
-/* line 3, ../sass/widgets.scss */
-.widget {
-  border: dashed 1px #000;
-}
-
-/* line 7, ../sass/widgets.scss */
-.content-widget {
-  color: #fff;
-  float: left;
-  width: 33.33333333%;
-}
-
-/* line 3, ../sass/widgetone.scss */
-.widget-one {
-  background: "#900";
-}
-
-/* line 3, ../sass/widgettwo.scss */
-.widget-two {
-  background: "#090";
-}
-
-/* line 3, ../sass/widgetthree.scss */
-.widget-three {
-  background: "#009";
-}
-
-/*--- Media queries. ---*/
