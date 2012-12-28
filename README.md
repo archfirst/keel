@@ -61,7 +61,7 @@ Note that each of the non-mainnav sample widgets is labeled with its cid to show
 ## TODOS
 * Look into whether page/widget models need to be explicitly destroyed or if they are GC'd when the view they are associated with is removed/destroyed.
 * In this pattern, all widgets are destroyed and re-created on each new route. This has proven more reliable than having certain long-running widgets (such as a header or footer) across routes. Need to investigate performance gain/loss and/or whether long-running widgets can be made more reliable.
-* Add grunt build
+* Programmatically determine some grunt options
 * Add unit testing framework
 * Add SCSS/Compass
 * Extract subscription to pageChange event to SuperView

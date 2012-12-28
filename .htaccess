@@ -1,0 +1,6 @@
+<ifModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_URI} !^/dist/.*$
+    RewriteRule ^(.*)$ $1/dist [L]
+</ifModule>
