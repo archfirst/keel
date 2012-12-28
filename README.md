@@ -63,6 +63,5 @@ Note that each of the non-mainnav sample widgets is labeled with its cid to show
 * In this pattern, all widgets are destroyed and re-created on each new route. This has proven more reliable than having certain long-running widgets (such as a header or footer) across routes. Need to investigate performance gain/loss and/or whether long-running widgets can be made more reliable.
 * Programmatically determine some grunt options
 * Add unit testing framework
-* Add SCSS/Compass
 * Extract subscription to pageChange event to SuperView
 * Ensure all sub-widget remove() methods are firing on a pageChange

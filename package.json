@@ -21,5 +21,6 @@
   ],
   "author": "Bob Holt",
   "license": "MIT",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "moduleDirs": ["pages", "widgets"]
 }

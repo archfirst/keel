@@ -50,17 +50,17 @@ text!pages/one/templates/base.html
 app/pages/one/module.js
 app/pages/one/main.js
 
-app/pages/two/main.js
-----------------
-text!pages/two/templates/base.html
-app/pages/two/module.js
-app/pages/two/main.js
-
 app/pages/three/main.js
 ----------------
 text!pages/three/templates/base.html
 app/pages/three/module.js
 app/pages/three/main.js
+
+app/pages/two/main.js
+----------------
+text!pages/two/templates/base.html
+app/pages/two/module.js
+app/pages/two/main.js
 
 app/widgets/mainmenu/main.js
 ----------------
@@ -74,14 +74,14 @@ text!widgets/widgetone/templates/base.html
 app/widgets/widgetone/module.js
 app/widgets/widgetone/main.js
 
-app/widgets/widgettwo/main.js
-----------------
-text!widgets/widgettwo/templates/base.html
-app/widgets/widgettwo/module.js
-app/widgets/widgettwo/main.js
-
 app/widgets/widgetthree/main.js
 ----------------
 text!widgets/widgetthree/templates/base.html
 app/widgets/widgetthree/module.js
 app/widgets/widgetthree/main.js
+
+app/widgets/widgettwo/main.js
+----------------
+text!widgets/widgettwo/templates/base.html
+app/widgets/widgettwo/module.js
+app/widgets/widgettwo/main.js

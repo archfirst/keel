@@ -85,44 +85,56 @@ module.exports = function(grunt) {
           inlineText: true,
           useStrict: true,
           removeCombined: true,
-          modules: [
-            {
-              name: 'main',
-              include: ['text', 'superview']
-            },
-            {
-              name: 'homeMain',
-              exclude: ['main']
-            },
-            {
-              name: 'oneMain',
-              exclude: ['main']
-            },
-            {
-              name: 'twoMain',
-              exclude: ['main']
-            },
-            {
-              name: 'threeMain',
-              exclude: ['main']
-            },
-            {
-              name: 'mainmenuMain',
-              exclude: ['main']
-            },
-            {
-              name: 'widgetoneMain',
-              exclude: ['main']
-            },
-            {
-              name: 'widgettwoMain',
-              exclude: ['main']
-            },
-            {
-              name: 'widgetthreeMain',
-              exclude: ['main']
+          modules: (function(moduleDirs) {
+
+            // Set our main module
+            var modules = [
+              {
+                name: 'main',
+                include: ['text', 'superview']
+              }
+            ];
+
+            if (moduleDirs) {
+
+              // This is node - require the fs module
+              var fs = require('fs');
+
+              // Loop through module directory names passed in as function arguments and add each module directory
+              moduleDirs.forEach(parseModules);
+
             }
-          ],
+
+            // ### parseModules
+            // Loops through the passed-in directory and calls addModule on each file/dir found within
+            function parseModules(dir) {
+              fs.readdir('./src/app/' + dir + '/', function(err, files) {
+                // If we encounter an error, throw it
+                if (err) {
+                  throw err;
+                }
+                // Loop through each file/dir and add it to our modules array
+                files.forEach(addModule);
+              });
+            }
+
+            function addModule(file) {
+              // We only want directories. This ignores dot files
+              if (!/\..*/.test(file)) {
+                // Add the module to our array
+                // This assumes each module has been added to our require config's path property as <modulename>Main
+                modules.push({
+                  name: file + 'Main',
+                  exclude: ['main']
+                });
+              }
+            }
+
+            return modules;
+
+          // Pass in module directories from package.json
+          }(grunt.file.readJSON('package.json').moduleDirs)),
+
           wrap: true,
           onBuildWrite: function(moduleName, path, contents) {
             return contents.replace(/\/src/g, '/dist');
