@@ -413,17 +413,17 @@ html, body {
 
 /* line 3, ../sass/widgetone.scss */
 .widget-one {
-  background: "#900";
+  background: #990000;
 }
 
 /* line 3, ../sass/widgettwo.scss */
 .widget-two {
-  background: "#090";
+  background: #009900;
 }
 
 /* line 3, ../sass/widgetthree.scss */
 .widget-three {
-  background: "#009";
+  background: #000099;
 }
 
 /*--- Media queries. ---*/

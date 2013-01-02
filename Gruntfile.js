@@ -174,6 +174,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
-  grunt.registerTask( "default", [ "clean", "jshint", "copy", "requirejs", "compass:dist" ] );
+  grunt.registerTask( "default", [ "clean", "jshint", "compass:dev", "copy", "requirejs", "compass:dist" ] );
 
 };
