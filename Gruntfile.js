@@ -62,7 +62,10 @@ module.exports = function(grunt) {
       },
       beforeconcat: [
         "Gruntfile.js",
-        "src/app/**/*.js"
+        "src/app/domain/*.js",
+        "src/app/framework/*.js",
+        "src/app/widgets/*.js",
+        "src/app/*.js"
       ]
     },
 
@@ -91,40 +94,50 @@ module.exports = function(grunt) {
             var modules = [
               {
                 name: 'main',
-                include: ['text', 'superview']
+                include: ['text', 'framework/BaseView']
               }
             ];
 
-            if (moduleDirs) {
+            // This is node - require the fs module
+            var fs = require('fs');
 
-              // This is node - require the fs module
-              var fs = require('fs');
+            fs.readdir('./src/app/pages/', function(err, files) {
+              // If we encounter an error, throw it
+              if (err) {
+                throw err;
+              }
+              // Loop through each file/dir and add it to our modules array
+              files.forEach(addPage);
+            });
 
-              // Loop through module directory names passed in as function arguments and add each module directory
-              moduleDirs.forEach(parseModules);
+            fs.readdir('./src/app/widgets/', function(err, files) {
+              // If we encounter an error, throw it
+              if (err) {
+                throw err;
+              }
+              // Loop through each file/dir and add it to our modules array
+              files.forEach(addWidget);
+            });
 
-            }
-
-            // ### parseModules
-            // Loops through the passed-in directory and calls addModule on each file/dir found within
-            function parseModules(dir) {
-              fs.readdir('./src/app/' + dir + '/', function(err, files) {
-                // If we encounter an error, throw it
-                if (err) {
-                  throw err;
-                }
-                // Loop through each file/dir and add it to our modules array
-                files.forEach(addModule);
-              });
-            }
-
-            function addModule(file) {
+            function addPage(file) {
               // We only want directories. This ignores dot files
               if (!/\..*/.test(file)) {
                 // Add the module to our array
                 // This assumes each module has been added to our require config's path property as <modulename>Main
                 modules.push({
-                  name: file + 'Main',
+                  name: 'pages/' + file + '/' + file + 'Page',
+                  exclude: ['main']
+                });
+              }
+            }
+
+            function addWidget(file) {
+              // We only want directories. This ignores dot files
+              if (!/\..*/.test(file)) {
+                // Add the module to our array
+                // This assumes each module has been added to our require config's path property as <modulename>Main
+                modules.push({
+                  name: 'widgets/' + file + '/' + file + 'Widget',
                   exclude: ['main']
                 });
               }
@@ -133,7 +146,7 @@ module.exports = function(grunt) {
             return modules;
 
           // Pass in module directories from package.json
-          }(grunt.file.readJSON('package.json').moduleDirs)),
+          }()),
 
           wrap: true,
           onBuildWrite: function(moduleName, path, contents) {

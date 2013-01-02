@@ -7,39 +7,18 @@ require.config({
 
   paths: {
 
-    // The main app file
-    app:              "app",
+    // The main app
+    app:                "app",
+    router:             "router",
 
     // jQuery
-    jquery:           "../libs/js/jquery.min",
+    jquery:             "vendor/jquery.min",
 
     // Underscore/Lodash
-    underscore:       "../libs/js/lodash.underscore.min",
+    underscore:         "vendor/lodash.underscore.min",
 
     // Backbone
-    backbone:         "../libs/js/backbone.min",
-    router:           "../app/router",
-    superview:        "../libs/js/superview",
-
-    // Layouts
-    homeMain:         "pages/home/main",
-    homeModule:       "pages/home/module",
-    oneMain:          "pages/one/main",
-    oneModule:        "pages/one/module",
-    twoMain:          "pages/two/main",
-    twoModule:        "pages/two/module",
-    threeMain:        "pages/three/main",
-    threeModule:      "pages/three/module",
-
-    // Widgets
-    mainmenuMain:     "widgets/mainmenu/main",
-    mainmenuModule:   "widgets/mainmenu/module",
-    widgetoneMain:     "widgets/widgetone/main",
-    widgetoneModule:   "widgets/widgetone/module",
-    widgettwoMain:     "widgets/widgettwo/main",
-    widgettwoModule:   "widgets/widgettwo/module",
-    widgetthreeMain:     "widgets/widgetthree/main",
-    widgetthreeModule:   "widgets/widgetthree/module"
+    backbone:           "vendor/backbone.min"
 
   },
 

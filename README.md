@@ -3,12 +3,9 @@
 An example of a preferred Backbone.js architecture.
 
 ## Organization
-The application is built in a single `index.html` located in the root directory. The application is further organized into two sub-directories:
+The application is built in a single `index.html` located in the root directory. The application is further organized into a sub-directories:
 
 * `/app`
-* `/libs`
-
-`/libs` contains third-party libraries and is further broken down into `/css` and `/js` directories.
 
 `/app` contains all of the user-written application code. This includes the following files:
 
@@ -20,11 +17,19 @@ The application is built in a single `index.html` located in the root directory.
 `/app` is further broken down into the following directories:
 
 * `/css`
+* `/domain`
+* `/framework`
 * `/img`
 * `/pages`
+* `/sass`
+* `/vendor`
 * `/widgets`
 
-`/css` and `/img` contain what you would expect: stylesheets and images used within the application. Where multiple CSS files are used, there is an `index.css` that `@import`s all needed stylesheets. These will be concatenated together at build time.
+`/css`, `sass`, and `/img` contain what you would expect: stylesheets and images used within the application. This example shows how to use and build Compass with the rest of the application.
+
+`/vendor` contains third-party libraries
+
+`/domain` contains our DDD-conformant Domain Models. These models can be manipulated as needed and assigned to widgets as ViewModels.
 
 The contents of `/pages` and `/widgets` are, for all intents and purposes, constructed identically. Each subdirectory represents a complete page 'module' to be built with r.js and dynamically loaded by Require. The distinction is one of DOM hierarchy: `/pages` are the top-most level views, spawning child widgets from the `/widgets` directory.
 

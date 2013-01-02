@@ -10,5 +10,7 @@ lib-cov
 pids
 logs
 results
-grunt_tasks_to_fix
 npm-debug.log
+
+dist
+node_modules

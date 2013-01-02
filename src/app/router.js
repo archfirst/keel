@@ -40,9 +40,9 @@ function(app) {
       app.trigger('pageChange');
 
       // Load in the page's module and fire the function it returns
-      require([page + 'Main'], function(main) {
+      require(['pages/' + page + '/' + page + 'Page'], function(module) {
 
-        main();
+        new module.View().render().place('body');
 
       });
 
