@@ -7,13 +7,13 @@ define(
 
     'text!pages/home/homeTemplate.html',
 
-    'widgets/mainmenu/MainmenuView',
+    'widgets/Mainmenu/MainmenuView',
 
-    'widgets/red/RedView',
+    'widgets/Red/RedView',
 
-    'widgets/green/GreenView',
+    'widgets/Green/GreenView',
 
-    'widgets/blue/BlueView'
+    'widgets/Blue/BlueView'
 
   ],
 
