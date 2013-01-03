@@ -1,7 +1,7 @@
 define(
   [
 
-    'framework/BaseView',
+    'BaseView',
 
     'text!widgets/mainmenu/mainmenuTemplate.html'
 
@@ -9,11 +9,7 @@ define(
 
   function(BaseView, mainmenuTemplate){
 
-    // Create a module object to hold our models, views, and collections
-    var Module = {};
-
-    // The base view for this module (extends from /libs/js/superview.js)
-    Module.View = BaseView.extend({
+    return BaseView.extend({
 
       // Make this view a <ul> in the DOM
       tagName: 'ul',
@@ -28,9 +24,6 @@ define(
       }
 
     });
-
-    // Return our module object
-    return Module;
 
   }
 

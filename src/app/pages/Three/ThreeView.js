@@ -1,25 +1,21 @@
 define(
   [
 
-    'app',
+    'MessageBus',
 
-    'framework/BaseView',
+    'BaseView',
 
     'text!pages/three/threeTemplate.html',
 
-    'widgets/mainmenu/mainmenuWidget',
+    'widgets/mainmenu/MainmenuView',
 
-    'widgets/widgetthree/widgetthreeWidget'
+    'widgets/blue/BlueView'
 
   ],
 
-  function(app, BaseView, threeTemplate, MainMenu, WidgetThree){
+  function(MessageBus, BaseView, threeTemplate, MainMenuView, BlueView){
 
-    // Create a module object to hold our models, views, and collections
-    var Module = {};
-
-    // The base view for this module (extends from /libs/js/superview.js)
-    Module.View = BaseView.extend({
+    return BaseView.extend({
 
       // Make this view a <section> in the DOM
       tagName: 'section',
@@ -39,7 +35,7 @@ define(
 
         // Use the Backbone 0.9.9 built-in listenTo to listen to the custom pageChange event
         // On pageChange, remove this view
-        threeView.listenTo(app, 'pageChange', function() {
+        threeView.listenTo(MessageBus, 'pageChange', function() {
 
           threeView.removeAllChildren();
           threeView.remove();
@@ -48,28 +44,28 @@ define(
 
       },
 
-      // After the DOM element is rendered, create our child widgets using app.modules.create from /app/app.js
+      // After the DOM element is rendered, create our child widgets
       postPlace: function() {
 
         this.addWidgets([
           {
             name: 'MainMenu',
-            widget: MainMenu,
+            widget: MainMenuView,
             element: '.main-menu'
           },
           {
-            name: 'WidgetThree-A',
-            widget: WidgetThree,
+            name: 'Blue-A',
+            widget: BlueView,
             element: '.content'
           },
           {
-            name: 'WidgetThree-B',
-            widget: WidgetThree,
+            name: 'Blue-B',
+            widget: BlueView,
             element: '.content'
           },
           {
-            name: 'WidgetThree-C',
-            widget: WidgetThree,
+            name: 'Blue-C',
+            widget: BlueView,
             element: '.content'
           }
         ]);
@@ -77,9 +73,6 @@ define(
       }
 
     });
-
-    // Return our module object
-    return Module;
 
   }
 

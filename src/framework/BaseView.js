@@ -76,7 +76,7 @@ function(Backbone, _, $) {
         constructorArg.collection = widget.collection;
       }
 
-      this.addChild(widget.name, new widget.widget.View(constructorArg).render().place(widget.element));
+      this.addChild(widget.name, new widget.widget(constructorArg).render().place(widget.element));
 
     },
 

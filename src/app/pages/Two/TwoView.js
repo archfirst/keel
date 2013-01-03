@@ -1,25 +1,21 @@
 define(
   [
 
-    'app',
+    'MessageBus',
 
-    'framework/BaseView',
+    'BaseView',
 
     'text!pages/two/twoTemplate.html',
 
-    'widgets/mainmenu/mainmenuWidget',
+    'widgets/mainmenu/MainmenuView',
 
-    'widgets/widgettwo/widgettwoWidget'
+    'widgets/green/GreenView'
 
   ],
 
-  function(app, BaseView, twoTemplate, MainMenu, WidgetTwo){
+  function(MessageBus, BaseView, twoTemplate, MainMenuView, GreenView){
 
-    // Create a module object to hold our models, views, and collections
-    var Module = {};
-
-    // The base view for this module (extends from /libs/js/superview.js)
-    Module.View = BaseView.extend({
+    return BaseView.extend({
 
       // Make this view a <section> in the DOM
       tagName: 'section',
@@ -39,7 +35,7 @@ define(
 
         // Use the Backbone 0.9.9 built-in listenTo to listen to the custom pageChange event
         // On pageChange, remove this view
-        twoView.listenTo(app, 'pageChange', function() {
+        twoView.listenTo(MessageBus, 'pageChange', function() {
 
           twoView.removeAllChildren();
           twoView.remove();
@@ -48,28 +44,28 @@ define(
 
       },
 
-      // After the DOM element is rendered, create our child widgets using app.modules.create from /app/app.js
+      // After the DOM element is rendered, create our child widgets
       postPlace: function() {
 
         this.addWidgets([
           {
             name: 'MainMenu',
-            widget: MainMenu,
+            widget: MainMenuView,
             element: '.main-menu'
           },
           {
-            name: 'WidgetTwo-A',
-            widget: WidgetTwo,
+            name: 'Green-A',
+            widget: GreenView,
             element: '.content'
           },
           {
-            name: 'WidgetTwo-B',
-            widget: WidgetTwo,
+            name: 'Green-B',
+            widget: GreenView,
             element: '.content'
           },
           {
-            name: 'WidgetTwo-C',
-            widget: WidgetTwo,
+            name: 'Green-C',
+            widget: GreenView,
             element: '.content'
           }
         ]);
@@ -77,9 +73,6 @@ define(
       }
 
     });
-
-    // Return our module object
-    return Module;
 
   }
 

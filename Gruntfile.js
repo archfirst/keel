@@ -94,7 +94,7 @@ module.exports = function(grunt) {
             var modules = [
               {
                 name: 'main',
-                include: ['text', 'framework/BaseView']
+                include: ['text', '../framework/BaseView']
               }
             ];
 
@@ -125,7 +125,7 @@ module.exports = function(grunt) {
                 // Add the module to our array
                 // This assumes each module has been added to our require config's path property as <modulename>Main
                 modules.push({
-                  name: 'pages/' + file + '/' + file + 'Page',
+                  name: 'pages/' + file + '/' + file + 'View',
                   exclude: ['main']
                 });
               }
@@ -137,7 +137,7 @@ module.exports = function(grunt) {
                 // Add the module to our array
                 // This assumes each module has been added to our require config's path property as <modulename>Main
                 modules.push({
-                  name: 'widgets/' + file + '/' + file + 'Widget',
+                  name: 'widgets/' + file + '/' + file + 'View',
                   exclude: ['main']
                 });
               }

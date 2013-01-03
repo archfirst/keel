@@ -1,29 +1,26 @@
 define(
   [
 
-    'app',
+    'MessageBus',
 
-    'framework/BaseView',
+    'BaseView',
 
     'text!pages/home/homeTemplate.html',
 
-    'widgets/mainmenu/mainmenuWidget',
+    'widgets/mainmenu/MainmenuView',
 
-    'widgets/widgetone/widgetoneWidget',
+    'widgets/red/RedView',
 
-    'widgets/widgettwo/widgettwoWidget',
+    'widgets/green/GreenView',
 
-    'widgets/widgetthree/widgetthreeWidget'
+    'widgets/blue/BlueView'
 
   ],
 
-  function(app, BaseView, homeTemplate, MainMenu, WidgetOne, WidgetTwo, WidgetThree){
-
-    // Create a module object to hold our models, views, and collections
-    var Module = {};
+  function(MessageBus, BaseView, homeTemplate, MainMenuView, RedView, GreenView, BlueView){
 
     // The base view for this module (extends from /libs/js/superview.js)
-    Module.View = BaseView.extend({
+    return BaseView.extend({
 
       // Make this view a <section> in the DOM
       tagName: 'section',
@@ -45,7 +42,7 @@ define(
 
         // Use the Backbone 0.9.9 built-in listenTo to listen to the custom pageChange event
         // On pageChange, remove this view
-        homeView.listenTo(app, 'pageChange', function() {
+        homeView.listenTo(MessageBus, 'pageChange', function() {
 
           homeView.removeAllChildren();
           homeView.remove();
@@ -54,28 +51,28 @@ define(
 
       },
 
-      // After the DOM element is rendered, create our child widgets using app.modules.create from /app/app.js
+      // After the DOM element is rendered, create our child widgets
       postPlace: function() {
 
         this.addWidgets([
           {
             name: 'MainMenu',
-            widget: MainMenu,
+            widget: MainMenuView,
             element: '.main-menu'
           },
           {
-            name: 'WidgetOne',
-            widget: WidgetOne,
+            name: 'Red',
+            widget: RedView,
             element: '.content'
           },
           {
-            name: 'WidgetTwo',
-            widget: WidgetTwo,
+            name: 'Green',
+            widget: GreenView,
             element: '.content'
           },
           {
-            name: 'WidgetThree',
-            widget: WidgetThree,
+            name: 'Blue',
+            widget: BlueView,
             element: '.content'
           }
         ]);
@@ -83,9 +80,6 @@ define(
       }
 
     });
-
-    // Return our module object
-    return Module;
 
   }
 
