@@ -7,13 +7,14 @@ define(
 
     'text!pages/three/threeTemplate.html',
 
-    'widgets/mainmenu/MainmenuView',
+    'widgets/mainmenu/MainmenuWidget',
 
-    'widgets/blue/BlueView'
+    'widgets/blue/BlueWidget'
 
   ],
 
-  function(MessageBus, BaseView, threeTemplate, MainMenuView, BlueView){
+  function(MessageBus, BaseView, threeTemplate, MainMenuWidget, BlueWidget){
+    'use strict';
 
     return BaseView.extend({
 
@@ -25,7 +26,7 @@ define(
 
       // Use the template passed in from the define
       template: {
-        name: "threeTemplate",
+        name: 'threeTemplate',
         source: threeTemplate
       },
 
@@ -50,22 +51,22 @@ define(
         this.addWidgets([
           {
             name: 'MainMenu',
-            widget: MainMenuView,
+            widget: MainMenuWidget,
             element: '.main-menu'
           },
           {
             name: 'Blue-A',
-            widget: BlueView,
+            widget: BlueWidget,
             element: '.content'
           },
           {
             name: 'Blue-B',
-            widget: BlueView,
+            widget: BlueWidget,
             element: '.content'
           },
           {
             name: 'Blue-C',
-            widget: BlueView,
+            widget: BlueWidget,
             element: '.content'
           }
         ]);

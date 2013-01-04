@@ -3,23 +3,25 @@ define(
 
     'BaseView',
 
-    'widgets/green/GreenViewModel',
+    'widgets/blue/BlueViewModel',
 
-    'text!widgets/green/greenTemplate.html'
+    'text!widgets/blue/blueTemplate.html'
 
   ],
 
-  function(BaseView, ViewModel, greenTemplate){
+  function(BaseView, ViewModel, blueTemplate){
+
+    'use strict';
 
     return BaseView.extend({
 
       // Set classnames on this widget for styling
-      className: 'widget content-widget widget-two',
+      className: 'widget content-widget widget-three',
 
       // Use the template passed in from the define
       template: {
-        name: 'greenTemplate',
-        source: greenTemplate
+        name: 'blueTemplate',
+        source: blueTemplate
       },
 
       initialize: function() {

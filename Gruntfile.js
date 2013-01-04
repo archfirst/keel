@@ -1,4 +1,6 @@
+/*global module:true */
 module.exports = function(grunt) {
+  'use strict';
 
   // Project configuration.
   grunt.initConfig({
@@ -10,7 +12,7 @@ module.exports = function(grunt) {
     // Deletes the <string> paths in the array
     // Deleting the deploy directory and the .html files in the docs directory (must leave css)
     clean: {
-      clean: [ "dist", "docs/*.html" ]
+      clean: [ 'dist', 'docs/*.html' ]
     },
 
     // ### compass
@@ -18,20 +20,20 @@ module.exports = function(grunt) {
     compass: {
       dist: {
         options: {
-          sassDir: "dist/app/sass",
-          cssDir: "dist/app/css",
-          imagesDir: "dist/app/img",
-          javascriptsDir: "dist/app",
-          environment: "production"
+          sassDir: 'dist/app/sass',
+          cssDir: 'dist/app/css',
+          imagesDir: 'dist/app/img',
+          javascriptsDir: 'dist/app',
+          environment: 'production'
         }
       },
       dev: {
         options: {
-          sassDir: "src/app/sass",
-          cssDir: "src/app/css",
-          imagesDir: "src/app/img",
-          javascriptsDir: "src/app",
-          environment: "development"
+          sassDir: 'src/app/sass',
+          cssDir: 'src/app/css',
+          imagesDir: 'src/app/img',
+          javascriptsDir: 'src/app',
+          environment: 'development'
         }
       }
     },
@@ -43,7 +45,7 @@ module.exports = function(grunt) {
     copy: {
       dist: {
         files: {
-          "dist/": ["src/**/*", "src/.htaccess"]
+          'dist/': ['src/**/*', 'src/.htaccess']
         }
       }
     },
@@ -55,17 +57,92 @@ module.exports = function(grunt) {
     // Lints listed files before optimization
     jshint: {
       options: {
-        browser: true,
-        curly: true,
-        eqeqeq: true,
-        eqnull: true
+        // Enforcing Options
+        bitwise       : true,
+        camelcase     : true,
+        curly         : true,
+        eqeqeq        : true,
+        forin         : true,
+        immed         : true,
+        indent        : 4,
+        latedef       : true,
+        newcap        : true,
+        noarg         : true,
+        noempty       : true,
+        nonew         : true,
+        plusplus      : false,
+        quotmark      : 'single',
+        regexp        : true,
+        undef         : true,
+        unused        : true,
+        strict        : true,
+        trailing      : true,
+        maxparams     : 10,
+        maxdepth      : 2,
+        maxstatements : 30,
+        maxcomplexity : 10,
+        maxlen        : 150,
+
+        // Relaxing Options
+        asi           : false,
+        boss          : false,
+        debug         : false,
+        eqnull        : true,
+        es5           : false,
+        esnext        : false,
+        evil          : false,
+        expr          : false,
+        funcscope     : false,
+        globalstrict  : false,
+        iterator      : false,
+        lastsemic     : false,
+        laxbreak      : false,
+        laxcomma      : false,
+        loopfunc      : false,
+        multistr      : false,
+        onecase       : false,
+        proto         : false,
+        regexdash     : false,
+        scripturl     : false,
+        smarttabs     : false,
+        shadow        : false,
+        sub           : false,
+        supernew      : false,
+        validthis     : false,
+
+        // Environments
+        browser       : true,
+        couch         : false,
+        devel         : false,
+        dojo          : false,
+        jquery        : true,
+        mootools      : false,
+        node          : false,
+        nonstandard   : false,
+        prototypejs   : false,
+        rhino         : false,
+        worker        : false,
+        wsh           : false,
+        yui           : false,
+
+        // Legacy
+        nomen         : false,
+        onevar        : false,
+        passfail      : false,
+        white         : false,
+        globals: {
+          require: true,
+          define: true
+        }
       },
       beforeconcat: [
-        "Gruntfile.js",
-        "src/app/domain/*.js",
-        "src/app/framework/*.js",
-        "src/app/widgets/*.js",
-        "src/app/*.js"
+        'Gruntfile.js',
+        'src/framework/*.js',
+        'src/app/domain/**/*.js',
+        'src/app/pages/**/*.js',
+        'src/app/widgets/**/*.js',
+        'src/app/app.js',
+        'src/app/main.js'
       ]
     },
 
@@ -77,8 +154,8 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: {
-          dir: "dist/",
-          appDir: "dist/",
+          dir: 'dist/',
+          appDir: 'dist/',
           baseUrl: 'app/',
           mainConfigFile: 'dist/app/main.js',
           keepBuildDir: true,
@@ -88,27 +165,20 @@ module.exports = function(grunt) {
           inlineText: true,
           useStrict: true,
           removeCombined: true,
-          modules: (function(moduleDirs) {
+          modules: (function() {
 
             // Set our main module
             var modules = [
               {
                 name: 'main',
-                include: ['text', '../framework/BaseView']
+                include: ['text', 'BaseView']
               }
             ];
 
+            var pageExclusions = ['main'];
+
             // This is node - require the fs module
             var fs = require('fs');
-
-            fs.readdir('./src/app/pages/', function(err, files) {
-              // If we encounter an error, throw it
-              if (err) {
-                throw err;
-              }
-              // Loop through each file/dir and add it to our modules array
-              files.forEach(addPage);
-            });
 
             fs.readdir('./src/app/widgets/', function(err, files) {
               // If we encounter an error, throw it
@@ -119,27 +189,42 @@ module.exports = function(grunt) {
               files.forEach(addWidget);
             });
 
+            fs.readdir('./src/app/pages/', function(err, files) {
+              // If we encounter an error, throw it
+              if (err) {
+                throw err;
+              }
+              // Loop through each file/dir and add it to our modules array
+              files.forEach(addPage);
+            });
+
             function addPage(file) {
               // We only want directories. This ignores dot files
-              if (!/\..*/.test(file)) {
+              if (!/^\.[^\n]*/.test(file)) {
                 // Add the module to our array
                 // This assumes each module has been added to our require config's path property as <modulename>Main
                 modules.push({
-                  name: 'pages/' + file + '/' + file + 'View',
-                  exclude: ['main']
+                  name: 'pages/' + file + '/' + file + 'Page',
+                  exclude: pageExclusions
                 });
               }
             }
 
             function addWidget(file) {
               // We only want directories. This ignores dot files
-              if (!/\..*/.test(file)) {
+              if (!/^\.[^\n]*/.test(file)) {
+
+                var widgetName = 'widgets/' + file + '/' + file + 'Widget';
+
+                pageExclusions.push(widgetName);
+
                 // Add the module to our array
                 // This assumes each module has been added to our require config's path property as <modulename>Main
                 modules.push({
-                  name: 'widgets/' + file + '/' + file + 'View',
+                  name: widgetName,
                   exclude: ['main']
                 });
+
               }
             }
 
@@ -187,6 +272,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
-  grunt.registerTask( "default", [ "clean", "jshint", "compass:dev", "copy", "requirejs", "compass:dist" ] );
+  grunt.registerTask( 'default', [ 'clean', 'jshint', 'compass:dev', 'copy', 'requirejs', 'compass:dist' ] );
 
 };

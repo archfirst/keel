@@ -9,6 +9,8 @@ define(
 
   function(BaseView, mainmenuTemplate){
 
+    'use strict';
+
     return BaseView.extend({
 
       // Make this view a <ul> in the DOM

@@ -31,6 +31,8 @@
 
 function(Backbone, _) {
 
+  'use strict';
+
   var _messageBus = _.extend({}, Backbone.Events);
 
   return {
@@ -43,7 +45,7 @@ function(Backbone, _) {
       _messageBus.off(events, callback, context);
     },
 
-    trigger: function(events) {
+    trigger: function( /* events, [*args] */ ) {
       _messageBus.trigger.apply(_messageBus, arguments);
     },
 

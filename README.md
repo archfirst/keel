@@ -54,12 +54,12 @@ In the current example, there is no need for an intermediate level of hierarchy,
 A typical module is organized in the following manner:
 
 * `ModulenameTemplate.html`
-* `ModulenameView.js` (required)
+* `ModulenamePage.js` / `ModulenameWidget.js` (required)
 * `ModulenameViewModel.js`
 
 In this example, the template is an underscore.js template, but could be any other templating solution. In theory, there could be multiple templates per view, but it should at least cause you to consider splitting out yet another child widget.
 
-The View is the Backbone View for the module. It is also the require 'hook'. The only way to include this page/widget would be to require the View.
+The Page/Widget is the entry point for the module. The only way to include this page/widget would be to require the Widget. This, in practice, is the Backbone View.
 
 The ViewModel is a Backbone Model. In many cases, the Domain model is not organized in a way that makes sense on the presentation layer, and needs to be manipulated. The ViewModel is this manipulation of our canonical Domain model that is better suited for displaying the widget in question.
 
@@ -106,3 +106,4 @@ Note that each of the non-mainnav sample widgets is labeled with its cid to show
 * Add unit testing framework
 * Add documentation solutions to build (docco/jsdoc)
 * Add image optimization to build
+* Expand pattern and build process to work with multiple applications

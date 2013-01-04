@@ -5,17 +5,17 @@ define(
 
     'BaseView',
 
-    'text!pages/One/oneTemplate.html',
+    'text!pages/two/twoTemplate.html',
 
-    'widgets/Mainmenu/MainmenuView',
+    'widgets/mainmenu/MainmenuWidget',
 
-    'widgets/Red/RedView'
+    'widgets/green/GreenWidget'
 
   ],
 
-  function(MessageBus, BaseView, oneTemplate, MainMenuView, RedView){
+  function(MessageBus, BaseView, twoTemplate, MainMenuWidget, GreenWidget){
+    'use strict';
 
-    // The base view for this module (extends from /libs/js/superview.js)
     return BaseView.extend({
 
       // Make this view a <section> in the DOM
@@ -26,20 +26,20 @@ define(
 
       // Use the template passed in from the define
       template: {
-        name: 'oneTemplate',
-        source: oneTemplate
+        name: 'twoTemplate',
+        source: twoTemplate
       },
 
       initialize: function() {
 
-        var oneView = this;
+        var twoView = this;
 
         // Use the Backbone 0.9.9 built-in listenTo to listen to the custom pageChange event
         // On pageChange, remove this view
-        oneView.listenTo(MessageBus, 'pageChange', function() {
+        twoView.listenTo(MessageBus, 'pageChange', function() {
 
-          oneView.removeAllChildren();
-          oneView.remove();
+          twoView.removeAllChildren();
+          twoView.remove();
 
         });
 
@@ -51,22 +51,22 @@ define(
         this.addWidgets([
           {
             name: 'MainMenu',
-            widget: MainMenuView,
+            widget: MainMenuWidget,
             element: '.main-menu'
           },
           {
-            name: 'Red-A',
-            widget: RedView,
+            name: 'Green-A',
+            widget: GreenWidget,
             element: '.content'
           },
           {
-            name: 'Red-B',
-            widget: RedView,
+            name: 'Green-B',
+            widget: GreenWidget,
             element: '.content'
           },
           {
-            name: 'Red-C',
-            widget: RedView,
+            name: 'Green-C',
+            widget: GreenWidget,
             element: '.content'
           }
         ]);

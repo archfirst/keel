@@ -5,7 +5,9 @@ define(
 
   ],
 
-  function(Backbone, greenTemplate){
+  function(Backbone){
+
+    'use strict';
 
     return Backbone.Model.extend({
 

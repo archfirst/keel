@@ -7,21 +7,22 @@ define([
 ],
 
 function(MessageBus, Backbone) {
+  'use strict';
 
   // Defining the application router, you can attach sub routers here.
   return Backbone.Router.extend({
 
     // Route map
     routes: {
-      "":       "goToPage",
-      ":page":  "goToPage"
+      '':       'goToPage',
+      ':page':  'goToPage'
     },
 
     // Simply directs the application to go to a specific page
     goToPage: function(page) {
 
       // If we do not receive a page argument, just go home
-      if (!page || page === "index.html") {
+      if (!page || page === 'index.html') {
 
         page = 'home';
 
@@ -34,9 +35,9 @@ function(MessageBus, Backbone) {
       MessageBus.trigger('pageChange');
 
       // Load in the page's module and fire the function it returns
-      require(['pages/' + page + '/' + page + 'View'], function(module) {
+      require(['pages/' + page + '/' + page + 'Page'], function(Module) {
 
-        new module().render().place('body');
+        new Module().render().place('body');
 
       });
 

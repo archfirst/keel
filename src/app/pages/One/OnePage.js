@@ -5,19 +5,16 @@ define(
 
     'BaseView',
 
-    'text!pages/home/homeTemplate.html',
+    'text!pages/One/oneTemplate.html',
 
-    'widgets/Mainmenu/MainmenuView',
+    'widgets/Mainmenu/MainmenuWidget',
 
-    'widgets/Red/RedView',
-
-    'widgets/Green/GreenView',
-
-    'widgets/Blue/BlueView'
+    'widgets/Red/RedWidget'
 
   ],
 
-  function(MessageBus, BaseView, homeTemplate, MainMenuView, RedView, GreenView, BlueView){
+  function(MessageBus, BaseView, oneTemplate, MainMenuWidget, RedWidget){
+    'use strict';
 
     // The base view for this module (extends from /libs/js/superview.js)
     return BaseView.extend({
@@ -30,22 +27,20 @@ define(
 
       // Use the template passed in from the define
       template: {
-
-        name: 'homeTemplate',
-        source: homeTemplate
-
+        name: 'oneTemplate',
+        source: oneTemplate
       },
 
       initialize: function() {
 
-        var homeView = this;
+        var oneView = this;
 
         // Use the Backbone 0.9.9 built-in listenTo to listen to the custom pageChange event
         // On pageChange, remove this view
-        homeView.listenTo(MessageBus, 'pageChange', function() {
+        oneView.listenTo(MessageBus, 'pageChange', function() {
 
-          homeView.removeAllChildren();
-          homeView.remove();
+          oneView.removeAllChildren();
+          oneView.remove();
 
         });
 
@@ -57,22 +52,22 @@ define(
         this.addWidgets([
           {
             name: 'MainMenu',
-            widget: MainMenuView,
+            widget: MainMenuWidget,
             element: '.main-menu'
           },
           {
-            name: 'Red',
-            widget: RedView,
+            name: 'Red-A',
+            widget: RedWidget,
             element: '.content'
           },
           {
-            name: 'Green',
-            widget: GreenView,
+            name: 'Red-B',
+            widget: RedWidget,
             element: '.content'
           },
           {
-            name: 'Blue',
-            widget: BlueView,
+            name: 'Red-C',
+            widget: RedWidget,
             element: '.content'
           }
         ]);
