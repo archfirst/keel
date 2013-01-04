@@ -3,7 +3,7 @@ define(
 
     'BaseView',
 
-    'text!widgets/mainmenu/mainmenuTemplate.html'
+    'text!widgets/Mainmenu/MainmenuTemplate.html'
 
   ],
 

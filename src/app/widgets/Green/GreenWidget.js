@@ -3,9 +3,9 @@ define(
 
     'BaseView',
 
-    'widgets/green/GreenViewModel',
+    'widgets/Green/GreenViewModel',
 
-    'text!widgets/green/greenTemplate.html'
+    'text!widgets/Green/GreenTemplate.html'
 
   ],
 

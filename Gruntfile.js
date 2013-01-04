@@ -146,6 +146,10 @@ module.exports = function(grunt) {
       ]
     },
 
+    mocha: {
+      all: [ 'test/**/*.html' ]
+    },
+
     // ### requirejs
     // grunt-requirejs npm task
     // Many options are identical to the r.js options
@@ -157,7 +161,7 @@ module.exports = function(grunt) {
           dir: 'dist/',
           appDir: 'dist/',
           baseUrl: 'app/',
-          mainConfigFile: 'dist/app/main.js',
+          mainConfigFile: 'dist/config.js',
           keepBuildDir: true,
           optimize: 'uglify2',
           skipDirOptimize: true,
@@ -270,8 +274,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-mocha');
 
   // Default task.
-  grunt.registerTask( 'default', [ 'clean', 'jshint', 'compass:dev', 'copy', 'requirejs', 'compass:dist' ] );
+  grunt.registerTask( 'default', [ 'clean', 'jshint', 'mocha', 'compass:dev', 'copy', 'requirejs', 'compass:dist' ] );
 
 };

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="libs/mocha.css" />
+</head>
+<body>
+  <div id="mocha"></div>
+  <div id="test"></div>
+
+  <!-- Testing Frameworks -->
+  <script src="libs/mocha.js"></script>
+  <script src="libs/chai.js"></script>
+  <script src="libs/sinon.js"></script>
+
+  <!-- PhantomJS Bridge -->
+  <script src="libs/bridge.js"></script>
+
+  <!-- Common Config -->
+  <script src="../src/config.js"></script>
+
+  <!-- Test Config -->
+  <script src="config.js"></script>
+
+  <!-- RequireJS -->
+  <script src="../src/vendor/require.min.js"></script>
+
+  <script>
+    window.assert = chai.assert;
+    window.expect = chai.expect;
+    mocha.setup('bdd');
+  </script>
+  <script>
+    require([
+      'specs/app.js'
+    ], runMocha);
+  </script>
+</body>
+</html>

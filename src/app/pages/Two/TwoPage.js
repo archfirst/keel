@@ -5,11 +5,11 @@ define(
 
     'BaseView',
 
-    'text!pages/two/twoTemplate.html',
+    'text!pages/Two/TwoTemplate.html',
 
-    'widgets/mainmenu/MainmenuWidget',
+    'widgets/Mainmenu/MainmenuWidget',
 
-    'widgets/green/GreenWidget'
+    'widgets/Green/GreenWidget'
 
   ],
 
