@@ -58,18 +58,35 @@ function(Backbone, _, $) {
 
   var _templates = {};
 
+  function BaseViewException(message) {
+    this.message = message;
+    this.name = 'ViewException';
+  }
+
+  BaseViewException.prototype = new Error();
+  BaseViewException.prototype.constructor = BaseViewException;
+
   return Backbone.View.extend({
 
     // Map of ids to child views
+    // The parent tracks its child views so it can remove them on pageChange
     // The view id is any unique string, e.g. the id of the associated model
     childViews: {},
 
+    // Adds a View to the list of child views.
     addChild: function(id, childView) {
+
+      if (!(childView instanceof Backbone.View)) {
+        throw new BaseViewException('BaseView.addChild: childView must be a Backbone View');
+      }
 
       this.childViews[id] = childView;
 
+      return this;
+
     },
 
+    // Adds a child widget
     addWidget: function(widget) {
 
       var constructorArg = {};
@@ -84,6 +101,8 @@ function(Backbone, _, $) {
 
       this.addChild(widget.name, new widget.widget(constructorArg).render().place(widget.element));
 
+      return this;
+
     },
 
     addWidgets: function(widgets) {
@@ -94,6 +113,8 @@ function(Backbone, _, $) {
 
       }
 
+      return this;
+
     },
 
     removeChild: function(id) {
@@ -103,6 +124,8 @@ function(Backbone, _, $) {
       childViews[id].remove();
 
       delete childViews[id];
+
+      return this;
 
     },
 
@@ -116,11 +139,13 @@ function(Backbone, _, $) {
 
           childViews[id].remove();
 
-          childViews = {};
+          delete childViews[id];
 
         }
 
       }
+
+      return this;
 
     },
 
@@ -200,14 +225,18 @@ function(Backbone, _, $) {
     // `postRender` fires just before the view's `render` method returns. Do
     // things here that require the view's basic markup to be in place, but
     // that do NOT require the view to be placed in the document
-    postRender : function() { },
+    postRender : function() {
+      return this;
+    },
 
     // ### `postPlaceAt`
     //
     // `postPlaceAt` fires just before the view's `place` method returns. Do
     // things here that require the view to be placed in the document, such as
     // operations that require knowing the dimensions of the view.
-    postPlace : function() { }
+    postPlace : function() {
+      return this;
+    }
 
   });
 

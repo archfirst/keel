@@ -132,7 +132,8 @@ module.exports = function(grunt) {
         white         : false,
         globals: {
           require: true,
-          define: true
+          define: true,
+          Backbone: true
         }
       },
       beforeconcat: [
@@ -142,12 +143,14 @@ module.exports = function(grunt) {
         'src/app/pages/**/*.js',
         'src/app/widgets/**/*.js',
         'src/app/app.js',
-        'src/app/main.js'
+        'src/app/main.js',
+        'test/config.js',
+        'test/specs/*.js'
       ]
     },
 
     mocha: {
-      all: [ 'test/**/*.html' ]
+      all: [ 'test/runner.html' ]
     },
 
     // ### requirejs

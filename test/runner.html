@@ -7,9 +7,14 @@
 </head>
 <body>
   <div id="mocha"></div>
-  <div id="test"></div>
+  <div id="test">
+    <section class="not-test1"></section>
+    <section class="not-test2"></section>
+    <section class="not-test3"></section>
+  </div>
 
   <!-- Testing Frameworks -->
+  <script src="libs/jquery.min.js"></script>
   <script src="libs/mocha.js"></script>
   <script src="libs/chai.js"></script>
   <script src="libs/sinon.js"></script>
@@ -27,13 +32,13 @@
   <script src="../src/vendor/require.min.js"></script>
 
   <script>
-    window.assert = chai.assert;
     window.expect = chai.expect;
     mocha.setup('bdd');
   </script>
   <script>
     require([
-      'specs/app.js'
+      'specs/app.js',
+      'specs/BaseView.js'
     ], runMocha);
   </script>
 </body>
