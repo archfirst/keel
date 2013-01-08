@@ -144,13 +144,13 @@ module.exports = function(grunt) {
         'src/app/widgets/**/*.js',
         'src/app/app.js',
         'src/app/main.js',
-        'test/config.js',
-        'test/specs/*.js'
+        'tests/config.js',
+        'tests/specs/*.js'
       ]
     },
 
     mocha: {
-      all: [ 'test/runner.html' ]
+      all: [ 'tests/runner.html' ]
     },
 
     // ### requirejs
