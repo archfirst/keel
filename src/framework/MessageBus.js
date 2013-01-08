@@ -35,8 +35,20 @@ function(Backbone, _) {
 
   var _messageBus = _.extend({}, Backbone.Events);
 
+  function NotImplementedException(message) {
+    this.message = message;
+    this.name = 'NotImplementedException';
+  }
+
+  NotImplementedException.prototype = new Error();
+  NotImplementedException.prototype.constructor = NotImplementedException;
+
+
   return {
 
+    // Not implementing this would make sense, but it is used in the following case:
+    // myView.listenTo(MessageBus, 'event', callback);
+    // The MessageBus's on() method is used behind the scenes.
     on: function(events, callback, context) {
       _messageBus.on(events, callback, context);
     },
@@ -53,12 +65,22 @@ function(Backbone, _) {
       _messageBus.once(events, callback, context);
     },
 
-    listenTo: function(other, events, callback) {
-      _messageBus.listenTo(other, events, callback);
+    // listenTo needs to be implemented by the View
+    // This allows the View to unbind automatically when it is removed
+    // MessageBus.listenTo would not provide this and should not be used
+    listenTo: function() {
+      throw new NotImplementedException('Not Implemented: ' +
+        'listenTo should be implemented by the View object: ' +
+        'myView.listenTo(MessageBus, \'event\', callback); ');
     },
 
-    stopListening: function(other, events, callback) {
-      _messageBus.stopListening(other, events, callback);
+    // stopListening needs to be implemented by the View
+    // This removes the events from listenTo.
+    // That is not implemented on the global MessageBus, so neither is this.
+    stopListening: function() {
+      throw new NotImplementedException('Not Implemented: ' +
+        'stopListening should be implemented by the View object: ' +
+        'myView.stopListening(MessageBus, \'event\', callback); ');
     }
 
   };

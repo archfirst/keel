@@ -7,7 +7,7 @@ define([
 ], function(BaseView) {
   'use strict';
 
-  var BV = window.BV = new BaseView({
+  var BV = new BaseView({
     tagName: 'section',
     className: 'test-base-view'
   });

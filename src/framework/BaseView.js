@@ -60,7 +60,7 @@ function(Backbone, _, $) {
 
   function BaseViewException(message) {
     this.message = message;
-    this.name = 'ViewException';
+    this.name = 'BaseViewException';
   }
 
   BaseViewException.prototype = new Error();

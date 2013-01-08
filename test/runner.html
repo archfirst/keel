@@ -17,6 +17,7 @@
   <script src="libs/jquery.min.js"></script>
   <script src="libs/mocha.js"></script>
   <script src="libs/chai.js"></script>
+  <script src="libs/sinon-chai.js"></script>
   <script src="libs/sinon.js"></script>
 
   <!-- PhantomJS Bridge -->
@@ -38,7 +39,8 @@
   <script>
     require([
       'specs/app.js',
-      'specs/BaseView.js'
+      'specs/BaseView.js',
+      'specs/MessageBus.js'
     ], runMocha);
   </script>
 </body>
