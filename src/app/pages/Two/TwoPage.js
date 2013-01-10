@@ -30,6 +30,8 @@ define(
         source: twoTemplate
       },
 
+      elements: ['mainmenu', 'content'],
+
       initialize: function() {
 
         var twoView = this;
@@ -46,28 +48,28 @@ define(
       },
 
       // After the DOM element is rendered, create our child widgets
-      postPlace: function() {
+      postRender: function() {
 
         this.addWidgets([
           {
             name: 'MainMenu',
             widget: MainMenuWidget,
-            element: '.main-menu'
+            element: this.mainmenuElement
           },
           {
             name: 'Green-A',
             widget: GreenWidget,
-            element: '.content'
+            element: this.contentElement
           },
           {
             name: 'Green-B',
             widget: GreenWidget,
-            element: '.content'
+            element: this.contentElement
           },
           {
             name: 'Green-C',
             widget: GreenWidget,
-            element: '.content'
+            element: this.contentElement
           }
         ]);
 

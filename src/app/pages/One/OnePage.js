@@ -31,6 +31,8 @@ define(
         source: oneTemplate
       },
 
+      elements: ['mainmenu', 'content'],
+
       initialize: function() {
 
         var oneView = this;
@@ -47,28 +49,28 @@ define(
       },
 
       // After the DOM element is rendered, create our child widgets
-      postPlace: function() {
+      postRender: function() {
 
         this.addWidgets([
           {
             name: 'MainMenu',
             widget: MainMenuWidget,
-            element: '.main-menu'
+            element: this.mainmenuElement
           },
           {
             name: 'Red-A',
             widget: RedWidget,
-            element: '.content'
+            element: this.contentElement
           },
           {
             name: 'Red-B',
             widget: RedWidget,
-            element: '.content'
+            element: this.contentElement
           },
           {
             name: 'Red-C',
             widget: RedWidget,
-            element: '.content'
+            element: this.contentElement
           }
         ]);
 
