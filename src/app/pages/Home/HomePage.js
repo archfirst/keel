@@ -38,6 +38,8 @@ define(
 
       },
 
+      elements: ['mainmenu', 'content'],
+
       initialize: function() {
 
         var homeView = this;
@@ -54,28 +56,28 @@ define(
       },
 
       // After the DOM element is rendered, create our child widgets
-      postPlace: function() {
+      postRender: function() {
 
         this.addWidgets([
           {
             name: 'MainMenu',
             widget: MainMenuWidget,
-            element: '.main-menu'
+            element: this.mainmenuElement
           },
           {
             name: 'Red',
             widget: RedWidget,
-            element: '.content'
+            element: this.contentElement
           },
           {
             name: 'Green',
             widget: GreenWidget,
-            element: '.content'
+            element: this.contentElement
           },
           {
             name: 'Blue',
             widget: BlueWidget,
-            element: '.content'
+            element: this.contentElement
           }
         ]);
 

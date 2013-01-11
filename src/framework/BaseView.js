@@ -70,27 +70,29 @@ function(Backbone, _, $) {
 
     },
 
-    addWidget: function(widget) {
+    addWidget: function(widgetSpec) {
 
       var constructorArg = {};
 
-      if (widget.model) {
-        constructorArg.model = widget.model;
+      if (widgetSpec.model) {
+        constructorArg.model = widgetSpec.model;
       }
 
-      if (widget.collection) {
-        constructorArg.collection = widget.collection;
+      if (widgetSpec.collection) {
+        constructorArg.collection = widgetSpec.collection;
       }
 
-      this.addChild(widget.name, new widget.widget(constructorArg).render().place(widget.element));
+      var widget = new widgetSpec.widget(constructorArg).render().place(widgetSpec.element);
+
+      this.addChild(widgetSpec.name, widget);
 
     },
 
-    addWidgets: function(widgets) {
+    addWidgets: function(widgetSpecs) {
 
-      for (var i = 0, l = widgets.length; i < l; i++) {
+      for (var i = 0, l = widgetSpecs.length; i < l; i++) {
 
-        this.addWidget(widgets[i]);
+        this.addWidget(widgetSpecs[i]);
 
       }
 
@@ -143,6 +145,7 @@ function(Backbone, _, $) {
       // this.removeAllChildren();
 
       this.$el.html(template(context));
+      this._setupElements();
 
       this.postRender();
 
@@ -160,6 +163,39 @@ function(Backbone, _, $) {
 
       return _templates[this.template.name];
 
+    },
+
+    // ### `elements`
+    //
+    // If you would like to store references to certain elements in your
+    // template for later use, you can indicate those elements by doing *both*
+    // of the following:
+    //
+    // - adding a classname beginning with `js-` to the elements in your template
+    // - listing the classname suffix in your view's `elements` array
+    //
+    // For example, if your template contains the following:
+    //
+    //    `<div class="js-interesting"></div>`
+    //
+    // And your view's `elements` array is:
+    //
+    //    `[ 'interesting' ]`
+    //
+    // Then your view will have a property `interestingElement` that references
+    // a jQuery object for the div.
+    elements : [],
+
+    // ### `_setupElements`
+    //
+    // The `_setupElements` method is a "private" method for storing references
+    // to elements as indicated by the view's `elements` property.
+    _setupElements : function() {
+      if (this.elements) {
+        _.each(this.elements, function(c) {
+          this[c + 'Element'] = this.$('.js-' + c).eq(0);
+        }, this);
+      }
     },
 
     // ### `place`
@@ -202,9 +238,9 @@ function(Backbone, _, $) {
     // that do NOT require the view to be placed in the document
     postRender : function() { },
 
-    // ### `postPlaceAt`
+    // ### `postPlace`
     //
-    // `postPlaceAt` fires just before the view's `place` method returns. Do
+    // `postPlace` fires just before the view's `place` method returns. Do
     // things here that require the view to be placed in the document, such as
     // operations that require knowing the dimensions of the view.
     postPlace : function() { }
