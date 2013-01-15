@@ -30,6 +30,8 @@ define(
         source: threeTemplate
       },
 
+      elements: ['mainmenu', 'content'],
+
       initialize: function() {
 
         var threeView = this;
@@ -46,28 +48,28 @@ define(
       },
 
       // After the DOM element is rendered, create our child widgets
-      postPlace: function() {
+      postRender: function() {
 
         this.addWidgets([
           {
             name: 'MainMenu',
             widget: MainMenuWidget,
-            element: '.main-menu'
+            element: this.mainmenuElement
           },
           {
             name: 'Blue-A',
             widget: BlueWidget,
-            element: '.content'
+            element: this.contentElement
           },
           {
             name: 'Blue-B',
             widget: BlueWidget,
-            element: '.content'
+            element: this.contentElement
           },
           {
             name: 'Blue-C',
             widget: BlueWidget,
-            element: '.content'
+            element: this.contentElement
           }
         ]);
 
