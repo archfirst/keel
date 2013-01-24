@@ -44,9 +44,17 @@ module.exports = function(grunt) {
     // We will do all further processing on the destination directory
     copy: {
       dist: {
-        files: {
-          'dist/': ['src/**/*', 'src/.htaccess']
-        }
+        files: [
+          {
+            expand: true,
+            cwd: 'src/',
+            src: ['**'],
+            dest: 'dist/'
+          }
+        ]
+        // files: {
+        //   'dist/': ['src/**/*', 'src/.htaccess']
+        // }
       }
     },
 
