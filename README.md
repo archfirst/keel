@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bobholt/backbone-arch-demo.png)](https://travis-ci.org/bobholt/backbone-arch-demo)
+
 # backbone-arch-demo
 
 An example of a Loosely Coupled Domain-Driven Backbone.js architecture.

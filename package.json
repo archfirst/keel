@@ -22,7 +22,7 @@
     "architecture"
   ],
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha -R spec test/runner.js"
+    "test": "grunt mocha"
   },
   "author": "Bob Holt",
   "license": "MIT",
