@@ -20,6 +20,7 @@ var require = {
 
     // Framework
     BaseView:   '../framework/BaseView',
+    Message:    '../framework/Message',
     MessageBus: '../framework/MessageBus',
     Repository: '../framework/Repository',
     Router:     '../framework/Router'

@@ -1,10 +1,13 @@
-/*global describe:true, expect:true, it:true */
 /*jshint expr:true, es5:true */
 define([
 
-  'app'
+  'app',
 
-], function(app) {
+  'backbone',
+
+  'jquery'
+
+], function(app, Backbone, $) {
   'use strict';
 
   describe('app', function() {

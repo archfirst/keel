@@ -1,12 +1,14 @@
 define([
 
+  'Message',
+
   'MessageBus',
 
   'backbone'
 
 ],
 
-function(MessageBus, Backbone) {
+function(Message, MessageBus, Backbone) {
   'use strict';
 
   // Defining the application router, you can attach sub routers here.
@@ -28,16 +30,24 @@ function(MessageBus, Backbone) {
 
       }
 
+      // Trigger the `pageBeforeChange` event in the MessageBus
+      MessageBus.trigger(Message.PageBeforeChange, page);
+
       // Convert to Uppercase first letter
       page = page[0].toUpperCase() + page.slice(1);
 
-      // Trigger the pageChange event in the MessageBus
-      MessageBus.trigger('pageChange');
+      // Load in the page's module and render it
+      require(['pages/' + page + '/' + page + 'Page'], function(PageConstructor) {
 
-      // Load in the page's module and fire the function it returns
-      require(['pages/' + page + '/' + page + 'Page'], function(Module) {
+        var pageInstance = new PageConstructor().render().place('body');
 
-        new Module().render().place('body');
+        // Remove the page on a `pageBeforeChange` event
+        pageInstance.listenTo(MessageBus, Message.PageBeforeChange, function() {
+          pageInstance.destroy();
+        });
+
+        // Trigger the `pageChange` event in the MessageBus
+        MessageBus.trigger(Message.PageChange, page);
 
       });
 

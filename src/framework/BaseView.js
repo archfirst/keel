@@ -68,93 +68,97 @@ function(Backbone, _, $) {
 
   return Backbone.View.extend({
 
-    // Map of ids to child views
-    // The parent tracks its child views so it can remove them on pageChange
-    // The view id is any unique string, e.g. the id of the associated model
-    childViews: {},
-
-    // Adds a View to the list of child views.
-    addChild: function(id, childView) {
-
-      if (!(childView instanceof Backbone.View)) {
-        throw new BaseViewException('BaseView.addChild: childView must be a Backbone View');
-      }
-
-      this.childViews[id] = childView;
-
-      return this;
-
-    },
-
-    addWidget: function(widgetSpec) {
-
-      var constructorArg = {};
-
-      if (widgetSpec.model) {
-        constructorArg.model = widgetSpec.model;
-      }
-
-      if (widgetSpec.collection) {
-        constructorArg.collection = widgetSpec.collection;
-      }
-
-      var widget = new widgetSpec.widget(constructorArg).render().place(widgetSpec.element);
-
-      this.addChild(widgetSpec.name, widget);
-
-      return this;
-
-    },
-
-    addWidgets: function(widgetSpecs) {
-
-      for (var i = 0, l = widgetSpecs.length; i < l; i++) {
-
-        this.addWidget(widgetSpecs[i]);
-
-      }
-
-      return this;
-
-    },
-
-    removeChild: function(id) {
-
-      var childViews = this.childViews;
-
-      childViews[id].remove();
-
-      delete childViews[id];
-
-      return this;
-
-    },
-
-    removeAllChildren: function() {
-
-      var childViews = this.childViews;
-
-      for (var id in childViews) {
-
-        if (childViews.hasOwnProperty(id)) {
-
-          childViews[id].remove();
-
-          delete childViews[id];
-
-        }
-
-      }
-
-      return this;
-
-    },
-
     template: {
 
       name: 'DefaultTemplate',
       source: '<div></div>'
 
+    },
+
+    // Override the constructor to add per-instance configuration
+    constructor: function() {
+
+      // Create a per instance children property.
+      // It is a map of unique child ids to child views.
+      // The child id can be a number or string, e.g. the id of the associated model
+      this.children = {};
+
+      // Call super
+      Backbone.View.apply(this, arguments);
+    },
+
+    // Adds a View to the list of child views.
+    addChild: function(childSpec) {
+
+      if (!childSpec || !childSpec.viewClass) {
+        throw new BaseViewException('BaseView.addChild: child must have a viewClass defined');
+      }
+
+      if (typeof childSpec.viewClass !== 'function') {
+        throw new BaseViewException('BaseView.addChild: viewClass must be a Backbone View constructor');
+      }
+
+      // Create the child
+      var child = new childSpec.viewClass(childSpec.options);
+
+      // Throw an error if the viewClass isn't a View
+      if (!(child instanceof Backbone.View)) {
+        throw new BaseViewException('BaseView.addChild: child\'s viewClass must be a Backbone View constructor');
+      }
+
+      child.render();
+
+      // Add it to the children map
+      this.children[childSpec.id] = child;
+
+      // If the parent element is supplied, place the child under the parent
+      if (childSpec.parentElement) {
+        child.place(childSpec.parentElement);
+      }
+
+      return child;
+
+    },
+
+    // Adds an array of child views to the list of child views
+    addChildren: function(childSpecs) {
+
+      for (var i = 0, l = childSpecs.length; i < l; i++) {
+
+        this.addChild(childSpecs[i]);
+
+      }
+
+      return this;
+
+    },
+
+    // Destroys the view and all its children recursively, unbinding their events
+    destroy: function() {
+      this.destroyChildren();
+      this.remove();
+    },
+
+    // Destroys all the children of this view recursively, unbinding their events
+    destroyChildren: function() {
+      var children = this.children;
+      for (var id in children) {
+        if (children.hasOwnProperty(id)) {
+          children[id].destroy();
+          delete children[id];
+        }
+      }
+
+      return this;
+    },
+
+    // Destroys the specified child of this view, unbinding its events
+    destroyChild: function(id) {
+      var children = this.children;
+      children[id].destroy();
+      delete children[id];
+
+      return this;
     },
 
     // This method expects the derived class to supply a template.name and
@@ -166,7 +170,7 @@ function(Backbone, _, $) {
       var context = model.toJSON ? model.toJSON() : {};
 
       // Remove existing children
-      // this.removeAllChildren();
+      this.destroyChildren();
 
       this.$el.html(template(context));
       this._setupElements();

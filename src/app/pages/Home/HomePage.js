@@ -40,44 +40,29 @@ define(
 
       elements: ['mainmenu', 'content'],
 
-      initialize: function() {
-
-        var homeView = this;
-
-        // Use the Backbone 0.9.9 built-in listenTo to listen to the custom pageChange event
-        // On pageChange, remove this view
-        homeView.listenTo(MessageBus, 'pageChange', function() {
-
-          homeView.removeAllChildren();
-          homeView.remove();
-
-        });
-
-      },
-
       // After the DOM element is rendered, create our child widgets
       postRender: function() {
 
-        this.addWidgets([
+        this.addChildren([
           {
             name: 'MainMenu',
-            widget: MainMenuWidget,
-            element: this.mainmenuElement
+            viewClass: MainMenuWidget,
+            parentElement: this.mainmenuElement
           },
           {
             name: 'Red',
-            widget: RedWidget,
-            element: this.contentElement
+            viewClass: RedWidget,
+            parentElement: this.contentElement
           },
           {
             name: 'Green',
-            widget: GreenWidget,
-            element: this.contentElement
+            viewClass: GreenWidget,
+            parentElement: this.contentElement
           },
           {
             name: 'Blue',
-            widget: BlueWidget,
-            element: this.contentElement
+            viewClass: BlueWidget,
+            parentElement: this.contentElement
           }
         ]);
 

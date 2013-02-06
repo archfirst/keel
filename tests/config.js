@@ -1,4 +1,3 @@
-/*global require:true, mocha:true */
 /*jshint unused:false */
 
 // Set the baseUrl relative to the test runner

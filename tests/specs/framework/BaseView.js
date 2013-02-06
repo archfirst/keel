@@ -1,179 +1,175 @@
-/*global describe:true, expect:true, it:true, before:true, beforeEach:true */
 /*jshint expr:true, es5:true */
 define([
 
-  'BaseView'
+  'backbone',
 
-], function(BaseView) {
+  'BaseView',
+
+  'jquery'
+
+], function(Backbone, BaseView, $) {
   'use strict';
 
-  var BV = new BaseView({
-    tagName: 'section',
-    className: 'test-base-view'
-  });
+  var BV = null;
 
   describe('BaseView', function() {
 
-    before(function() {
-      BV.childViews = {};
+    beforeEach(function() {
+      $('#test').empty();
+      BV = new BaseView({
+        tagName: 'section',
+        className: 'test-base-view'
+      });
+    });
+
+    afterEach(function() {
+      $('#test').empty();
+      BV = null;
     });
 
     describe('#addChild()', function() {
 
       it('should add a property to the object', function() {
 
-        var key = 'key';
-        var value = new BaseView();
-
         // There should not be any child views to start
-        expect(Object.keys(BV.childViews).length).to.equal(0);
+        expect(Object.keys(BV.children).length).to.equal(0);
 
-        BV.addChild(key, value);
+        BV.addChild({
+          id: 'addChildTest1',
+          viewClass: BaseView
+        });
 
         // There should now be one child view
-        expect(Object.keys(BV.childViews).length).to.equal(1);
+        expect(Object.keys(BV.children).length).to.equal(1);
 
         // The key and value should be what we passed in
-        expect(BV.childViews.key).to.equal(value);
+        expect(BV.children.addChildTest1).to.be.an.instanceof(BaseView);
 
       });
 
-      it('should only add a Backbone View', function() {
+      it('should require a viewClass', function() {
 
-        expect(BV.addChild).to.throw(/must be a Backbone View/);
-
-      });
-
-      it('should return the View', function() {
-
-        expect(BV.addChild('key3', new BaseView())).to.equal(BV);
+        expect(BV.addChild).to.throw(/must have a viewClass defined/);
 
       });
 
-    });
+      it('should throw an error if viewClass is not a Backbone View', function() {
 
-    describe('#addWidget()', function() {
+        expect(function() {
+          BV.addChild({
+            viewClass: function(){}
+          });
+        }).to.throw(/viewClass must be a Backbone View constructor/);
 
-      // addWidget accepts an object with required name, widget, and element properties
-      // The object may have optional model or collection properties
+      });
+
+      it('should throw an error if viewClass is not a function', function() {
+        expect(function() {
+          BV.addChild({
+            viewClass: {}
+          });
+        }).to.throw(/viewClass must be a Backbone View constructor/);
+      });
+
+      it('should return the child', function() {
+
+        var bv = BaseView.extend({
+          testProp: 'test'
+        });
+
+        expect(BV.addChild({
+          id: 'addChildTest2',
+          viewClass: bv
+        })).to.be.an.instanceof(bv);
+
+      });
 
       it('should add a child to childViews', function() {
 
-        BV.addWidget({
+        BV.addChild({
 
-          name: 'addWidgetTest1',
-          element: '#test',
-          widget: BaseView
+          id: 'addChildTest3',
+          viewClass: BaseView
 
         });
 
-        expect(BV.childViews.addWidgetTest1).to.be.an.instanceof(Backbone.View);
+        expect(BV.children.addChildTest3).to.be.an.instanceof(Backbone.View);
 
       });
 
-      it('should have the specific model passed', function() {
+      it('should add the options as attributes', function() {
 
         var model = new Backbone.Model({
           modelAttribute: 'this is a custom model'
         });
 
-        BV.addWidget({
-          name: 'addWidgetTest2',
-          element: '#test',
-          widget: BaseView,
-          model: model
-        });
-
-        expect(BV.childViews.addWidgetTest2.model.get('modelAttribute')).to.equal('this is a custom model');
-
-      });
-
-      it ('should have the specific collection passed', function() {
-
         var collection = new Backbone.Collection({
           collectionAttribute: 'this is a custom collection'
         });
 
-        BV.addWidget({
-          name: 'addWidgetTest3',
-          element: '#test',
-          widget: BaseView,
-          collection: collection
+
+        BV.addChild({
+          id: 'addChildTest4',
+          viewClass: BaseView,
+          options: {
+            model: model,
+            collection: collection,
+            testOption: 1
+          }
         });
 
-        expect(BV.childViews.addWidgetTest3.collection.at(0).get('collectionAttribute')).to.equal('this is a custom collection');
+        expect(BV.children.addChildTest4.model.get('modelAttribute')).to.eql('this is a custom model');
+        expect(BV.children.addChildTest4.collection.at(0).get('collectionAttribute')).to.eql('this is a custom collection');
+        expect(BV.children.addChildTest4.options.testOption).to.eql(1);
 
       });
 
-      it('should have both specific model and collection passed', function() {
+      it('should add an element to the DOM', function() {
 
-        var model = new Backbone.Model({
-          modelAttribute: 'this is another custom model'
+        expect($('#test > div').length).to.eql(0);
+
+        BV.addChild({
+          id: 'addChildTest5',
+          viewClass: BaseView,
+          parentElement: $('#test')
         });
 
-        var collection = new Backbone.Collection({
-          collectionAttribute: 'this is another custom collection'
-        });
-
-        BV.addWidget({
-          name: 'addWidgetTest4',
-          element: '#test',
-          widget: BaseView,
-          model: model,
-          collection: collection
-        });
-
-        expect(BV.childViews.addWidgetTest4.model.get('modelAttribute')).to.equal('this is another custom model');
-        expect(BV.childViews.addWidgetTest4.collection.at(0).get('collectionAttribute')).to.equal('this is another custom collection');
-
-      });
-
-      it('should return the View', function() {
-
-        expect(BV.addWidget({
-          name: 'addWidgetTest5',
-          element: '#test',
-          widget: BaseView
-        })).to.equal(BV);
+        expect($('#test > div').length).to.eql(1);
 
       });
 
     });
 
-    describe('#addWidgets()', function() {
+    describe('#addChildren()', function() {
 
       it('should add all listed widgets', function() {
 
-        BV.addWidgets([
+        BV.addChildren([
           {
-            name: 'addWidgetsTest1',
-            element: '#test',
-            widget: BaseView
+            id: 'addChildrenTest1',
+            viewClass: BaseView
           },
           {
-            name: 'addWidgetsTest2',
-            element: '#test',
-            widget: BaseView
+            id: 'addChildrenTest2',
+            viewClass: BaseView
           }
         ]);
 
-        expect(BV.childViews.addWidgetsTest1).to.be.an.instanceof(Backbone.View);
-        expect(BV.childViews.addWidgetsTest2).to.be.an.instanceof(Backbone.View);
+        expect(BV.children.addChildrenTest1).to.be.an.instanceof(Backbone.View);
+        expect(BV.children.addChildrenTest2).to.be.an.instanceof(Backbone.View);
 
       });
 
       it('should return the View', function() {
 
-        expect(BV.addWidgets([
+        expect(BV.addChildren([
           {
-            name: 'addWidgetsTest3',
-            element: '#test',
-            widget: BaseView
+            id: 'addChildrenTest3',
+            viewClass: BaseView
           },
           {
-            name: 'addWidgetsTest4',
-            element: '#test',
-            widget: BaseView
+            id: 'addChildrenTest4',
+            viewClass: BaseView
           }
         ])).to.equal(BV);
 
@@ -181,45 +177,120 @@ define([
 
     });
 
-    describe('#removeChild()', function() {
+    describe('#destroy()', function() {
 
-      it('should remove a single child object', function() {
+      it('calls destroyChildren', function() {
 
-        var numKeys = Object.keys(BV.childViews).length;
+        var spy = sinon.spy(BV, 'destroyChildren');
 
-        expect(BV.childViews.key).to.exist;
+        BV.addChildren([
+          {
+            id: 'deleteTest1',
+            viewClass: BaseView
+          },
+          {
+            id: 'deleteTest2',
+            viewClass: BaseView
+          }
+        ]);
 
-        BV.removeChild('key');
+        BV.destroy();
 
-        expect(BV.childViews.key).to.not.exist;
-
-        expect(Object.keys(BV.childViews).length).to.equal(numKeys - 1);
+        expect(spy).to.have.been.called;
 
       });
 
-      it('should return the View', function() {
+      it('removes itself from the DOM', function() {
 
-        expect(BV.removeChild('key3')).to.equal(BV);
+        BV.place('#test');
+
+        BV.addChildren([
+          {
+            id: 'destroyTest1',
+            viewClass: BaseView,
+            parentElement: $('#test')
+          },
+          {
+            id: 'destroyTest2',
+            viewClass: BaseView,
+            parentElement: $('#test')
+          }
+        ]);
+
+        expect($('#test > .test-base-view').length).to.eql(1);
+        expect($('#test > div').length).to.eql(2);
+
+        BV.destroy();
+
+        expect($('#test > .test-base-view').length).to.eql(0);
+        expect($('#test > div').length).to.eql(0);
 
       });
 
     });
 
-    describe('#removeAllChildren()', function() {
+    describe('#destroyChild()', function() {
 
-      it('should remove all children', function() {
+      it('should remove a single child object', function() {
 
-        expect(Object.keys(BV.childViews).length).to.be.above(0);
+        BV.addChild({
 
-        BV.removeAllChildren();
+          id: 'destroyChildTest1',
+          viewClass: BaseView
 
-        expect(Object.keys(BV.childViews).length).to.equal(0);
+        });
+
+        expect(BV.children.destroyChildTest1).to.exist;
+
+        BV.destroyChild('destroyChildTest1');
+
+        expect(BV.children.destroyChildTest1).to.not.exist;
+
 
       });
 
       it('should return the View', function() {
 
-        expect(BV.removeAllChildren()).to.equal(BV);
+        BV.addChild({
+
+          id: 'destroyChildTest2',
+          viewClass: BaseView
+
+        });
+
+        expect(BV.destroyChild('destroyChildTest2')).to.equal(BV);
+
+      });
+
+    });
+
+    describe('#destroyChildren()', function() {
+
+      it('should remove all children', function() {
+
+        BV.addChildren([
+          {
+            id: 'deleteTest1',
+            viewClass: BaseView
+          },
+          {
+            id: 'deleteTest2',
+            viewClass: BaseView
+          }
+        ]);
+
+        expect(BV.children.deleteTest1).to.exist;
+        expect(BV.children.deleteTest2).to.exist;
+
+        BV.destroy();
+
+        expect(BV.children).to.be.empty;
+
+      });
+
+      it('should return the View', function() {
+
+        expect(BV.destroyChildren()).to.equal(BV);
 
       });
 
@@ -308,17 +379,21 @@ define([
 
       it('replace existing content when directed', function() {
 
+        $('#test').append($('<section>'));
+        $('#test').append($('<section>'));
+        $('#test').append($('<section>'));
+
         expect($('#test').find(BV.$el).length).to.equal(0);
-        expect($('#test section').length).to.equal(3);
+        expect($('#test > section').length).to.equal(3);
 
         BV.place('#test', 'only');
 
         expect($('#test').find(BV.$el).length).to.equal(1);
-        expect($('#test section').length).to.equal(1);
+        expect($('#test > section').length).to.equal(1);
 
         // The LAST element of the container should be the element
         // Compare raw HTML, because jQuery objects will not equal
-        expect($('#test section').get(0)).to.equal(BV.el);
+        expect($('#test > section').get(0)).to.equal(BV.el);
 
       });
 

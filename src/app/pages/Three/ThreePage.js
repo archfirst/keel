@@ -32,44 +32,29 @@ define(
 
       elements: ['mainmenu', 'content'],
 
-      initialize: function() {
-
-        var threeView = this;
-
-        // Use the Backbone 0.9.9 built-in listenTo to listen to the custom pageChange event
-        // On pageChange, remove this view
-        threeView.listenTo(MessageBus, 'pageChange', function() {
-
-          threeView.removeAllChildren();
-          threeView.remove();
-
-        });
-
-      },
-
       // After the DOM element is rendered, create our child widgets
       postRender: function() {
 
-        this.addWidgets([
+        this.addChildren([
           {
             name: 'MainMenu',
-            widget: MainMenuWidget,
-            element: this.mainmenuElement
+            viewClass: MainMenuWidget,
+            parentElement: this.mainmenuElement
           },
           {
             name: 'Blue-A',
-            widget: BlueWidget,
-            element: this.contentElement
+            viewClass: BlueWidget,
+            parentElement: this.contentElement
           },
           {
             name: 'Blue-B',
-            widget: BlueWidget,
-            element: this.contentElement
+            viewClass: BlueWidget,
+            parentElement: this.contentElement
           },
           {
             name: 'Blue-C',
-            widget: BlueWidget,
-            element: this.contentElement
+            viewClass: BlueWidget,
+            parentElement: this.contentElement
           }
         ]);
 
