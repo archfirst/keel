@@ -11,7 +11,8 @@
     "grunt-contrib-requirejs": "~0.4.x",
     "grunt-contrib-watch": "0.2.x",
     "mocha": "~1.7.4",
-    "grunt-mocha": "~0.2.0"
+    "grunt-mocha": "~0.2.0",
+    "grunt-contrib-yuidoc": "~0.4.0rc7"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "test": "grunt mocha"
   },
   "author": "Bob Holt",
+  "homepage": "http://bobholt.me/",
   "license": "MIT",
   "readmeFilename": "README.md"
 }

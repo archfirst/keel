@@ -370,8 +370,23 @@ module.exports = function(grunt) {
           interrupt: true
         }
       }
-    }
+    },
 
+    // ### yuidoc
+    // grunt-contrib-yuidoc npm task
+    // Builds YUI-Doc-based Documentation
+    yuidoc: {
+      compile: {
+        name: '<%= pkg.name %>',
+        description: '<%= pkg.description %>',
+        version: '<%= pkg.version %>',
+        url: '<%= pkg.homepage %>',
+        options: {
+          paths: ['src/framework'],
+          outdir: 'docs'
+        }
+      }
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-clean');
@@ -380,9 +395,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-yuidoc');
   grunt.loadNpmTasks('grunt-mocha');
 
   // Default task.
-  grunt.registerTask( 'default', [ 'clean', 'jshint', 'mocha', 'compass:dev', 'copy', 'requirejs', 'compass:dist' ] );
+  grunt.registerTask( 'default', [ 'clean', 'jshint', 'mocha', 'compass:dev', 'copy', 'requirejs', 'compass:dist', 'yuidoc' ] );
 
 };

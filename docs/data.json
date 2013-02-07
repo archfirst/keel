@@ -1,0 +1,368 @@
+{
+    "project": {
+        "name": "backbone-arch-demo",
+        "description": "An example of a preferred Backbone.js architecture",
+        "version": "0.0.1",
+        "url": "http://bobholt.me/"
+    },
+    "files": {
+        "src/framework/BaseView.js": {
+            "name": "src/framework/BaseView.js",
+            "modules": {
+                "BaseView": 1
+            },
+            "classes": {
+                "BaseView": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/framework/Message.js": {
+            "name": "src/framework/Message.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/framework/MessageBus.js": {
+            "name": "src/framework/MessageBus.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "BaseView": {
+            "name": "BaseView",
+            "submodules": {},
+            "classes": {
+                "BaseView": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/framework/BaseView.js",
+            "line": 54,
+            "description": "framework/BaseView\n\nThis is a view base class built on top of the default Backbone.View; it\nprovides a set of rendering, binding, and lifecycle methods that tend to\nbe useful in Backbone applications. As part lifecycle methods, it provides\nthe facility to maintain a set of child views, especially to avoid zombies.\n\nThis view has been further extended to specialize the render method.\nTo use this view, you should call the 'extend' method of the appropriate\nsub-class just like you would extend the normal 'Backbone.View'.",
+            "requires": [
+                "Backbone",
+                "Underscore",
+                "jQuery"
+            ],
+            "author": "Bob Holt"
+        }
+    },
+    "classes": {
+        "BaseView": {
+            "name": "BaseView",
+            "shortname": "BaseView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "BaseView",
+            "namespace": "",
+            "file": "src/framework/BaseView.js",
+            "line": 54,
+            "description": "The BaseView constructor",
+            "is_constructor": 1,
+            "extends": "Backbone.View"
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 63,
+            "description": "If you would like to store references to certain elements in your\ntemplate for later use, you can indicate those elements by doing *both*\nof the following:\n\n- adding a classname beginning with `js-` to the elements in your template\n- listing the classname suffix in your view's `elements` array\n\nFor example, if your template contains the following:\n\n   `<div class=\"js-interesting\"></div>`\n\nAnd your view's `elements` array is:\n\n   `[ 'interesting' ]`\n\nThen your view will have a property `interestingElement` that references\na jQuery object for the div.",
+            "itemtype": "property",
+            "name": "elements",
+            "type": "Array",
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 87,
+            "description": "Set a default template that should be overridden by each implementation",
+            "itemtype": "property",
+            "name": "template",
+            "type": "Object",
+            "default": "{\n        name: 'DefaultTemplate',\n        source: '<div></div>'\n    }",
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 105,
+            "description": "Override the constructor to add per-instance configuration",
+            "itemtype": "method",
+            "name": "constructor",
+            "chainable": 1,
+            "example": [
+                "\n    new BaseView();"
+            ],
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 125,
+            "description": "Adds a View to the list of child views.",
+            "itemtype": "method",
+            "name": "addChild",
+            "params": [
+                {
+                    "name": "childSpec",
+                    "description": "A map of child view specifications",
+                    "type": "Object"
+                },
+                {
+                    "name": "id",
+                    "description": "A unique id for this child",
+                    "type": "Number|String"
+                },
+                {
+                    "name": "viewClass",
+                    "description": "The view for this child",
+                    "type": "Function"
+                },
+                {
+                    "name": "parentElement",
+                    "description": "The HTML element to append the view to",
+                    "type": "HTMLElement",
+                    "optional": true,
+                    "optdefault": "undefined"
+                },
+                {
+                    "name": "options",
+                    "description": "Options to pass directly into the Backbone View constructor",
+                    "type": "Object",
+                    "optional": true,
+                    "optdefault": "undefined"
+                }
+            ],
+            "return": {
+                "description": "The child view just added",
+                "type": "Backbone.View"
+            },
+            "example": [
+                "\n    BaseView.addChild({\n        id: 'ChildView',\n        viewClass: ChildView,\n        parentElement: this.el,\n        options: {\n            model: ChildModel,\n            arbitrary: 42\n        }\n    });"
+            ],
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 188,
+            "description": "Adds an array of child views to the list of child views",
+            "itemtype": "method",
+            "name": "addChildren",
+            "params": [
+                {
+                    "name": "childSpecs",
+                    "description": "An array of childSpecs to iteratively pass into addChild",
+                    "type": "Array"
+                }
+            ],
+            "chainable": 1,
+            "example": [
+                "\n    BaseView.addChildren( [\n        {\n            id: 'ChildView1',\n            viewClass: ChildView1,\n            parentElement: this.el\n        },\n        {\n            id: 'ChildView2',\n            viewClass: ChildView2,\n            parentElement: this.el\n        }\n    ] );"
+            ],
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 221,
+            "description": "Destroys the view and all its children recursively, unbinding their events",
+            "itemtype": "method",
+            "name": "destroy",
+            "chainable": 1,
+            "example": [
+                "\n    BaseView.destroy();"
+            ],
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 239,
+            "description": "Destroys the specified child of this view, unbinding its events",
+            "itemtype": "method",
+            "name": "destroyChild",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The unique name of the child view to destroy",
+                    "type": "String"
+                }
+            ],
+            "chainable": 1,
+            "example": [
+                "\n    BaseView.destroyChild( 'ChildView1' );"
+            ],
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 262,
+            "description": "Destroys all the children of this view recursively, unbinding their events",
+            "itemtype": "method",
+            "name": "destroyChildren",
+            "chainable": 1,
+            "example": [
+                "\n    BaseView.destroyChildren();"
+            ],
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 293,
+            "description": "Retrieves the view's template from the template cache, or creates it if not cached",
+            "itemtype": "method",
+            "name": "getTemplate",
+            "return": {
+                "description": "template function that accepts a data context",
+                "type": "Function"
+            },
+            "example": [
+                "\n    BaseView.getTemplate();"
+            ],
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 313,
+            "description": "Once the view has been rendered, it still needs to be placed in the\ndocument. The `place` method allows you to specify a destination for\nthe view; this destination can either be a jQuery object, a DOM node, or\na selector. The `place` method also optionally takes a position\nargument, which determines how the object will be placed in the\ndestination node: as the first, last, or only child.",
+            "itemtype": "method",
+            "name": "place",
+            "params": [
+                {
+                    "name": "node",
+                    "description": "The DOM element in which to place this view's element",
+                    "type": "HTMLElement"
+                },
+                {
+                    "name": "position",
+                    "description": "Identifier of where in the node to place the view's element",
+                    "type": "String",
+                    "optional": true,
+                    "optdefault": "'last'"
+                }
+            ],
+            "chainable": 1,
+            "example": [
+                "\n    BaseView.place( $('body').get(0), 'last' );"
+            ],
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 355,
+            "description": "`postPlace` fires just before the view's `place` method returns. Do\nthings here that require the view to be placed in the document, such as\noperations that require knowing the dimensions of the view.",
+            "itemtype": "method",
+            "name": "postPlace",
+            "chainable": 1,
+            "example": [
+                "\n    BaseView.postPlace();"
+            ],
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 371,
+            "description": "`postRender` fires just before the view's `render` method returns. Do\nthings here that require the view's basic markup to be in place, but\nthat do NOT require the view to be placed in the document",
+            "itemtype": "method",
+            "name": "postRender",
+            "chainable": 1,
+            "example": [
+                "\n    BaseView.postRender();"
+            ],
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 387,
+            "description": "Renders the view's element in the DOM\nThis method expects the derived class to supply a template.name and a template.source",
+            "itemtype": "method",
+            "name": "render",
+            "chainable": 1,
+            "example": [
+                "\n    BaseView.render();"
+            ],
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/BaseView.js",
+            "line": 418,
+            "description": "The `_setupElements` method is a \"private\" method for storing references\nto elements as indicated by the view's `elements` property.",
+            "itemtype": "method",
+            "name": "_setupElements",
+            "access": "private",
+            "tagname": "",
+            "chainable": 1,
+            "example": [
+                "\n    this._setupElements();"
+            ],
+            "class": "BaseView",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/Message.js",
+            "line": 1,
+            "description": "Copyright 2012 Archfirst\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+            "class": "",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/Message.js",
+            "line": 17,
+            "description": "app/common/Message\n\nEnumeration of messages",
+            "author": "Naresh Bhatia",
+            "class": "",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/MessageBus.js",
+            "line": 1,
+            "description": "Copyright 2012 Archfirst\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+            "class": "",
+            "module": "BaseView"
+        },
+        {
+            "file": "src/framework/MessageBus.js",
+            "line": 17,
+            "description": "bullsfirst/framework/MessageBus\n\nProvides the ability to publish and subscribe to messages.",
+            "author": "Naresh Bhatia",
+            "class": "",
+            "module": "BaseView"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nCopyright 2012 Archfirst\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+            "line": " src/framework/Message.js:1"
+        },
+        {
+            "message": "Missing item type\napp/common/Message\n\nEnumeration of messages",
+            "line": " src/framework/Message.js:17"
+        },
+        {
+            "message": "Missing item type\nCopyright 2012 Archfirst\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+            "line": " src/framework/MessageBus.js:1"
+        },
+        {
+            "message": "Missing item type\nbullsfirst/framework/MessageBus\n\nProvides the ability to publish and subscribe to messages.",
+            "line": " src/framework/MessageBus.js:17"
+        }
+    ]
+}

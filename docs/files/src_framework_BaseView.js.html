@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src&#x2F;framework&#x2F;BaseView.js - backbone-arch-demo</title>
+    <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
+    <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="..&#x2F;assets/favicon.png">
+    <script src="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;combo?3.8.0pr2&#x2F;build&#x2F;yui&#x2F;yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="..&#x2F;assets/css/logo.png" title="backbone-arch-demo"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="..&#x2F;classes/BaseView.html">BaseView</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="..&#x2F;modules/BaseView.html">BaseView</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: src&#x2F;framework&#x2F;BaseView.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x2F;*!
+ * Copyright 2012 Archfirst
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http:&#x2F;&#x2F;www.apache.org&#x2F;licenses&#x2F;LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * This file based on: https:&#x2F;&#x2F;github.com&#x2F;rmurphey&#x2F;srchr-demo&#x2F;blob&#x2F;master&#x2F;app&#x2F;views&#x2F;base.js
+ * Copyright 2012 Rebecca Murphey - http:&#x2F;&#x2F;rmurphey.com - http:&#x2F;&#x2F;opensource.org&#x2F;licenses&#x2F;MIT
+ *&#x2F;
+
+
+&#x2F;**
+* framework&#x2F;BaseView
+*
+* This is a view base class built on top of the default Backbone.View; it
+* provides a set of rendering, binding, and lifecycle methods that tend to
+* be useful in Backbone applications. As part lifecycle methods, it provides
+* the facility to maintain a set of child views, especially to avoid zombies.
+*
+* This view has been further extended to specialize the render method.
+* To use this view, you should call the &#x27;extend&#x27; method of the appropriate
+* sub-class just like you would extend the normal &#x27;Backbone.View&#x27;.
+*
+* @module BaseView
+* @requires Backbone, Underscore, jQuery
+* @author Naresh Bhatia
+* @author Bob Holt
+**&#x2F;
+define( [
+
+  &#x27;ExceptionUtil&#x27;,
+  &#x27;backbone&#x27;,
+  &#x27;underscore&#x27;,
+  &#x27;jquery&#x27;
+
+],
+
+function( ExceptionUtil, Backbone, _, $ ) {
+
+  &#x27;use strict&#x27;;
+
+  &#x2F;&#x2F; TODO: Does it make sense to store templates on the BaseView or in an external template repo?
+  var _templates = {};
+
+  &#x2F;**
+  The BaseView constructor
+
+  @class BaseView
+  @constructor
+  @extends Backbone.View
+  **&#x2F;
+  var BaseView = Backbone.View.extend({
+
+    &#x2F;**
+    * If you would like to store references to certain elements in your
+    * template for later use, you can indicate those elements by doing *both*
+    * of the following:
+    *
+    * - adding a classname beginning with &#x60;js-&#x60; to the elements in your template
+    * - listing the classname suffix in your view&#x27;s &#x60;elements&#x60; array
+    *
+    * For example, if your template contains the following:
+    *
+    *    &#x60;&lt;div class=&quot;js-interesting&quot;&gt;&lt;&#x2F;div&gt;&#x60;
+    *
+    * And your view&#x27;s &#x60;elements&#x60; array is:
+    *
+    *    &#x60;[ &#x27;interesting&#x27; ]&#x60;
+    *
+    * Then your view will have a property &#x60;interestingElement&#x60; that references
+    * a jQuery object for the div.
+    *
+    * @property elements
+    * @type Array
+    **&#x2F;
+    elements : [],
+
+    &#x2F;**
+    * Set a default template that should be overridden by each implementation
+    *
+    * @property template
+    * @type Object
+    * @default
+    *     {
+    *         name: &#x27;DefaultTemplate&#x27;,
+    *         source: &#x27;&lt;div&gt;&lt;&#x2F;div&gt;&#x27;
+    *     }
+    **&#x2F;
+    template: {
+
+      name: &#x27;DefaultTemplate&#x27;,
+      source: &#x27;&lt;div&gt;&lt;&#x2F;div&gt;&#x27;
+
+    },
+
+    &#x2F;**
+    * Override the constructor to add per-instance configuration
+
+    * @method constructor
+    * @chainable
+    * @example
+    *     new BaseView();
+    **&#x2F;
+    constructor: function() {
+
+      &#x2F;&#x2F; Create a per instance children property.
+      &#x2F;&#x2F; It is a map of unique child ids to child views.
+      &#x2F;&#x2F; The child id can be a number or string, e.g. the id of the associated model
+      this.children = {};
+
+      &#x2F;&#x2F; Call super
+      Backbone.View.apply( this, arguments );
+
+    },
+
+    &#x2F;**
+    * Adds a View to the list of child views.
+    *
+    * @method addChild
+    * @param {Object} childSpec A map of child view specifications
+    *   @param {Number|String} id A unique id for this child
+    *   @param {Function} viewClass The view for this child
+    *   @param {HTMLElement} [parentElement=undefined] The HTML element to append the view to
+    *   @param {Object} [options=undefined] Options to pass directly into the Backbone View constructor
+    * @return {Backbone.View} The child view just added
+    * @example
+    *     BaseView.addChild({
+    *         id: &#x27;ChildView&#x27;,
+    *         viewClass: ChildView,
+    *         parentElement: this.el,
+    *         options: {
+    *             model: ChildModel,
+    *             arbitrary: 42
+    *         }
+    *     });
+    **&#x2F;
+    addChild: function( childSpec ) {
+
+      &#x2F;&#x2F; Throw an error if an argument isn&#x27;t passed or a viewClass isn&#x27;t defined
+      if ( !childSpec || !childSpec.viewClass ) {
+
+        throw new ExceptionUtil.FrameworkException( &#x27;BaseView.addChild: child must have a viewClass defined&#x27; );
+
+      }
+
+      &#x2F;&#x2F; Throw an error if the viewClass isn&#x27;t a function
+      if ( typeof childSpec.viewClass !== &#x27;function&#x27; ) {
+
+        throw new ExceptionUtil.FrameworkException( &#x27;BaseView.addChild: viewClass must be a Backbone View constructor&#x27; );
+
+      }
+
+      &#x2F;&#x2F; Create the child view, passing any options directly in
+      var child = new childSpec.viewClass(childSpec.options);
+
+      &#x2F;&#x2F; Throw an error if the viewClass isn&#x27;t a Backbone View
+      if ( !( child instanceof Backbone.View ) ) {
+
+        throw new ExceptionUtil.FrameworkException( &#x27;BaseView.addChild: viewClass must be a Backbone View constructor&#x27; );
+
+      }
+
+      child.render();
+
+      &#x2F;&#x2F; Add it to the children map
+      this.children[ childSpec.id ] = child;
+
+      &#x2F;&#x2F; If the parent element is supplied, place the child under the parent
+      if ( childSpec.parentElement ) {
+
+        child.place( childSpec.parentElement );
+
+      }
+
+      return child;
+
+    },
+
+    &#x2F;**
+    * Adds an array of child views to the list of child views
+    *
+    * @method addChildren
+    * @param {Array} childSpecs An array of childSpecs to iteratively pass into addChild
+    * @chainable
+    * @example
+    *     BaseView.addChildren( [
+    *         {
+    *             id: &#x27;ChildView1&#x27;,
+    *             viewClass: ChildView1,
+    *             parentElement: this.el
+    *         },
+    *         {
+    *             id: &#x27;ChildView2&#x27;,
+    *             viewClass: ChildView2,
+    *             parentElement: this.el
+    *         }
+    *     ] );
+    **&#x2F;
+    addChildren: function( childSpecs ) {
+
+      &#x2F;&#x2F; Loop through and call addChild on each childSpec
+      for ( var i = 0, l = childSpecs.length; i &lt; l; i++ ) {
+
+        this.addChild( childSpecs[i] );
+
+      }
+
+      return this;
+
+    },
+
+    &#x2F;**
+    * Destroys the view and all its children recursively, unbinding their events
+    *
+    * @method destroy
+    * @chainable
+    * @example
+    *     BaseView.destroy();
+    **&#x2F;
+    destroy: function() {
+
+      this.destroyChildren();
+
+      this.remove();
+
+      return this;
+
+    },
+
+    &#x2F;**
+    * Destroys the specified child of this view, unbinding its events
+    *
+    * @method destroyChild
+    * @param {String} id The unique name of the child view to destroy
+    * @chainable
+    * @example
+    *     BaseView.destroyChild( &#x27;ChildView1&#x27; );
+    **&#x2F;
+    destroyChild: function( id ) {
+
+      var children = this.children;
+
+      children[ id ].destroy();
+
+      &#x2F;&#x2F; Destroy removes the events and DOM element
+      &#x2F;&#x2F; Call delete to remove the object from memory
+      delete children[ id ];
+
+      return this;
+
+    },
+
+    &#x2F;**
+    * Destroys all the children of this view recursively, unbinding their events
+    *
+    * @method destroyChildren
+    * @chainable
+    * @example
+    *     BaseView.destroyChildren();
+    **&#x2F;
+    destroyChildren: function() {
+
+      var children = this.children;
+
+      for ( var id in children ) {
+
+        &#x2F;&#x2F; Only delete own properties
+        if ( children.hasOwnProperty(id) ) {
+
+          children[ id ].destroy();
+
+          &#x2F;&#x2F; Destroy removes the events and DOM element
+          &#x2F;&#x2F; Call delete to remove the object from memory
+          delete children[ id ];
+
+        }
+
+      }
+
+      return this;
+
+    },
+
+    &#x2F;**
+    * Retrieves the view&#x27;s template from the template cache, or creates it if not cached
+    *
+    * @method getTemplate
+    * @return {Function} template function that accepts a data context
+    * @example
+    *     BaseView.getTemplate();
+    **&#x2F;
+    getTemplate: function() {
+
+      if ( !_templates[this.template.name] ) {
+
+        _templates[ this.template.name ] = _.template( this.template.source );
+
+      }
+
+      return _templates[ this.template.name ];
+
+    },
+
+    &#x2F;**
+    * Once the view has been rendered, it still needs to be placed in the
+    * document. The &#x60;place&#x60; method allows you to specify a destination for
+    * the view; this destination can either be a jQuery object, a DOM node, or
+    * a selector. The &#x60;place&#x60; method also optionally takes a position
+    * argument, which determines how the object will be placed in the
+    * destination node: as the first, last, or only child.
+    *
+    * @method place
+    * @param {HTMLElement} node The DOM element in which to place this view&#x27;s element
+    * @param {String} [position=&#x27;last&#x27;] Identifier of where in the node to place the view&#x27;s element
+    * @chainable
+    * @example
+    *     BaseView.place( $(&#x27;body&#x27;).get(0), &#x27;last&#x27; );
+    **&#x2F;
+    place : function(node, position) {
+
+      position = position || &#x27;last&#x27;;
+
+      var method = {
+
+        &#x27;first&#x27; :     &#x27;prepend&#x27;,
+        &#x27;last&#x27; :      &#x27;append&#x27;,
+        &#x27;only&#x27; :      &#x27;html&#x27;
+
+      }[position] || &#x27;append&#x27;;
+
+      &#x2F;&#x2F; Equivalent to $(node).append(this.$el);
+      $(node)[method](this.$el);
+
+      &#x2F;&#x2F; Call postPlace lifecycle method
+      this.postPlace();
+
+      return this;
+
+    },
+
+    &#x2F;&#x2F; ## Lifecycle Methods
+    &#x2F;&#x2F;
+    &#x2F;&#x2F; These methods are stubs for implementation by your views. &#x60;postPlace&#x60; and &#x60;postRender
+    &#x2F;&#x2F; fire after their respective methods are complete.
+
+    &#x2F;**
+    * &#x60;postPlace&#x60; fires just before the view&#x27;s &#x60;place&#x60; method returns. Do
+    * things here that require the view to be placed in the document, such as
+    * operations that require knowing the dimensions of the view.
+    *
+    * @method postPlace
+    * @chainable
+    * @example
+    *     BaseView.postPlace();
+    **&#x2F;
+    postPlace : function() {
+
+      return this;
+
+    },
+
+    &#x2F;**
+    * &#x60;postRender&#x60; fires just before the view&#x27;s &#x60;render&#x60; method returns. Do
+    * things here that require the view&#x27;s basic markup to be in place, but
+    * that do NOT require the view to be placed in the document
+    *
+    * @method postRender
+    * @chainable
+    * @example
+    *     BaseView.postRender();
+    **&#x2F;
+    postRender : function() {
+
+      return this;
+
+    },
+
+    &#x2F;**
+    * Renders the view&#x27;s element in the DOM
+    * This method expects the derived class to supply a template.name and a template.source
+    *
+    * @method render
+    * @chainable
+    * @example
+    *     BaseView.render();
+    **&#x2F;
+    render: function() {
+
+      var template = this.getTemplate();
+      var model = this.model || {};
+      var context = model.toJSON ? model.toJSON() : {};
+
+      &#x2F;&#x2F; Remove existing children
+      this.destroyChildren();
+
+      &#x2F;&#x2F; Render the template into the view&#x27;s element
+      this.$el.html( template(context) );
+
+      &#x2F;&#x2F; Store optional element references on the view
+      this._setupElements();
+
+      &#x2F;&#x2F; Call postRender lifecycle method
+      this.postRender();
+
+      return this;
+
+    },
+
+    &#x2F;**
+    * The &#x60;_setupElements&#x60; method is a &quot;private&quot; method for storing references
+    * to elements as indicated by the view&#x27;s &#x60;elements&#x60; property.
+    *
+    * @method _setupElements
+    * @private
+    * @chainable
+    * @example
+    *     this._setupElements();
+    **&#x2F;
+    _setupElements : function() {
+
+      if (this.elements) {
+
+        &#x2F;&#x2F; Loop through this.elements, and store a reference to the FIRST matching DOM element
+        _.each(this.elements, function(c) {
+
+          this[c + &#x27;Element&#x27;] = this.$(&#x27;.js-&#x27; + c).eq(0);
+
+        }, this);
+
+      }
+
+      return this;
+
+    }
+
+  });
+
+  return BaseView;
+
+});
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="..&#x2F;assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="..&#x2F;assets/js/yui-prettify.js"></script>
+<script src="..&#x2F;assets/../api.js"></script>
+<script src="..&#x2F;assets/js/api-filter.js"></script>
+<script src="..&#x2F;assets/js/api-list.js"></script>
+<script src="..&#x2F;assets/js/api-search.js"></script>
+<script src="..&#x2F;assets/js/apidocs.js"></script>
+</body>
+</html>

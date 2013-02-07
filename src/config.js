@@ -10,20 +10,21 @@ var require = {
   paths: {
 
     // jQuery
-    jquery:     '../vendor/jquery.min',
+    jquery:         '../vendor/jquery.min',
 
     // Underscore/Lodash
-    underscore: '../vendor/lodash.underscore.min',
+    underscore:     '../vendor/lodash.underscore.min',
 
     // Backbone
-    backbone:   '../vendor/backbone.min',
+    backbone:       '../vendor/backbone.min',
 
     // Framework
-    BaseView:   '../framework/BaseView',
-    Message:    '../framework/Message',
-    MessageBus: '../framework/MessageBus',
-    Repository: '../framework/Repository',
-    Router:     '../framework/Router'
+    BaseView:       '../framework/BaseView',
+    ExceptionUtil:  '../framework/ExceptionUtil',
+    Message:        '../framework/Message',
+    MessageBus:     '../framework/MessageBus',
+    Repository:     '../framework/Repository',
+    Router:         '../framework/Router'
 
   },
 

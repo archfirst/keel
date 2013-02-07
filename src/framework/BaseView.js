@@ -1,4 +1,4 @@
-/**
+/*!
  * Copyright 2012 Archfirst
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,62 +12,89 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * This file based on: https://github.com/rmurphey/srchr-demo/blob/master/app/views/base.js
+ * Copyright 2012 Rebecca Murphey - http://rmurphey.com - http://opensource.org/licenses/MIT
  */
 
-/*!
- * framework/BaseView
- * Based on: https://github.com/rmurphey/srchr-demo/blob/master/app/views/base.js
- * * Copyright 2012 Rebecca Murphey http://rmurphey.com
- * * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the
- * * "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish,
- * * distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the
- * * following conditions:
- * * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- * * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
- * * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
- * * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * This is a view base class built on top of the default Backbone.View; it
- * provides a set of rendering, binding, and lifecycle methods that tend to
- * be useful in Backbone applications. As part lifecycle methods, it provides
- * the facility to maintain a set of child views, especially to avoid zombies.
- *
- * This view has been further extended to specialize the render method.
- * To use this view, you should call the 'extend' method of the appropriate
- * sub-class just like you would extend the normal 'Backbone.View'.
- *
- * @author Naresh Bhatia
- */
 
- /*!
-  * Further modified by Bob Holt
-  */
+/**
+* framework/BaseView
+*
+* This is a view base class built on top of the default Backbone.View; it
+* provides a set of rendering, binding, and lifecycle methods that tend to
+* be useful in Backbone applications. As part lifecycle methods, it provides
+* the facility to maintain a set of child views, especially to avoid zombies.
+*
+* This view has been further extended to specialize the render method.
+* To use this view, you should call the 'extend' method of the appropriate
+* sub-class just like you would extend the normal 'Backbone.View'.
+*
+* @module BaseView
+* @requires Backbone, Underscore, jQuery
+* @author Naresh Bhatia
+* @author Bob Holt
+**/
+define( [
 
-define([
-
+  'ExceptionUtil',
   'backbone',
   'underscore',
   'jquery'
 
 ],
 
-function(Backbone, _, $) {
+function( ExceptionUtil, Backbone, _, $ ) {
 
   'use strict';
 
+  // TODO: Does it make sense to store templates on the BaseView or in an external template repo?
   var _templates = {};
 
-  function BaseViewException(message) {
-    this.message = message;
-    this.name = 'BaseViewException';
-  }
+  /**
+  The BaseView constructor
 
-  BaseViewException.prototype = new Error();
-  BaseViewException.prototype.constructor = BaseViewException;
+  @class BaseView
+  @constructor
+  @extends Backbone.View
+  **/
+  var BaseView = Backbone.View.extend({
 
-  return Backbone.View.extend({
+    /**
+    * If you would like to store references to certain elements in your
+    * template for later use, you can indicate those elements by doing *both*
+    * of the following:
+    *
+    * - adding a classname beginning with `js-` to the elements in your template
+    * - listing the classname suffix in your view's `elements` array
+    *
+    * For example, if your template contains the following:
+    *
+    *    `<div class="js-interesting"></div>`
+    *
+    * And your view's `elements` array is:
+    *
+    *    `[ 'interesting' ]`
+    *
+    * Then your view will have a property `interestingElement` that references
+    * a jQuery object for the div.
+    *
+    * @property elements
+    * @type Array
+    **/
+    elements : [],
 
+    /**
+    * Set a default template that should be overridden by each implementation
+    *
+    * @property template
+    * @type Object
+    * @default
+    *     {
+    *         name: 'DefaultTemplate',
+    *         source: '<div></div>'
+    *     }
+    **/
     template: {
 
       name: 'DefaultTemplate',
@@ -75,7 +102,14 @@ function(Backbone, _, $) {
 
     },
 
-    // Override the constructor to add per-instance configuration
+    /**
+    * Override the constructor to add per-instance configuration
+
+    * @method constructor
+    * @chainable
+    * @example
+    *     new BaseView();
+    **/
     constructor: function() {
 
       // Create a per instance children property.
@@ -84,48 +118,99 @@ function(Backbone, _, $) {
       this.children = {};
 
       // Call super
-      Backbone.View.apply(this, arguments);
+      Backbone.View.apply( this, arguments );
+
     },
 
-    // Adds a View to the list of child views.
-    addChild: function(childSpec) {
+    /**
+    * Adds a View to the list of child views.
+    *
+    * @method addChild
+    * @param {Object} childSpec A map of child view specifications
+    *   @param {Number|String} id A unique id for this child
+    *   @param {Function} viewClass The view for this child
+    *   @param {HTMLElement} [parentElement=undefined] The HTML element to append the view to
+    *   @param {Object} [options=undefined] Options to pass directly into the Backbone View constructor
+    * @return {Backbone.View} The child view just added
+    * @example
+    *     BaseView.addChild({
+    *         id: 'ChildView',
+    *         viewClass: ChildView,
+    *         parentElement: this.el,
+    *         options: {
+    *             model: ChildModel,
+    *             arbitrary: 42
+    *         }
+    *     });
+    **/
+    addChild: function( childSpec ) {
 
-      if (!childSpec || !childSpec.viewClass) {
-        throw new BaseViewException('BaseView.addChild: child must have a viewClass defined');
+      // Throw an error if an argument isn't passed or a viewClass isn't defined
+      if ( !childSpec || !childSpec.viewClass ) {
+
+        throw new ExceptionUtil.FrameworkException( 'BaseView.addChild: child must have a viewClass defined' );
+
       }
 
-      if (typeof childSpec.viewClass !== 'function') {
-        throw new BaseViewException('BaseView.addChild: viewClass must be a Backbone View constructor');
+      // Throw an error if the viewClass isn't a function
+      if ( typeof childSpec.viewClass !== 'function' ) {
+
+        throw new ExceptionUtil.FrameworkException( 'BaseView.addChild: viewClass must be a Backbone View constructor' );
+
       }
 
-      // Create the child
+      // Create the child view, passing any options directly in
       var child = new childSpec.viewClass(childSpec.options);
 
-      // Throw an error if the viewClass isn't a View
-      if (!(child instanceof Backbone.View)) {
-        throw new BaseViewException('BaseView.addChild: child\'s viewClass must be a Backbone View constructor');
+      // Throw an error if the viewClass isn't a Backbone View
+      if ( !( child instanceof Backbone.View ) ) {
+
+        throw new ExceptionUtil.FrameworkException( 'BaseView.addChild: viewClass must be a Backbone View constructor' );
+
       }
 
       child.render();
 
       // Add it to the children map
-      this.children[childSpec.id] = child;
+      this.children[ childSpec.id ] = child;
 
       // If the parent element is supplied, place the child under the parent
-      if (childSpec.parentElement) {
-        child.place(childSpec.parentElement);
+      if ( childSpec.parentElement ) {
+
+        child.place( childSpec.parentElement );
+
       }
 
       return child;
 
     },
 
-    // Adds an array of child views to the list of child views
-    addChildren: function(childSpecs) {
+    /**
+    * Adds an array of child views to the list of child views
+    *
+    * @method addChildren
+    * @param {Array} childSpecs An array of childSpecs to iteratively pass into addChild
+    * @chainable
+    * @example
+    *     BaseView.addChildren( [
+    *         {
+    *             id: 'ChildView1',
+    *             viewClass: ChildView1,
+    *             parentElement: this.el
+    *         },
+    *         {
+    *             id: 'ChildView2',
+    *             viewClass: ChildView2,
+    *             parentElement: this.el
+    *         }
+    *     ] );
+    **/
+    addChildren: function( childSpecs ) {
 
-      for (var i = 0, l = childSpecs.length; i < l; i++) {
+      // Loop through and call addChild on each childSpec
+      for ( var i = 0, l = childSpecs.length; i < l; i++ ) {
 
-        this.addChild(childSpecs[i]);
+        this.addChild( childSpecs[i] );
 
       }
 
@@ -133,107 +218,113 @@ function(Backbone, _, $) {
 
     },
 
-    // Destroys the view and all its children recursively, unbinding their events
+    /**
+    * Destroys the view and all its children recursively, unbinding their events
+    *
+    * @method destroy
+    * @chainable
+    * @example
+    *     BaseView.destroy();
+    **/
     destroy: function() {
+
       this.destroyChildren();
+
       this.remove();
+
+      return this;
+
     },
 
-    // Destroys all the children of this view recursively, unbinding their events
-    destroyChildren: function() {
+    /**
+    * Destroys the specified child of this view, unbinding its events
+    *
+    * @method destroyChild
+    * @param {String} id The unique name of the child view to destroy
+    * @chainable
+    * @example
+    *     BaseView.destroyChild( 'ChildView1' );
+    **/
+    destroyChild: function( id ) {
+
       var children = this.children;
-      for (var id in children) {
-        if (children.hasOwnProperty(id)) {
-          children[id].destroy();
-          delete children[id];
+
+      children[ id ].destroy();
+
+      // Destroy removes the events and DOM element
+      // Call delete to remove the object from memory
+      delete children[ id ];
+
+      return this;
+
+    },
+
+    /**
+    * Destroys all the children of this view recursively, unbinding their events
+    *
+    * @method destroyChildren
+    * @chainable
+    * @example
+    *     BaseView.destroyChildren();
+    **/
+    destroyChildren: function() {
+
+      var children = this.children;
+
+      for ( var id in children ) {
+
+        // Only delete own properties
+        if ( children.hasOwnProperty(id) ) {
+
+          children[ id ].destroy();
+
+          // Destroy removes the events and DOM element
+          // Call delete to remove the object from memory
+          delete children[ id ];
+
         }
+
       }
 
       return this;
-    },
-
-    // Destroys the specified child of this view, unbinding its events
-    destroyChild: function(id) {
-      var children = this.children;
-      children[id].destroy();
-      delete children[id];
-
-      return this;
-    },
-
-    // This method expects the derived class to supply a template.name and
-    // a template.source
-    render: function() {
-
-      var template = this.getTemplate();
-      var model = this.model || {};
-      var context = model.toJSON ? model.toJSON() : {};
-
-      // Remove existing children
-      this.destroyChildren();
-
-      this.$el.html(template(context));
-      this._setupElements();
-
-      this.postRender();
-
-      return this;
 
     },
 
+    /**
+    * Retrieves the view's template from the template cache, or creates it if not cached
+    *
+    * @method getTemplate
+    * @return {Function} template function that accepts a data context
+    * @example
+    *     BaseView.getTemplate();
+    **/
     getTemplate: function() {
 
-      if (!_templates[this.template.name]) {
+      if ( !_templates[this.template.name] ) {
 
-        _templates[this.template.name] = _.template(this.template.source);
+        _templates[ this.template.name ] = _.template( this.template.source );
 
       }
 
-      return _templates[this.template.name];
+      return _templates[ this.template.name ];
 
     },
 
-    // ### `elements`
-    //
-    // If you would like to store references to certain elements in your
-    // template for later use, you can indicate those elements by doing *both*
-    // of the following:
-    //
-    // - adding a classname beginning with `js-` to the elements in your template
-    // - listing the classname suffix in your view's `elements` array
-    //
-    // For example, if your template contains the following:
-    //
-    //    `<div class="js-interesting"></div>`
-    //
-    // And your view's `elements` array is:
-    //
-    //    `[ 'interesting' ]`
-    //
-    // Then your view will have a property `interestingElement` that references
-    // a jQuery object for the div.
-    elements : [],
-
-    // ### `_setupElements`
-    //
-    // The `_setupElements` method is a "private" method for storing references
-    // to elements as indicated by the view's `elements` property.
-    _setupElements : function() {
-      if (this.elements) {
-        _.each(this.elements, function(c) {
-          this[c + 'Element'] = this.$('.js-' + c).eq(0);
-        }, this);
-      }
-    },
-
-    // ### `place`
-    //
-    // Once the view has been rendered, it still needs to be placed in the
-    // document. The `place` method allows you to specify a destination for
-    // the view; this destination can either be a jQuery object, a DOM node, or
-    // a selector. The `place` method also optionally takes a position
-    // argument, which determines how the object will be placed in the
-    // destination node: as the first, last, or only child.
+    /**
+    * Once the view has been rendered, it still needs to be placed in the
+    * document. The `place` method allows you to specify a destination for
+    * the view; this destination can either be a jQuery object, a DOM node, or
+    * a selector. The `place` method also optionally takes a position
+    * argument, which determines how the object will be placed in the
+    * destination node: as the first, last, or only child.
+    *
+    * @method place
+    * @param {HTMLElement} node The DOM element in which to place this view's element
+    * @param {String} [position='last'] Identifier of where in the node to place the view's element
+    * @chainable
+    * @example
+    *     BaseView.place( $('body').get(0), 'last' );
+    **/
     place : function(node, position) {
 
       position = position || 'last';
@@ -246,8 +337,10 @@ function(Backbone, _, $) {
 
       }[position] || 'append';
 
+      // Equivalent to $(node).append(this.$el);
       $(node)[method](this.$el);
 
+      // Call postPlace lifecycle method
       this.postPlace();
 
       return this;
@@ -256,27 +349,101 @@ function(Backbone, _, $) {
 
     // ## Lifecycle Methods
     //
-    // These methods are stubs for implementation by your views. These methods
+    // These methods are stubs for implementation by your views. `postPlace` and `postRender
     // fire after their respective methods are complete.
 
-    // ### `postRender`
-    //
-    // `postRender` fires just before the view's `render` method returns. Do
-    // things here that require the view's basic markup to be in place, but
-    // that do NOT require the view to be placed in the document
-    postRender : function() {
+    /**
+    * `postPlace` fires just before the view's `place` method returns. Do
+    * things here that require the view to be placed in the document, such as
+    * operations that require knowing the dimensions of the view.
+    *
+    * @method postPlace
+    * @chainable
+    * @example
+    *     BaseView.postPlace();
+    **/
+    postPlace : function() {
+
       return this;
+
     },
 
-    // ### `postPlace`
-    //
-    // `postPlace` fires just before the view's `place` method returns. Do
-    // things here that require the view to be placed in the document, such as
-    // operations that require knowing the dimensions of the view.
-    postPlace : function() {
+    /**
+    * `postRender` fires just before the view's `render` method returns. Do
+    * things here that require the view's basic markup to be in place, but
+    * that do NOT require the view to be placed in the document
+    *
+    * @method postRender
+    * @chainable
+    * @example
+    *     BaseView.postRender();
+    **/
+    postRender : function() {
+
       return this;
+
+    },
+
+    /**
+    * Renders the view's element in the DOM
+    * This method expects the derived class to supply a template.name and a template.source
+    *
+    * @method render
+    * @chainable
+    * @example
+    *     BaseView.render();
+    **/
+    render: function() {
+
+      var template = this.getTemplate();
+      var model = this.model || {};
+      var context = model.toJSON ? model.toJSON() : {};
+
+      // Remove existing children
+      this.destroyChildren();
+
+      // Render the template into the view's element
+      this.$el.html( template(context) );
+
+      // Store optional element references on the view
+      this._setupElements();
+
+      // Call postRender lifecycle method
+      this.postRender();
+
+      return this;
+
+    },
+
+    /**
+    * The `_setupElements` method is a "private" method for storing references
+    * to elements as indicated by the view's `elements` property.
+    *
+    * @method _setupElements
+    * @private
+    * @chainable
+    * @example
+    *     this._setupElements();
+    **/
+    _setupElements : function() {
+
+      if (this.elements) {
+
+        // Loop through this.elements, and store a reference to the FIRST matching DOM element
+        _.each(this.elements, function(c) {
+
+          this[c + 'Element'] = this.$('.js-' + c).eq(0);
+
+        }, this);
+
+      }
+
+      return this;
+
     }
 
   });
+
+  return BaseView;
 
 });
