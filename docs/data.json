@@ -17,6 +17,18 @@
             "fors": {},
             "namespaces": {}
         },
+        "src/framework/ExceptionUtil.js": {
+            "name": "src/framework/ExceptionUtil.js",
+            "modules": {
+                "ExceptionUtil": 1
+            },
+            "classes": {
+                "ExceptionUtil": 1,
+                "FrameworkException": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src/framework/Message.js": {
             "name": "src/framework/Message.js",
             "modules": {},
@@ -51,6 +63,21 @@
                 "jQuery"
             ],
             "author": "Bob Holt"
+        },
+        "ExceptionUtil": {
+            "name": "ExceptionUtil",
+            "submodules": {},
+            "classes": {
+                "ExceptionUtil": 1,
+                "FrameworkException": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/framework/ExceptionUtil.js",
+            "line": 42,
+            "description": "framework/ExceptionUtil\nThis is an Exception Utility intended to be used within the framework\nfor alerting implementors about errors such as bad arguments passed to\nframework methods.\n\nIt includes a general FrameworkException constructor. This could be extended\nif necessary to present more specific exceptions if necessary.",
+            "author": "Bob Holt"
         }
     },
     "classes": {
@@ -69,6 +96,44 @@
             "description": "The BaseView constructor",
             "is_constructor": 1,
             "extends": "Backbone.View"
+        },
+        "ExceptionUtil": {
+            "name": "ExceptionUtil",
+            "shortname": "ExceptionUtil",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "ExceptionUtil",
+            "namespace": "",
+            "file": "src/framework/ExceptionUtil.js",
+            "line": 33,
+            "description": "The ExceptionUtil object",
+            "static": 1
+        },
+        "FrameworkException": {
+            "name": "FrameworkException",
+            "shortname": "FrameworkException",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "ExceptionUtil",
+            "namespace": "",
+            "file": "src/framework/ExceptionUtil.js",
+            "line": 42,
+            "description": "The general FrameworkException",
+            "is_constructor": 1,
+            "chainable": 1,
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The error message to throw",
+                    "type": "String"
+                }
+            ]
         }
     },
     "classitems": [
@@ -317,11 +382,51 @@
             "module": "BaseView"
         },
         {
+            "file": "src/framework/ExceptionUtil.js",
+            "line": 52,
+            "description": "The error message to throw",
+            "itemtype": "property",
+            "name": "message",
+            "type": "String",
+            "class": "FrameworkException",
+            "module": "ExceptionUtil"
+        },
+        {
+            "file": "src/framework/ExceptionUtil.js",
+            "line": 60,
+            "description": "The Exception Type",
+            "itemtype": "property",
+            "name": "name",
+            "type": "String",
+            "class": "FrameworkException",
+            "module": "ExceptionUtil"
+        },
+        {
+            "file": "src/framework/ExceptionUtil.js",
+            "line": 72,
+            "description": "Set the prototype to the JS Error object",
+            "itemtype": "property",
+            "name": "prototype",
+            "type": "Error",
+            "class": "FrameworkException",
+            "module": "ExceptionUtil"
+        },
+        {
+            "file": "src/framework/ExceptionUtil.js",
+            "line": 80,
+            "description": "Set the prototype constructor to itself\nMakes ExceptionUtil.FrameworkException instanceof ExcpetionUtil.FrameworkException",
+            "itemtype": "property",
+            "name": "prototype.constructor",
+            "type": "Function",
+            "class": "FrameworkException",
+            "module": "ExceptionUtil"
+        },
+        {
             "file": "src/framework/Message.js",
             "line": 1,
             "description": "Copyright 2012 Archfirst\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
             "class": "",
-            "module": "BaseView"
+            "module": "ExceptionUtil"
         },
         {
             "file": "src/framework/Message.js",
@@ -329,14 +434,14 @@
             "description": "app/common/Message\n\nEnumeration of messages",
             "author": "Naresh Bhatia",
             "class": "",
-            "module": "BaseView"
+            "module": "ExceptionUtil"
         },
         {
             "file": "src/framework/MessageBus.js",
             "line": 1,
             "description": "Copyright 2012 Archfirst\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
             "class": "",
-            "module": "BaseView"
+            "module": "ExceptionUtil"
         },
         {
             "file": "src/framework/MessageBus.js",
@@ -344,7 +449,7 @@
             "description": "bullsfirst/framework/MessageBus\n\nProvides the ability to publish and subscribe to messages.",
             "author": "Naresh Bhatia",
             "class": "",
-            "module": "BaseView"
+            "module": "ExceptionUtil"
         }
     ],
     "warnings": [

@@ -23,26 +23,19 @@
  */
  define([
 
+ 'ExceptionUtil',
+
  'backbone',
 
  'underscore'
 
 ],
 
-function(Backbone, _) {
+function(ExceptionUtil, Backbone, _) {
 
   'use strict';
 
   var _messageBus = _.extend({}, Backbone.Events);
-
-  function NotImplementedException(message) {
-    this.message = message;
-    this.name = 'NotImplementedException';
-  }
-
-  NotImplementedException.prototype = new Error();
-  NotImplementedException.prototype.constructor = NotImplementedException;
-
 
   return {
 
@@ -69,7 +62,7 @@ function(Backbone, _) {
     // This allows the View to unbind automatically when it is removed
     // MessageBus.listenTo would not provide this and should not be used
     listenTo: function() {
-      throw new NotImplementedException('Not Implemented: ' +
+      throw new ExceptionUtil.FrameworkException('Not Implemented: ' +
         'listenTo should be implemented by the View object: ' +
         'myView.listenTo(MessageBus, \'event\', callback); ');
     },
@@ -78,7 +71,7 @@ function(Backbone, _) {
     // This removes the events from listenTo.
     // That is not implemented on the global MessageBus, so neither is this.
     stopListening: function() {
-      throw new NotImplementedException('Not Implemented: ' +
+      throw new ExceptionUtil.FrameworkException('Not Implemented: ' +
         'stopListening should be implemented by the View object: ' +
         'myView.stopListening(MessageBus, \'event\', callback); ');
     }

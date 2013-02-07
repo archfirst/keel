@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>BaseView - backbone-arch-demo</title>
+    <title>src&#x2F;framework&#x2F;ExceptionUtil.js - backbone-arch-demo</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -90,71 +90,102 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>BaseView Module</h1>
-<div class="box clearfix meta">
-    
+                        <h1 class="file-heading">File: src&#x2F;framework&#x2F;ExceptionUtil.js</h1>
 
-    
-        <div class="uses">
-            Requires
-            <ul class="inline commas">
-                
-                    <li></li>
-                
-                    <li></li>
-                
-                    <li></li>
-                
-            </ul>
-        </div>
-    
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x2F;*!
+ * Copyright 2012 Archfirst
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http:&#x2F;&#x2F;www.apache.org&#x2F;licenses&#x2F;LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *&#x2F;
 
-    
-        <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;src_framework_BaseView.js.html#l54"><code>src&#x2F;framework&#x2F;BaseView.js:54</code></a>
-        </div>
-    
+&#x2F;**
+* framework&#x2F;ExceptionUtil
+* This is an Exception Utility intended to be used within the framework
+* for alerting implementors about errors such as bad arguments passed to
+* framework methods.
+*
+* It includes a general FrameworkException constructor. This could be extended
+* if necessary to present more specific exceptions if necessary.
+*
+* @module ExceptionUtil
+* @author Bob Holt
+**&#x2F;
+define(function() {
 
-    
-</div>
+  &#x27;use strict&#x27;;
+
+  &#x2F;**
+  * The ExceptionUtil object
+  *
+  * @class ExceptionUtil
+  * @static
+  **&#x2F;
+  var ExceptionUtil = {
 
 
+    &#x2F;**
+    * The general FrameworkException
+    *
+    * @class FrameworkException
+    * @constructor
+    * @chainable
+    * @param {String} message The error message to throw
+    **&#x2F;
+    FrameworkException: function(message) {
 
-<div class="box intro">
-    <p>framework/BaseView</p>
+      &#x2F;**
+      * The error message to throw
+      *
+      * @property message
+      * @type String
+      **&#x2F;
+      this.message = message;
 
-<p>This is a view base class built on top of the default Backbone.View; it
-provides a set of rendering, binding, and lifecycle methods that tend to
-be useful in Backbone applications. As part lifecycle methods, it provides
-the facility to maintain a set of child views, especially to avoid zombies.</p>
+      &#x2F;**
+      * The Exception Type
+      *
+      * @property name
+      * @type String
+      **&#x2F;
+      this.name = &#x27;FrameworkException&#x27;;
 
-<p>This view has been further extended to specialize the render method.
-To use this view, you should call the 'extend' method of the appropriate
-sub-class just like you would extend the normal 'Backbone.View'.</p>
-</div>
+    }
 
+  };
 
+  &#x2F;**
+  * Set the prototype to the JS Error object
+  *
+  * @property prototype
+  * @type Error
+  **&#x2F;
+  ExceptionUtil.FrameworkException.prototype = new Error();
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-        
-            <p>This module provides the following classes:</p>
+  &#x2F;**
+  * Set the prototype constructor to itself
+  * Makes ExceptionUtil.FrameworkException instanceof ExcpetionUtil.FrameworkException
+  *
+  * @property prototype.constructor
+  * @type Function
+  **&#x2F;
+  ExceptionUtil.FrameworkException.prototype.constructor = ExceptionUtil.FrameworkException;
 
-            <ul class="module-classes">
-            
-                <li class="module-class">
-                    <a href="..&#x2F;classes/BaseView.html">
-                        BaseView
-                    </a>
-                </li>
-            
-            </ul>
-        
-    </div>
+  return ExceptionUtil;
 
-    <div class="yui3-u-1-2">
-        
-    </div>
+});
+    </pre>
 </div>
 
                     </div>

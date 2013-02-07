@@ -14,23 +14,76 @@
  * limitations under the License.
  */
 
+/**
+* framework/ExceptionUtil
+* This is an Exception Utility intended to be used within the framework
+* for alerting implementors about errors such as bad arguments passed to
+* framework methods.
+*
+* It includes a general FrameworkException constructor. This could be extended
+* if necessary to present more specific exceptions if necessary.
+*
+* @module ExceptionUtil
+* @author Bob Holt
+**/
 define(function() {
 
   'use strict';
 
+  /**
+  * The ExceptionUtil object
+  *
+  * @class ExceptionUtil
+  * @static
+  **/
   var ExceptionUtil = {
 
+
+    /**
+    * The general FrameworkException
+    *
+    * @class FrameworkException
+    * @constructor
+    * @chainable
+    * @param {String} message The error message to throw
+    **/
     FrameworkException: function(message) {
 
+      /**
+      * The error message to throw
+      *
+      * @property message
+      * @type String
+      **/
       this.message = message;
 
+      /**
+      * The Exception Type
+      *
+      * @property name
+      * @type String
+      **/
       this.name = 'FrameworkException';
 
     }
 
   };
 
+  /**
+  * Set the prototype to the JS Error object
+  *
+  * @property prototype
+  * @type Error
+  **/
   ExceptionUtil.FrameworkException.prototype = new Error();
+
+  /**
+  * Set the prototype constructor to itself
+  * Makes ExceptionUtil.FrameworkException instanceof ExcpetionUtil.FrameworkException
+  *
+  * @property prototype.constructor
+  * @type Function
+  **/
   ExceptionUtil.FrameworkException.prototype.constructor = ExceptionUtil.FrameworkException;
 
   return ExceptionUtil;

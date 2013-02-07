@@ -43,11 +43,17 @@
             
                 <li><a href="..&#x2F;classes/BaseView.html">BaseView</a></li>
             
+                <li><a href="..&#x2F;classes/ExceptionUtil.html">ExceptionUtil</a></li>
+            
+                <li><a href="..&#x2F;classes/FrameworkException.html">FrameworkException</a></li>
+            
             </ul>
 
             <ul id="api-modules" class="apis modules">
             
                 <li><a href="..&#x2F;modules/BaseView.html">BaseView</a></li>
+            
+                <li><a href="..&#x2F;modules/ExceptionUtil.html">ExceptionUtil</a></li>
             
             </ul>
         </div>
@@ -113,26 +119,19 @@
  *&#x2F;
  define([
 
+ &#x27;ExceptionUtil&#x27;,
+
  &#x27;backbone&#x27;,
 
  &#x27;underscore&#x27;
 
 ],
 
-function(Backbone, _) {
+function(ExceptionUtil, Backbone, _) {
 
   &#x27;use strict&#x27;;
 
   var _messageBus = _.extend({}, Backbone.Events);
-
-  function NotImplementedException(message) {
-    this.message = message;
-    this.name = &#x27;NotImplementedException&#x27;;
-  }
-
-  NotImplementedException.prototype = new Error();
-  NotImplementedException.prototype.constructor = NotImplementedException;
-
 
   return {
 
@@ -159,7 +158,7 @@ function(Backbone, _) {
     &#x2F;&#x2F; This allows the View to unbind automatically when it is removed
     &#x2F;&#x2F; MessageBus.listenTo would not provide this and should not be used
     listenTo: function() {
-      throw new NotImplementedException(&#x27;Not Implemented: &#x27; +
+      throw new ExceptionUtil.FrameworkException(&#x27;Not Implemented: &#x27; +
         &#x27;listenTo should be implemented by the View object: &#x27; +
         &#x27;myView.listenTo(MessageBus, \&#x27;event\&#x27;, callback); &#x27;);
     },
@@ -168,7 +167,7 @@ function(Backbone, _) {
     &#x2F;&#x2F; This removes the events from listenTo.
     &#x2F;&#x2F; That is not implemented on the global MessageBus, so neither is this.
     stopListening: function() {
-      throw new NotImplementedException(&#x27;Not Implemented: &#x27; +
+      throw new ExceptionUtil.FrameworkException(&#x27;Not Implemented: &#x27; +
         &#x27;stopListening should be implemented by the View object: &#x27; +
         &#x27;myView.stopListening(MessageBus, \&#x27;event\&#x27;, callback); &#x27;);
     }
