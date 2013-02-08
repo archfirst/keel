@@ -100,12 +100,4 @@ This example architecture has a number of pages each loading a number of widgets
 * Home - This loads the mainnav as well as one each of three sample widgets. Note that widget loading order is NOT guaranteed. If widgets need to appear in a specific order, they should be given specific ID'd locations in which to render. These currently all render to the `section.content` element.
 * One, Two, Three - These pages load three copies of each of the three sample widgets. This shows the capability of loading multiple instances of each widget on the same page.
 
-Note that each of the non-mainnav sample widgets is labeled with its cid to show the individual instances. On route changes, these cid numbers continue to increase as each widget is destroyed and recreated on a page change. Investigating the performance impact of this is a TODO below.
-
-## TODOS
-* In this pattern, all widgets are destroyed and re-created on each new route. This has proven more reliable than having certain long-running widgets (such as a header or footer) across routes. Need to investigate performance gain/loss and/or whether long-running widgets can be made more reliable.
-* Programmatically determine some grunt options
-* Add unit testing framework
-* Add documentation solutions to build (docco/jsdoc)
-* Add image optimization to build
-* Expand pattern and build process to work with multiple applications
+Note that each of the non-mainnav sample widgets is labeled with its cid to show the individual instances. On route changes, these cid numbers continue to increase as each widget is destroyed and recreated on a page change.
