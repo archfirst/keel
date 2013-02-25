@@ -7,8 +7,6 @@ define([
 ], function(MessageBus) {
   'use strict';
 
-  window.MessageBus = MessageBus;
-
   describe('MessageBus', function() {
 
     describe('#on()', function() {
@@ -80,17 +78,9 @@ define([
 
     describe('#once()', function() {
 
-      it('should fire the callback once even if called multiple times', function() {
+      it('should throw an exception', function() {
 
-        var spy = sinon.spy();
-
-        MessageBus.once('triggeredEvent', spy);
-
-        MessageBus.trigger('triggeredEvent');
-        MessageBus.trigger('triggeredEvent');
-        MessageBus.trigger('triggeredEvent');
-
-        expect(spy).to.have.been.calledOnce;
+        expect(MessageBus.listenTo).to.throw(/Not Implemented/);
 
       });
 

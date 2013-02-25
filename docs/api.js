@@ -3,11 +3,15 @@ YUI.add("yuidoc-meta", function(Y) {
     "classes": [
         "BaseView",
         "ExceptionUtil",
-        "FrameworkException"
+        "FrameworkException",
+        "MessageBus",
+        "Router"
     ],
     "modules": [
         "BaseView",
-        "ExceptionUtil"
+        "ExceptionUtil",
+        "MessageBus",
+        "Router"
     ],
     "allModules": [
         {
@@ -19,6 +23,16 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "ExceptionUtil",
             "name": "ExceptionUtil",
             "description": "framework/ExceptionUtil\nThis is an Exception Utility intended to be used within the framework\nfor alerting implementors about errors such as bad arguments passed to\nframework methods.\n\nIt includes a general FrameworkException constructor. This could be extended\nif necessary to present more specific exceptions if necessary."
+        },
+        {
+            "displayName": "MessageBus",
+            "name": "MessageBus",
+            "description": "framework/MessageBus\n\nProvides the ability to publish and subscribe to messages."
+        },
+        {
+            "displayName": "Router",
+            "name": "Router",
+            "description": "framework/Router\n\nExtends Backbone.Router to route to different pages in the application."
         }
     ]
 } };

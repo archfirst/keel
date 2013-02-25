@@ -1,18 +1,18 @@
 /*!
- * Copyright 2012 Archfirst
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+* Copyright 2012 Archfirst
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
 /**
 * framework/ExceptionUtil
@@ -28,64 +28,58 @@
 **/
 define(function() {
 
-  'use strict';
-
-  /**
-  * The ExceptionUtil object
-  *
-  * @class ExceptionUtil
-  * @static
-  **/
-  var ExceptionUtil = {
-
+    'use strict';
 
     /**
-    * The general FrameworkException
+    * The ExceptionUtil object
     *
-    * @class FrameworkException
-    * @constructor
-    * @chainable
-    * @param {String} message The error message to throw
+    * @class ExceptionUtil
+    * @static
     **/
-    FrameworkException: function(message) {
+    var ExceptionUtil = {
 
-      /**
-      * The error message to throw
-      *
-      * @property message
-      * @type String
-      **/
-      this.message = message;
+        /**
+        * The general FrameworkException
+        *
+        * @class FrameworkException
+        * @constructor
+        * @chainable
+        * @param {String} message The error message to throw
+        **/
+        FrameworkException: function FrameworkException(message) {
 
-      /**
-      * The Exception Type
-      *
-      * @property name
-      * @type String
-      **/
-      this.name = 'FrameworkException';
+            // If this wasn't called with the `new` keyword, do it automatically
+            if (!(this instanceof FrameworkException)) {
+                return new FrameworkException(message);
+            }
 
-    }
+            /**
+            * The error message to throw
+            *
+            * @property message
+            * @type String
+            **/
+            this.message = message || 'Trombone.js Framework Exception';
 
-  };
+            /**
+            * The Exception Type
+            *
+            * @property name
+            * @type String
+            **/
+            this.name = 'FrameworkException';
+        }
 
-  /**
-  * Set the prototype to the JS Error object
-  *
-  * @property prototype
-  * @type Error
-  **/
-  ExceptionUtil.FrameworkException.prototype = new Error();
+    };
 
-  /**
-  * Set the prototype constructor to itself
-  * Makes ExceptionUtil.FrameworkException instanceof ExcpetionUtil.FrameworkException
-  *
-  * @property prototype.constructor
-  * @type Function
-  **/
-  ExceptionUtil.FrameworkException.prototype.constructor = ExceptionUtil.FrameworkException;
+    /**
+    * Set the prototype to the JS Error object
+    *
+    * @property prototype
+    * @type Error
+    **/
+    ExceptionUtil.FrameworkException.prototype = new Error();
 
-  return ExceptionUtil;
+    return ExceptionUtil;
 
 });

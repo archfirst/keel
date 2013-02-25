@@ -2,7 +2,7 @@
     "project": {
         "name": "backbone-arch-demo",
         "description": "An example of a preferred Backbone.js architecture",
-        "version": "0.0.1",
+        "version": "0.1.0",
         "url": "http://bobholt.me/"
     },
     "files": {
@@ -38,8 +38,23 @@
         },
         "src/framework/MessageBus.js": {
             "name": "src/framework/MessageBus.js",
-            "modules": {},
-            "classes": {},
+            "modules": {
+                "MessageBus": 1
+            },
+            "classes": {
+                "MessageBus": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/framework/Router.js": {
+            "name": "src/framework/Router.js",
+            "modules": {
+                "Router": 1
+            },
+            "classes": {
+                "Router": 1
+            },
             "fors": {},
             "namespaces": {}
         }
@@ -55,9 +70,10 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/framework/BaseView.js",
-            "line": 54,
+            "line": 55,
             "description": "framework/BaseView\n\nThis is a view base class built on top of the default Backbone.View; it\nprovides a set of rendering, binding, and lifecycle methods that tend to\nbe useful in Backbone applications. As part lifecycle methods, it provides\nthe facility to maintain a set of child views, especially to avoid zombies.\n\nThis view has been further extended to specialize the render method.\nTo use this view, you should call the 'extend' method of the appropriate\nsub-class just like you would extend the normal 'Backbone.View'.",
             "requires": [
+                "ExceptionUtil",
                 "Backbone",
                 "Underscore",
                 "jQuery"
@@ -78,6 +94,44 @@
             "line": 42,
             "description": "framework/ExceptionUtil\nThis is an Exception Utility intended to be used within the framework\nfor alerting implementors about errors such as bad arguments passed to\nframework methods.\n\nIt includes a general FrameworkException constructor. This could be extended\nif necessary to present more specific exceptions if necessary.",
             "author": "Bob Holt"
+        },
+        "MessageBus": {
+            "name": "MessageBus",
+            "submodules": {},
+            "classes": {
+                "MessageBus": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/framework/MessageBus.js",
+            "line": 41,
+            "description": "framework/MessageBus\n\nProvides the ability to publish and subscribe to messages.",
+            "requires": [
+                "ExceptionUtil",
+                "Backbone",
+                "Underscore"
+            ],
+            "author": "Bob Holt"
+        },
+        "Router": {
+            "name": "Router",
+            "submodules": {},
+            "classes": {
+                "Router": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/framework/Router.js",
+            "line": 37,
+            "description": "framework/Router\n\nExtends Backbone.Router to route to different pages in the application.",
+            "requires": [
+                "Message",
+                "MessageBus",
+                "Backbone"
+            ],
+            "author": "Bob Holt"
         }
     },
     "classes": {
@@ -92,7 +146,7 @@
             "module": "BaseView",
             "namespace": "",
             "file": "src/framework/BaseView.js",
-            "line": 54,
+            "line": 55,
             "description": "The BaseView constructor",
             "is_constructor": 1,
             "extends": "Backbone.View"
@@ -134,12 +188,43 @@
                     "type": "String"
                 }
             ]
+        },
+        "MessageBus": {
+            "name": "MessageBus",
+            "shortname": "MessageBus",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "MessageBus",
+            "namespace": "",
+            "file": "src/framework/MessageBus.js",
+            "line": 41,
+            "description": "The MessageBus object",
+            "static": 1
+        },
+        "Router": {
+            "name": "Router",
+            "shortname": "Router",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Router",
+            "namespace": "",
+            "file": "src/framework/Router.js",
+            "line": 37,
+            "description": "Defining the application router, you can attach sub routers here.",
+            "is_constructor": 1,
+            "extends": "Backbone.Router"
         }
     },
     "classitems": [
         {
             "file": "src/framework/BaseView.js",
-            "line": 63,
+            "line": 64,
             "description": "If you would like to store references to certain elements in your\ntemplate for later use, you can indicate those elements by doing *both*\nof the following:\n\n- adding a classname beginning with `js-` to the elements in your template\n- listing the classname suffix in your view's `elements` array\n\nFor example, if your template contains the following:\n\n   `<div class=\"js-interesting\"></div>`\n\nAnd your view's `elements` array is:\n\n   `[ 'interesting' ]`\n\nThen your view will have a property `interestingElement` that references\na jQuery object for the div.",
             "itemtype": "property",
             "name": "elements",
@@ -149,7 +234,7 @@
         },
         {
             "file": "src/framework/BaseView.js",
-            "line": 87,
+            "line": 88,
             "description": "Set a default template that should be overridden by each implementation",
             "itemtype": "property",
             "name": "template",
@@ -160,7 +245,7 @@
         },
         {
             "file": "src/framework/BaseView.js",
-            "line": 105,
+            "line": 106,
             "description": "Override the constructor to add per-instance configuration",
             "itemtype": "method",
             "name": "constructor",
@@ -173,7 +258,7 @@
         },
         {
             "file": "src/framework/BaseView.js",
-            "line": 125,
+            "line": 126,
             "description": "Adds a View to the list of child views.",
             "itemtype": "method",
             "name": "addChild",
@@ -220,7 +305,7 @@
         },
         {
             "file": "src/framework/BaseView.js",
-            "line": 188,
+            "line": 182,
             "description": "Adds an array of child views to the list of child views",
             "itemtype": "method",
             "name": "addChildren",
@@ -240,7 +325,7 @@
         },
         {
             "file": "src/framework/BaseView.js",
-            "line": 221,
+            "line": 212,
             "description": "Destroys the view and all its children recursively, unbinding their events",
             "itemtype": "method",
             "name": "destroy",
@@ -253,7 +338,7 @@
         },
         {
             "file": "src/framework/BaseView.js",
-            "line": 239,
+            "line": 228,
             "description": "Destroys the specified child of this view, unbinding its events",
             "itemtype": "method",
             "name": "destroyChild",
@@ -273,7 +358,7 @@
         },
         {
             "file": "src/framework/BaseView.js",
-            "line": 262,
+            "line": 250,
             "description": "Destroys all the children of this view recursively, unbinding their events",
             "itemtype": "method",
             "name": "destroyChildren",
@@ -286,7 +371,7 @@
         },
         {
             "file": "src/framework/BaseView.js",
-            "line": 293,
+            "line": 277,
             "description": "Retrieves the view's template from the template cache, or creates it if not cached",
             "itemtype": "method",
             "name": "getTemplate",
@@ -302,7 +387,7 @@
         },
         {
             "file": "src/framework/BaseView.js",
-            "line": 313,
+            "line": 294,
             "description": "Once the view has been rendered, it still needs to be placed in the\ndocument. The `place` method allows you to specify a destination for\nthe view; this destination can either be a jQuery object, a DOM node, or\na selector. The `place` method also optionally takes a position\nargument, which determines how the object will be placed in the\ndestination node: as the first, last, or only child.",
             "itemtype": "method",
             "name": "place",
@@ -329,7 +414,7 @@
         },
         {
             "file": "src/framework/BaseView.js",
-            "line": 355,
+            "line": 335,
             "description": "`postPlace` fires just before the view's `place` method returns. Do\nthings here that require the view to be placed in the document, such as\noperations that require knowing the dimensions of the view.",
             "itemtype": "method",
             "name": "postPlace",
@@ -342,7 +427,7 @@
         },
         {
             "file": "src/framework/BaseView.js",
-            "line": 371,
+            "line": 351,
             "description": "`postRender` fires just before the view's `render` method returns. Do\nthings here that require the view's basic markup to be in place, but\nthat do NOT require the view to be placed in the document",
             "itemtype": "method",
             "name": "postRender",
@@ -355,7 +440,7 @@
         },
         {
             "file": "src/framework/BaseView.js",
-            "line": 387,
+            "line": 367,
             "description": "Renders the view's element in the DOM\nThis method expects the derived class to supply a template.name and a template.source",
             "itemtype": "method",
             "name": "render",
@@ -368,7 +453,7 @@
         },
         {
             "file": "src/framework/BaseView.js",
-            "line": 418,
+            "line": 397,
             "description": "The `_setupElements` method is a \"private\" method for storing references\nto elements as indicated by the view's `elements` property.",
             "itemtype": "method",
             "name": "_setupElements",
@@ -425,7 +510,7 @@
             "file": "src/framework/Message.js",
             "line": 1,
             "description": "Copyright 2012 Archfirst\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
-            "class": "",
+            "class": "MessageBus",
             "module": "ExceptionUtil"
         },
         {
@@ -433,23 +518,156 @@
             "line": 17,
             "description": "app/common/Message\n\nEnumeration of messages",
             "author": "Naresh Bhatia",
-            "class": "",
+            "class": "MessageBus",
             "module": "ExceptionUtil"
         },
         {
             "file": "src/framework/MessageBus.js",
-            "line": 1,
-            "description": "Copyright 2012 Archfirst\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
-            "class": "",
-            "module": "ExceptionUtil"
+            "line": 49,
+            "description": "Binds callbacks to events on an object",
+            "itemtype": "method",
+            "name": "on",
+            "deprecated": true,
+            "deprecationMessage": "`listenTo` and `stopListening` should be used instead of `on` and `off`",
+            "params": [
+                {
+                    "name": "events",
+                    "description": "A space-delimited list of events to listen to",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "The callback to invoke when the event(s) is fired",
+                    "type": "Function"
+                },
+                {
+                    "name": "context",
+                    "description": "The context in which to invoke the callback",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "class": "MessageBus",
+            "module": "MessageBus"
         },
         {
             "file": "src/framework/MessageBus.js",
-            "line": 17,
-            "description": "bullsfirst/framework/MessageBus\n\nProvides the ability to publish and subscribe to messages.",
-            "author": "Naresh Bhatia",
-            "class": "",
-            "module": "ExceptionUtil"
+            "line": 66,
+            "description": "Unbinds callbacks from events on an object",
+            "itemtype": "method",
+            "name": "off",
+            "deprecated": true,
+            "deprecationMessage": "`listenTo` and `stopListening` should be used instead of `on` and `off`",
+            "params": [
+                {
+                    "name": "events",
+                    "description": "A space-delimited list of events to remove from the object",
+                    "type": "String",
+                    "optional": true,
+                    "optdefault": "'all'"
+                },
+                {
+                    "name": "callback",
+                    "description": "The callback to remove from the event/object combination",
+                    "type": "Function",
+                    "optional": true
+                },
+                {
+                    "name": "context",
+                    "description": "The context from which to remove the callback",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "class": "MessageBus",
+            "module": "MessageBus"
+        },
+        {
+            "file": "src/framework/MessageBus.js",
+            "line": 79,
+            "description": "Trigger callbacks on a particular event",
+            "itemtype": "method",
+            "name": "trigger",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The event to trigger",
+                    "type": "String"
+                }
+            ],
+            "class": "MessageBus",
+            "module": "MessageBus"
+        },
+        {
+            "file": "src/framework/MessageBus.js",
+            "line": 89,
+            "description": "Binds a callback using `on`, which is removed the first time it is triggered",
+            "itemtype": "method",
+            "name": "once",
+            "deprecated": true,
+            "deprecationMessage": "It is preferable to use `listenTo` and manually stop listening as part of the callback",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The event to attach to the object",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "The callback to fire when the event is triggered",
+                    "type": "Function"
+                },
+                {
+                    "name": "context",
+                    "description": "The context in which to fire the callback",
+                    "type": "Object"
+                }
+            ],
+            "class": "MessageBus",
+            "module": "MessageBus"
+        },
+        {
+            "file": "src/framework/MessageBus.js",
+            "line": 104,
+            "description": "listenTo needs to be implemented by the View\nThis allows the View to unbind automatically when it is removed\nMessageBus.listenTo would not provide this and should not be used",
+            "class": "MessageBus",
+            "module": "MessageBus"
+        },
+        {
+            "file": "src/framework/MessageBus.js",
+            "line": 115,
+            "description": "stopListening needs to be implemented by the View\nThis removes the events from listenTo.\nThat is not implemented on the global MessageBus, so neither is this.",
+            "class": "MessageBus",
+            "module": "MessageBus"
+        },
+        {
+            "file": "src/framework/Router.js",
+            "line": 46,
+            "description": "Route map",
+            "itemtype": "property",
+            "name": "routes",
+            "type": "Object",
+            "default": "{\n        '':       'goToPage',\n        ':page':  'goToPage'\n    }",
+            "class": "Router",
+            "module": "Router"
+        },
+        {
+            "file": "src/framework/Router.js",
+            "line": 62,
+            "description": "Directs the application to go to a specific page\nLoads the page's view module, renders, and places it",
+            "itemtype": "method",
+            "name": "goToPage",
+            "params": [
+                {
+                    "name": "page",
+                    "description": "The page name to navigate to",
+                    "type": "String",
+                    "optional": true,
+                    "optdefault": "undefined"
+                }
+            ],
+            "class": "Router",
+            "module": "Router"
         }
     ],
     "warnings": [
@@ -462,12 +680,12 @@
             "line": " src/framework/Message.js:17"
         },
         {
-            "message": "Missing item type\nCopyright 2012 Archfirst\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
-            "line": " src/framework/MessageBus.js:1"
+            "message": "Missing item type\nlistenTo needs to be implemented by the View\nThis allows the View to unbind automatically when it is removed\nMessageBus.listenTo would not provide this and should not be used",
+            "line": " src/framework/MessageBus.js:104"
         },
         {
-            "message": "Missing item type\nbullsfirst/framework/MessageBus\n\nProvides the ability to publish and subscribe to messages.",
-            "line": " src/framework/MessageBus.js:17"
+            "message": "Missing item type\nstopListening needs to be implemented by the View\nThis removes the events from listenTo.\nThat is not implemented on the global MessageBus, so neither is this.",
+            "line": " src/framework/MessageBus.js:115"
         }
     ]
 }

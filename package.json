@@ -1,6 +1,6 @@
 {
   "name": "backbone-arch-demo",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "An example of a preferred Backbone.js architecture",
   "devDependencies": {
     "grunt": "0.4.x",

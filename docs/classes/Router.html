@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>FrameworkException - backbone-arch-demo</title>
+    <title>Router - backbone-arch-demo</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -98,21 +98,25 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>FrameworkException Class</h1>
+                        <h1>Router Class</h1>
 <div class="box meta">
     
 
     
+        <div class="extends">
+            Extends Backbone.Router
+        </div>
+    
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;src_framework_ExceptionUtil.js.html#l42"><code>src&#x2F;framework&#x2F;ExceptionUtil.js:42</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;src_framework_Router.js.html#l37"><code>src&#x2F;framework&#x2F;Router.js:37</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/ExceptionUtil.html">ExceptionUtil</a>
+            Module: <a href="../modules/Router.html">Router</a>
         
     
 
@@ -122,14 +126,132 @@
 
 
 <div class="box intro">
-    <p>The general FrameworkException</p>
+    <p>Defining the application router, you can attach sub routers here.</p>
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_FrameworkException" class="method item">
-    <h3 class="name"><code>FrameworkException</code></h3>
+        <div id="method_Router" class="method item">
+    <h3 class="name"><code>Router</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;src_framework_Router.js.html#l37"><code>src&#x2F;framework&#x2F;Router.js:37</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+    </div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
+        
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+        
+        
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods extends">
+                        
+                            <li class="index-item method">
+                                <a href="#method_goToPage">goToPage</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties extends">
+                        
+                            <li class="index-item property">
+                                <a href="#property_routes">routes</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+        </div>
+
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method_goToPage" class="method item">
+    <h3 class="name"><code>goToPage</code></h3>
 
     
         <div class="args">
@@ -137,7 +259,7 @@
             
                 <li class="arg">
                     
-                        <code>message</code>
+                        <code class="optional">[page=undefined]</code>
                     
                 </li>
             
@@ -156,8 +278,6 @@
     
 
     
-        <span class="flag chainable">chainable</span>
-    
 
     
 
@@ -172,7 +292,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;src_framework_ExceptionUtil.js.html#l42"><code>src&#x2F;framework&#x2F;ExceptionUtil.js:42</code></a>
+        <a href="..&#x2F;files&#x2F;src_framework_Router.js.html#l62"><code>src&#x2F;framework&#x2F;Router.js:62</code></a>
         
         </p>
 
@@ -183,7 +303,8 @@
     </div>
 
     <div class="description">
-        
+        <p>Directs the application to go to a specific page
+Loads the page's view module, renders, and places it</p>
     </div>
 
     
@@ -194,14 +315,15 @@
             
                 <li class="param">
                     
-                        <code class="param-name">message</code>
+                        <code class="param-name optional">[page=undefined]</code>
                         <span class="type">String</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The error message to throw</p>
+                        <p>The page name to navigate to</p>
                     </div>
 
                     
@@ -216,70 +338,8 @@
     
 </div>
 
-    </div>
-
-
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
-
-        
-        
-            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
-        
-        
-        
-    </ul>
-
-    <div>
-        <div id="index" class="api-class-tabpanel index">
-            <h2 class="off-left">Item Index</h2>
-
-            
-
-            
-                <div class="index-section properties">
-                    <h3>Properties</h3>
-
-                    <ul class="index-list properties">
-                        
-                            <li class="index-item property">
-                                <a href="#property_message">message</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property">
-                                <a href="#property_name">name</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property">
-                                <a href="#property_prototype">prototype</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property">
-                                <a href="#property_prototype.constructor">prototype.constructor</a>
-
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
-            
-
-            
-
-            
-        </div>
-
+                
+            </div>
         
 
         
@@ -287,9 +347,9 @@
                 <h2 class="off-left">Properties</h2>
 
                 
-                    <div id="property_message" class="property item">
-    <h3 class="name"><code>message</code></h3>
-    <span class="type">String</span>
+                    <div id="property_routes" class="property item">
+    <h3 class="name"><code>routes</code></h3>
+    <span class="type">Object</span>
 
     
 
@@ -310,7 +370,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;src_framework_ExceptionUtil.js.html#l52"><code>src&#x2F;framework&#x2F;ExceptionUtil.js:52</code></a>
+        <a href="..&#x2F;files&#x2F;src_framework_Router.js.html#l46"><code>src&#x2F;framework&#x2F;Router.js:46</code></a>
         
         </p>
 
@@ -320,142 +380,14 @@
     </div>
 
     <div class="description">
-        <p>The error message to throw</p>
+        <p>Route map</p>
     </div>
 
     
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_name" class="property item">
-    <h3 class="name"><code>name</code></h3>
-    <span class="type">String</span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_framework_ExceptionUtil.js.html#l60"><code>src&#x2F;framework&#x2F;ExceptionUtil.js:60</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The Exception Type</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_prototype" class="property item">
-    <h3 class="name"><code>prototype</code></h3>
-    <span class="type">Error</span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_framework_ExceptionUtil.js.html#l72"><code>src&#x2F;framework&#x2F;ExceptionUtil.js:72</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Set the prototype to the JS Error object</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_prototype.constructor" class="property item">
-    <h3 class="name"><code>prototype.constructor</code></h3>
-    <span class="type">Function</span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;src_framework_ExceptionUtil.js.html#l80"><code>src&#x2F;framework&#x2F;ExceptionUtil.js:80</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Set the prototype constructor to itself
-Makes ExceptionUtil.FrameworkException instanceof ExcpetionUtil.FrameworkException</p>
-    </div>
-
+        <p><strong>Default:</strong> {
+        &#x27;&#x27;:       &#x27;goToPage&#x27;,
+        &#x27;:page&#x27;:  &#x27;goToPage&#x27;
+    }</p>
     
 
     
