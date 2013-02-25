@@ -103,20 +103,20 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 &#x2F;*!
- * Copyright 2012 Archfirst
- *
- * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http:&#x2F;&#x2F;www.apache.org&#x2F;licenses&#x2F;LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *&#x2F;
+* Copyright 2012 Archfirst
+*
+* Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http:&#x2F;&#x2F;www.apache.org&#x2F;licenses&#x2F;LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*&#x2F;
 
 &#x2F;**
 * framework&#x2F;ExceptionUtil
@@ -132,65 +132,59 @@
 **&#x2F;
 define(function() {
 
-  &#x27;use strict&#x27;;
-
-  &#x2F;**
-  * The ExceptionUtil object
-  *
-  * @class ExceptionUtil
-  * @static
-  **&#x2F;
-  var ExceptionUtil = {
-
+    &#x27;use strict&#x27;;
 
     &#x2F;**
-    * The general FrameworkException
+    * The ExceptionUtil object
     *
-    * @class FrameworkException
-    * @constructor
-    * @chainable
-    * @param {String} message The error message to throw
+    * @class ExceptionUtil
+    * @static
     **&#x2F;
-    FrameworkException: function(message) {
+    var ExceptionUtil = {
 
-      &#x2F;**
-      * The error message to throw
-      *
-      * @property message
-      * @type String
-      **&#x2F;
-      this.message = message;
+        &#x2F;**
+        * The general FrameworkException
+        *
+        * @class FrameworkException
+        * @constructor
+        * @chainable
+        * @param {String} message The error message to throw
+        **&#x2F;
+        FrameworkException: function FrameworkException(message) {
 
-      &#x2F;**
-      * The Exception Type
-      *
-      * @property name
-      * @type String
-      **&#x2F;
-      this.name = &#x27;FrameworkException&#x27;;
+            &#x2F;&#x2F; If this wasn&#x27;t called with the &#x60;new&#x60; keyword, do it automatically
+            if (!(this instanceof FrameworkException)) {
+                return new FrameworkException(message);
+            }
 
-    }
+            &#x2F;**
+            * The error message to throw
+            *
+            * @property message
+            * @type String
+            **&#x2F;
+            this.message = message || &#x27;Trombone.js Framework Exception&#x27;;
 
-  };
+            &#x2F;**
+            * The Exception Type
+            *
+            * @property name
+            * @type String
+            **&#x2F;
+            this.name = &#x27;FrameworkException&#x27;;
+        }
 
-  &#x2F;**
-  * Set the prototype to the JS Error object
-  *
-  * @property prototype
-  * @type Error
-  **&#x2F;
-  ExceptionUtil.FrameworkException.prototype = new Error();
+    };
 
-  &#x2F;**
-  * Set the prototype constructor to itself
-  * Makes ExceptionUtil.FrameworkException instanceof ExcpetionUtil.FrameworkException
-  *
-  * @property prototype.constructor
-  * @type Function
-  **&#x2F;
-  ExceptionUtil.FrameworkException.prototype.constructor = ExceptionUtil.FrameworkException;
+    &#x2F;**
+    * Set the prototype to the JS Error object
+    *
+    * @property prototype
+    * @type Error
+    **&#x2F;
+    ExceptionUtil.FrameworkException.prototype = new Error();
 
-  return ExceptionUtil;
+    return ExceptionUtil;
 
 });
     </pre>

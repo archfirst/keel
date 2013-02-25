@@ -91,7 +91,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "src/framework/ExceptionUtil.js",
-            "line": 42,
+            "line": 41,
             "description": "framework/ExceptionUtil\nThis is an Exception Utility intended to be used within the framework\nfor alerting implementors about errors such as bad arguments passed to\nframework methods.\n\nIt includes a general FrameworkException constructor. This could be extended\nif necessary to present more specific exceptions if necessary.",
             "author": "Bob Holt"
         },
@@ -177,7 +177,7 @@
             "module": "ExceptionUtil",
             "namespace": "",
             "file": "src/framework/ExceptionUtil.js",
-            "line": 42,
+            "line": 41,
             "description": "The general FrameworkException",
             "is_constructor": 1,
             "chainable": 1,
@@ -468,7 +468,7 @@
         },
         {
             "file": "src/framework/ExceptionUtil.js",
-            "line": 52,
+            "line": 56,
             "description": "The error message to throw",
             "itemtype": "property",
             "name": "message",
@@ -478,7 +478,7 @@
         },
         {
             "file": "src/framework/ExceptionUtil.js",
-            "line": 60,
+            "line": 64,
             "description": "The Exception Type",
             "itemtype": "property",
             "name": "name",
@@ -488,21 +488,11 @@
         },
         {
             "file": "src/framework/ExceptionUtil.js",
-            "line": 72,
+            "line": 75,
             "description": "Set the prototype to the JS Error object",
             "itemtype": "property",
             "name": "prototype",
             "type": "Error",
-            "class": "FrameworkException",
-            "module": "ExceptionUtil"
-        },
-        {
-            "file": "src/framework/ExceptionUtil.js",
-            "line": 80,
-            "description": "Set the prototype constructor to itself\nMakes ExceptionUtil.FrameworkException instanceof ExcpetionUtil.FrameworkException",
-            "itemtype": "property",
-            "name": "prototype.constructor",
-            "type": "Function",
             "class": "FrameworkException",
             "module": "ExceptionUtil"
         },

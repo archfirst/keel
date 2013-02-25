@@ -12,16 +12,6 @@ define([
 
     describe('Router', function() {
 
-        it('should be a singleton', function() {
-
-            var router1 = new Router();
-            var router2 = new Router();
-
-            router1.testProp = 'test';
-
-            expect(router1).to.eql(router2);
-        });
-
         describe('#goToPage()', function() {
 
             it('should fire the pageBeforeChange event with the page argument', function() {
