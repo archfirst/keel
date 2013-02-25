@@ -3,7 +3,6 @@ YUI.add("yuidoc-meta", function(Y) {
     "classes": [
         "BaseView",
         "ExceptionUtil",
-        "FrameworkException",
         "MessageBus",
         "Router"
     ],

@@ -41,9 +41,8 @@ define(function() {
         /**
         * The general FrameworkException
         *
-        * @class FrameworkException
+        * @method FrameworkException
         * @constructor
-        * @chainable
         * @param {String} message The error message to throw
         **/
         FrameworkException: function FrameworkException(message) {
