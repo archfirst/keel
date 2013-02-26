@@ -1,7 +1,7 @@
 {
     "project": {
-        "name": "backbone-arch-demo",
-        "description": "An example of a preferred Backbone.js architecture",
+        "name": "trombone",
+        "description": "Music for your Backbone",
         "version": "0.1.0",
         "url": "http://bobholt.me/"
     },

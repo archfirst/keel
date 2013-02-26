@@ -1,10 +1,15 @@
-[![Build Status](https://travis-ci.org/bobholt/backbone-arch-demo.png)](https://travis-ci.org/bobholt/backbone-arch-demo)
+[![Build Status](https://travis-ci.org/bobholt/trombone.png)](https://travis-ci.org/bobholt/trombone)
 
-# backbone-arch-demo
+# Trombone.js: Music for your Backbone
 
-An example of a Loosely Coupled Domain-Driven Backbone.js architecture.
+Trombone.js adds warm notes to your Backbone.js application through the use of specific, reproducible conventions.
 
-All modules should conform to the single responsibility principal.
+Trombone.js provides a light framework around Backbone.js, allowing the developer to craft a stable domain-driven web application.
+
+## Philosophy
+
+* Domain-Driven Design
+* Single Responsibility Principle
 
 ## Requirements
 

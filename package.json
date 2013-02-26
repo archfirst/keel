@@ -1,7 +1,7 @@
 {
-  "name": "backbone-arch-demo",
+  "name": "trombone",
   "version": "0.1.0",
-  "description": "An example of a preferred Backbone.js architecture",
+  "description": "Music for your Backbone",
   "devDependencies": {
     "grunt": "0.4.x",
     "grunt-contrib-clean": "0.4.0rc6",
@@ -16,11 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bobholt/backbone-arch-demo.git"
+    "url": "https://github.com/bobholt/trombone.git"
   },
   "keywords": [
+    "architecture",
     "backbone",
-    "architecture"
+    "trombone"
   ],
   "scripts": {
     "test": "grunt mocha"
