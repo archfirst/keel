@@ -265,7 +265,7 @@ module.exports = function(grunt) {
       compile: {
         options: {
           dir: 'dist/',
-          appDir: 'dist/',
+          appDir: 'src/',
           baseUrl: 'app/',
           mainConfigFile: 'dist/config.js',
           keepBuildDir: true,
