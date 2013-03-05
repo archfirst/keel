@@ -2,57 +2,57 @@
 /*jshint expr:true, es5:true */
 define([
 
-  'ExceptionUtil'
+    'ExceptionUtil'
 
 ], function(ExceptionUtil) {
-  'use strict';
+    'use strict';
 
-  describe('ExceptionUtil', function() {
+    describe('ExceptionUtil', function() {
 
-    describe('#FrameworkException()', function() {
+        describe('#FrameworkException()', function() {
 
-      it('should create a new Framework Exception when invoked with the `new` keyword', function() {
+            it('should create a new Framework Exception when invoked with the `new` keyword', function() {
 
-        var exception = new ExceptionUtil.FrameworkException('this is a test message');
+                var exception = new ExceptionUtil.FrameworkException('this is a test message');
 
-        expect(exception).to.be.an.instanceof(ExceptionUtil.FrameworkException);
+                expect(exception).to.be.an.instanceof(ExceptionUtil.FrameworkException);
 
-      });
+            });
 
-      it('should have the message passed as an argument', function() {
+            it('should have the message passed as an argument', function() {
 
-        var exception = new ExceptionUtil.FrameworkException('this is a test message 1234');
+                var exception = new ExceptionUtil.FrameworkException('this is a test message 1234');
 
-        expect(exception.message).to.eql('this is a test message 1234');
+                expect(exception.message).to.eql('this is a test message 1234');
 
-      });
+            });
 
-      it('should be an Error', function() {
+            it('should be an Error', function() {
 
-        var exception = new ExceptionUtil.FrameworkException('test');
+                var exception = new ExceptionUtil.FrameworkException('test');
 
-        expect(exception).to.be.an.instanceof(Error);
+                expect(exception).to.be.an.instanceof(Error);
 
-      });
+            });
 
-      it('should construct itself if called without the `new` keyword', function() {
+            it('should construct itself if called without the `new` keyword', function() {
 
-        var exception = ExceptionUtil.FrameworkException('this is a test message');
+                var exception = ExceptionUtil.FrameworkException('this is a test message');
 
-        expect(exception).to.be.an.instanceof(ExceptionUtil.FrameworkException);
+                expect(exception).to.be.an.instanceof(ExceptionUtil.FrameworkException);
 
-      });
+            });
 
-      it('should create a general Framework Exception if called without a message', function() {
+            it('should create a general Framework Exception if called without a message', function() {
 
-        var exception = new ExceptionUtil.FrameworkException();
+                var exception = new ExceptionUtil.FrameworkException();
 
-        expect(exception.message).to.eql('Trombone.js Framework Exception');
+                expect(exception.message).to.eql('Keel Framework Exception');
 
-      });
+            });
+
+        });
 
     });
-
-  });
 
 });

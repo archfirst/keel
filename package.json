@@ -1,7 +1,7 @@
 {
-  "name": "trombone",
-  "version": "0.1.0",
-  "description": "Music for your Backbone",
+  "name": "keel",
+  "version": "0.0.9",
+  "description": "A stabilizing framework for Domain-Driven applications",
   "devDependencies": {
     "grunt": "0.4.x",
     "grunt-contrib-clean": "0.4.0rc6",
@@ -16,12 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bobholt/trombone.git"
+    "url": "https://github.com/bobholt/keel.git"
   },
   "keywords": [
     "architecture",
     "backbone",
-    "trombone"
+    "keel"
   ],
   "scripts": {
     "test": "grunt mocha"

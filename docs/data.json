@@ -1,8 +1,8 @@
 {
     "project": {
-        "name": "trombone",
-        "description": "Music for your Backbone",
-        "version": "0.1.0",
+        "name": "keel",
+        "description": "A stabilizing framework for Domain-Driven applications",
+        "version": "0.0.9",
         "url": "http://bobholt.me/"
     },
     "files": {

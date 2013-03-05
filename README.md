@@ -1,8 +1,8 @@
-# Trombone.js: Music for your Backbone [![Build Status](https://travis-ci.org/bobholt/trombone.png)](https://travis-ci.org/bobholt/trombone)
+# Keel: Music for your Backbone [![Build Status](https://travis-ci.org/bobholt/keel.png)](https://travis-ci.org/bobholt/keel)
 
-Trombone.js adds warm notes to your Backbone.js application through the use of specific, reproducible conventions.
+Keel adds warm notes to your Backbone.js application through the use of specific, reproducible conventions.
 
-Trombone.js provides a light framework around Backbone.js, allowing the developer to craft a stable domain-driven web application.
+Keel provides a light framework around Backbone.js, allowing the developer to craft a stable domain-driven web application.
 
 ## Requirements
 
@@ -11,11 +11,11 @@ Trombone.js provides a light framework around Backbone.js, allowing the develope
 
 ## Getting Started
 
-Visit the [Trombone.js Wiki](https://github.com/bobholt/trombone/wiki) for installation and development documentation.
+Visit the [Keel Wiki](https://github.com/bobholt/keel/wiki) for installation and development documentation.
 
 ## Contributors
 
 * Bob Holt
 * Naresh Bhatia
 
-Trombone.js is an outgrowth of the [Archfirst](http://archfirst.org/) project.
+Keel is an outgrowth of the [Archfirst](http://archfirst.org/) project.

@@ -58,7 +58,7 @@ define(function() {
             * @property message
             * @type String
             **/
-            this.message = message || 'Trombone.js Framework Exception';
+            this.message = message || 'Keel Framework Exception';
 
             /**
             * The Exception Type
