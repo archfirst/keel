@@ -18,4 +18,4 @@ Visit the [Keel Wiki](https://github.com/bobholt/keel/wiki) for installation and
 * Bob Holt
 * Naresh Bhatia
 
-Keel is an outgrowth of the [Archfirst](http://archfirst.org/) project.
+Keel is an open source project, part of the [Archfirst](http://archfirst.org/) community which is dedicated to the advancement in software development through best practices, frameworks and real-world examples.
