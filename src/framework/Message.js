@@ -15,13 +15,29 @@
  */
 
 /**
- * app/common/Message
+ * framework/Message
  *
  * Enumeration of messages
  *
+ * @module Message
  * @author Naresh Bhatia
  */
-define({
-    PageBeforeChange: 'PageBeforeChange',
-    PageChange: 'PageChange'
+define(function() {
+
+    'use strict';
+
+    /**
+    * The Message enumerator
+    * Defines string message names for the MessageBus for easier maintenance.
+    * framework/Message be extended within the app.
+    *
+    * @class Message
+    * @static
+    */
+    var Message = {
+        PageBeforeChange: 'PageBeforeChange',
+        PageChange: 'PageChange'
+    };
+
+    return Message;
 });
