@@ -5,11 +5,11 @@ define(
 
     'BaseView',
 
-    'text!pages/One/OneTemplate.html',
+    'text!app/pages/One/OneTemplate.html',
 
-    'widgets/Mainmenu/MainmenuWidget',
+    'app/widgets/Mainmenu/MainmenuWidget',
 
-    'widgets/Red/RedWidget'
+    'app/widgets/Red/RedWidget'
 
   ],
 

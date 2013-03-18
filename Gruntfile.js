@@ -266,7 +266,7 @@ module.exports = function(grunt) {
         options: {
           dir: 'dist/',
           appDir: 'src/',
-          baseUrl: 'app/',
+          baseUrl: './',
           mainConfigFile: 'dist/config.js',
           keepBuildDir: true,
           optimize: 'uglify2',
@@ -314,7 +314,7 @@ module.exports = function(grunt) {
                 // Add the module to our array
                 // This assumes each module has been added to our require config's path property as <modulename>Main
                 modules.push({
-                  name: 'pages/' + file + '/' + file + 'Page',
+                  name: 'app/pages/' + file + '/' + file + 'Page',
                   exclude: pageExclusions
                 });
               }
@@ -324,7 +324,7 @@ module.exports = function(grunt) {
               // We only want directories. This ignores dot files
               if (!/^\.[^\n]*/.test(file)) {
 
-                var widgetName = 'widgets/' + file + '/' + file + 'Widget';
+                var widgetName = 'app/widgets/' + file + '/' + file + 'Widget';
 
                 pageExclusions.push(widgetName);
 
