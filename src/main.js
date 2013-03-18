@@ -1,18 +1,18 @@
 (function(require) {
 
-  'use strict';
+    'use strict';
 
   // Kick off the application by requiring in the app and starting it
-  require([
+    require([
 
-    'app'
+        'app/app'
 
-  ],
+    ],
 
-  function(app) {
+    function(app) {
 
-    app.start();
+        app.start();
 
-  });
+    });
 
 }(require));

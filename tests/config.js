@@ -1,7 +1,7 @@
 /*jshint unused:false */
 
 // Set the baseUrl relative to the test runner
-require.baseUrl = '../src/app';
+require.baseUrl = '../src';
 
 // Null out deps so that it doesn't automatically start the application
 require.deps = null;

@@ -2,91 +2,87 @@
 
 (function() {
 
-  'use strict';
+    'use strict';
 
-  // The application root. The build process will take care of changing this to '/dist/'.
-  // If you then deploy /dist as a root directory for your application, this should be changed to '/'.
-  var appRoot = '/src/';
+    define([
 
-  define([
+        'app/common/AppConfig',
 
-    'Router',
+        'Router',
 
-    'backbone',
+        'backbone',
 
-    'jquery'
+        'jquery'
 
-  ],
+    ],
 
-  function(Router, Backbone, $) {
+    function(AppConfig, Router, Backbone, $) {
 
-    var masterRouter;
+        var masterRouter;
 
-    // Defining the application router, you can attach sub routers here.
-    return {
+        // Defining the application router, you can attach sub routers here.
+        return {
 
-      appRoot: appRoot,
+            start: function start() {
 
-      start: function start() {
+                var app = this;
 
-        var app = this;
+                // Start your master router.
+                masterRouter = new Router();
 
-        // Start your master router.
-        masterRouter = new Router();
+                // Trigger the initial route and enable HTML5 History API support
+                Backbone.history.start({ pushState: true, root: AppConfig.appRoot });
 
-        // Trigger the initial route and enable HTML5 History API support
-        Backbone.history.start({ pushState: true, root: app.appRoot });
+                /*!
+                * The following event handler modified from Backbone Boilerplate
+                * Copyright Tim Branyen
+                */
+                // All navigation that is relative should be passed through the navigate
+                // method, to be processed by the router. If the link has a `data-bypass`
+                // attribute, bypass the delegation completely.
+                $(document).on('click', 'a[href]:not([data-bypass])', function(e) {
 
-        /*!
-         * The following event handler modified from Backbone Boilerplate
-         * Copyright Tim Branyen
-         */
-        // All navigation that is relative should be passed through the navigate
-        // method, to be processed by the router. If the link has a `data-bypass`
-        // attribute, bypass the delegation completely.
-        $(document).on('click', 'a[href]:not([data-bypass])', function(e) {
+                    var relativeURI = app.getRelativeURI(e);
 
-          var relativeURI = app.getRelativeURI(e);
+                    if (relativeURI) {
 
-          if (relativeURI) {
+                        // Stop the default event to ensure the link will not cause a page
+                        // refresh.
+                        e.preventDefault();
 
-            // Stop the default event to ensure the link will not cause a page
-            // refresh.
-            e.preventDefault();
+                        // The fragment is sliced from the root.
+                        masterRouter.navigate(relativeURI, true);
 
-            // The fragment is sliced from the root.
-            masterRouter.navigate(relativeURI, true);
+                    }
 
-          }
+                });
 
-        });
+                return this;
 
-        return this;
+            },
 
-      },
+            getRelativeURI: function getRelativeURI(e) {
 
-      getRelativeURI: function getRelativeURI(e) {
+                // Get the absolute anchor href.
+                var href = $(e.currentTarget).prop('href');
 
-        // Get the absolute anchor href.
-        var href = $(e.currentTarget).prop('href');
+                // Get the absolute root.
+                var root = location.protocol + '//' + location.host + this.appRoot;
 
-        // Get the absolute root.
-        var root = location.protocol + '//' + location.host + this.appRoot;
+                // Ensure the root is part of the anchor href, meaning it's relative.
+                if (href.slice(0, root.length) === root) {
 
-        // Ensure the root is part of the anchor href, meaning it's relative.
-        if (href.slice(0, root.length) === root) {
+                    return href.replace(root, '');
 
-          return href.replace(root, '');
+                }
 
-        }
+                return false;
 
-        return false;
+            }
 
-      }
+        };
 
-    };
-
-  });
+    });
 
 }());
 

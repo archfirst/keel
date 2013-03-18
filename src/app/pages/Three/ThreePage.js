@@ -5,11 +5,11 @@ define(
 
     'BaseView',
 
-    'text!pages/Three/ThreeTemplate.html',
+    'text!app/pages/Three/ThreeTemplate.html',
 
-    'widgets/Mainmenu/MainmenuWidget',
+    'app/widgets/Mainmenu/MainmenuWidget',
 
-    'widgets/Blue/BlueWidget'
+    'app/widgets/Blue/BlueWidget'
 
   ],
 

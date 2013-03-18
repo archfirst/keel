@@ -63,7 +63,7 @@ define([
 
                 router.goToPage('test4');
 
-                expect(requireStub).to.have.been.calledWith(['pages/Test4/Test4Page']);
+                expect(requireStub).to.have.been.calledWith(['app/pages/Test4/Test4Page']);
 
                 requireStub.restore();
             });
