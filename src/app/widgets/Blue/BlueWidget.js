@@ -3,9 +3,9 @@ define(
 
     'BaseView',
 
-    'widgets/Blue/BlueViewModel',
+    'app/widgets/Blue/BlueViewModel',
 
-    'text!widgets/Blue/BlueTemplate.html'
+    'text!app/widgets/Blue/BlueTemplate.html'
 
   ],
 

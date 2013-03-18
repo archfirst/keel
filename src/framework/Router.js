@@ -27,7 +27,6 @@ define([
 
     'Message',
     'MessageBus',
-
     'backbone'
 ],
 
@@ -77,12 +76,12 @@ function(Message, MessageBus, Backbone) {
             MessageBus.trigger(Message.PageBeforeChange, page);
 
             // Convert to Uppercase first letter
-            page = page[0].toUpperCase() + page.slice(1);
+            page = page[0].toUpperCase() + page.slice(1).replace(/-\w/g, function(v) {  return v[1].toUpperCase(); });
 
             // Load in the page's module and render it
-            require(['pages/' + page + '/' + page + 'Page'], function(PageConstructor) {
+            require(['app/pages/' + page + '/' + page + 'Page'], function(PageConstructor) {
 
-                var pageInstance = new PageConstructor().render().place('body');
+                var pageInstance = new PageConstructor().render().place('#container');
 
                 // Remove the page on a `pageBeforeChange` event
                 pageInstance.listenTo(MessageBus, Message.PageBeforeChange, function() {

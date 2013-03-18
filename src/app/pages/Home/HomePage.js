@@ -5,15 +5,15 @@ define(
 
     'BaseView',
 
-    'text!pages/Home/HomeTemplate.html',
+    'text!app/pages/Home/HomeTemplate.html',
 
-    'widgets/Mainmenu/MainmenuWidget',
+    'app/widgets/Mainmenu/MainmenuWidget',
 
-    'widgets/Red/RedWidget',
+    'app/widgets/Red/RedWidget',
 
-    'widgets/Green/GreenWidget',
+    'app/widgets/Green/GreenWidget',
 
-    'widgets/Blue/BlueWidget'
+    'app/widgets/Blue/BlueWidget'
 
   ],
 
