@@ -61,9 +61,9 @@ define([
                 var router = new Router();
                 var requireStub = sinon.stub(window, 'require');
 
-                router.goToPage('test4');
+                router.goToPage('test-a');
 
-                expect(requireStub).to.have.been.calledWith(['app/pages/Test4/Test4Page']);
+                expect(requireStub).to.have.been.calledWith(['app/pages/test-a/TestAPage']);
 
                 requireStub.restore();
             });
