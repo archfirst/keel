@@ -72,14 +72,14 @@ function(Message, MessageBus, Backbone) {
                 page = 'home';
             }
 
+            // Convert to Camelcase
+            var pageName = page[0].toUpperCase() + page.slice(1).replace(/-\w/g, function(v) {  return v[1].toUpperCase(); });
+
             // Trigger the `pageBeforeChange` event in the MessageBus
             MessageBus.trigger(Message.PageBeforeChange, page);
 
-            // Convert to Uppercase first letter
-            page = page[0].toUpperCase() + page.slice(1).replace(/-\w/g, function(v) {  return v[1].toUpperCase(); });
-
             // Load in the page's module and render it
-            require(['app/pages/' + page + '/' + page + 'Page'], function(PageConstructor) {
+            require(['app/pages/' + page + '/' + pageName + 'Page'], function(PageConstructor) {
 
                 var pageInstance = new PageConstructor().render().place('#container');
 
