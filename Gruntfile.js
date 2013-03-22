@@ -314,7 +314,7 @@ module.exports = function(grunt) {
                 // Add the module to our array
                 // This assumes each module has been added to our require config's path property as <modulename>Main
                 modules.push({
-                  name: 'app/pages/' + file + '/' + file + 'Page',
+                  name: 'app/pages/' + file + '/' + file[0].toUpperCase() + file.slice(1) + 'Page',
                   exclude: pageExclusions
                 });
               }
