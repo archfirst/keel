@@ -19,12 +19,11 @@ var require = {
         backbone:       'vendor/backbone.min',
 
         // Framework
-        BaseView:       'framework/BaseView',
-        ExceptionUtil:  'framework/ExceptionUtil',
-        Message:        'framework/Message',
-        MessageBus:     'framework/MessageBus',
-        Repository:     'framework/Repository',
-        Router:         'framework/Router'
+        BaseView:       'keel/BaseView',
+        ExceptionUtil:  'keel/ExceptionUtil',
+        Message:        'keel/Message',
+        MessageBus:     'keel/MessageBus',
+        Router:         'keel/Router'
 
     },
 
