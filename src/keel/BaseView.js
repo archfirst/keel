@@ -19,7 +19,7 @@
 
 
 /**
-* framework/BaseView
+* keel/BaseView
 *
 * This is a view base class built on top of the default Backbone.View; it
 * provides a set of rendering, binding, and lifecycle methods that tend to
@@ -377,7 +377,11 @@ function( ExceptionUtil, Backbone, _, $ ) {
 
             var template = this.getTemplate();
             var model = this.model || {};
-            var context = model.toJSON ? model.toJSON() : {};
+
+            // If the model contains a toJSON method, call it to create the context.
+            // Otherwise assume that the model contains properties that will be
+            // displayed as is.
+            var context = model.toJSON ? model.toJSON() : model;
 
             // Remove existing children
             this.destroyChildren();

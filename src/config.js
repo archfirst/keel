@@ -18,7 +18,7 @@ var require = {
         // Backbone
         backbone:       'vendor/backbone.min',
 
-        // Framework
+        // Keel
         BaseView:       'keel/BaseView',
         ExceptionUtil:  'keel/ExceptionUtil',
         Message:        'keel/Message',
