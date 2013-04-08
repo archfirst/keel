@@ -15,7 +15,7 @@
  */
 
 /**
- * framework/Message
+ * keel/Message
  *
  * Enumeration of messages
  *
@@ -29,7 +29,7 @@ define(function() {
     /**
     * The Message enumerator
     * Defines string message names for the MessageBus for easier maintenance.
-    * framework/Message be extended within the app.
+    * keel/Message be extended within the app.
     *
     * @class Message
     * @static

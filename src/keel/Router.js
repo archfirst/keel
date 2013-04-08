@@ -15,7 +15,7 @@
 */
 
 /**
-* framework/Router
+* keel/Router
 *
 * Extends Backbone.Router to route to different pages in the application.
 *
