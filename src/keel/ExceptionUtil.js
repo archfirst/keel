@@ -15,10 +15,10 @@
 */
 
 /**
-* framework/ExceptionUtil
-* This is an Exception Utility intended to be used within the framework
+* keel/ExceptionUtil
+* This is an Exception Utility intended to be used within Keel
 * for alerting implementors about errors such as bad arguments passed to
-* framework methods.
+* Keel methods.
 *
 * It includes a general FrameworkException constructor. This could be extended
 * if necessary to present more specific exceptions if necessary.

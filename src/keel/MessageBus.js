@@ -15,7 +15,7 @@
 */
 
 /**
-* framework/MessageBus
+* keel/MessageBus
 *
 * Provides the ability to publish and subscribe to messages.
 *
