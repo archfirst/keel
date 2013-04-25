@@ -15,4 +15,5 @@ npm-debug.log
 dist
 docs
 node_modules
+.idea
 .sass-cache
