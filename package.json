@@ -1,7 +1,7 @@
 {
   "name": "keel",
-  "version": "0.0.9",
-  "description": "A stabilizing framework for Domain-Driven applications",
+  "version": "0.9.0",
+  "description": "A stabilizing framework for Backbone applications",
   "devDependencies": {
     "grunt": "0.4.x",
     "grunt-contrib-clean": "0.4.0rc6",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bobholt/keel.git"
+    "url": "https://github.com/archfirst/keel.git"
   },
   "keywords": [
     "architecture",

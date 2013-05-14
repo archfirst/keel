@@ -1,6 +1,6 @@
-# Keel: A stabilizing framework for Domain-Driven applications [![Build Status](https://travis-ci.org/archfirst/keel.png)](https://travis-ci.org/archfirst/keel)
+# Keel: A stabilizing framework for Backbone.js applications [![Build Status](https://travis-ci.org/archfirst/keel.png)](https://travis-ci.org/archfirst/keel)
 
-Keel stabilizes your Backbone.js application through the use of specific, reproducible conventions. It provides a light framework around Backbone.js, allowing the developer to craft a domain-driven web application. More than the code, Keel is a collection of patterns for building stable, modular applications.
+Keel stabilizes your Backbone.js application through the use of specific, reproducible conventions. It provides a light framework around Backbone.js, allowing the developer to quickly craft a robust web application. More than the code, Keel is a collection of patterns for building stable, modular applications.
 
 ## Requirements
 
