@@ -20,18 +20,18 @@ module.exports = function(grunt) {
     compass: {
       dist: {
         options: {
-          sassDir: 'dist/app/sass',
-          cssDir: 'dist/app/css',
-          imagesDir: 'dist/app/img',
+          sassDir: 'dist/sass',
+          cssDir: 'dist/css',
+          imagesDir: 'dist/img',
           javascriptsDir: 'dist/app',
           environment: 'production'
         }
       },
       dev: {
         options: {
-          sassDir: 'src/app/sass',
-          cssDir: 'src/app/css',
-          imagesDir: 'src/app/img',
+          sassDir: 'src/sass',
+          cssDir: 'src/css',
+          imagesDir: 'src/img',
           javascriptsDir: 'src/app',
           environment: 'development'
         }
@@ -345,6 +345,9 @@ module.exports = function(grunt) {
 
           wrap: true,
           onBuildWrite: function(moduleName, path, contents) {
+
+            // In AppConfig.js, replace 'src' with 'dist'.
+            // This will work either serving out of docRoot/dist or setting docRoot to /dist.
             return contents.replace(/\/src/g, '/dist');
           }
         }
@@ -382,7 +385,7 @@ module.exports = function(grunt) {
         version: '<%= pkg.version %>',
         url: '<%= pkg.homepage %>',
         options: {
-          paths: ['src/framework'],
+          paths: ['src/keel'],
           outdir: 'docs'
         }
       }

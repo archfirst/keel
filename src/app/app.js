@@ -6,7 +6,7 @@
 
     define([
 
-        'app/common/AppConfig',
+        'app/framework/AppConfig',
 
         'Router',
 
