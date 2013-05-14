@@ -61,7 +61,7 @@ define(function() {
             this.message = message || 'Keel Framework Exception';
 
             /**
-            * The Exception Type
+            * The Exception Type is 'FrameworkException'
             *
             * @property name
             * @type String
@@ -72,7 +72,7 @@ define(function() {
     };
 
     /**
-    * Set the prototype to the JS Error object
+    * FramworkExceptions inherits from the JS Error object
     *
     * @property prototype
     * @type Error

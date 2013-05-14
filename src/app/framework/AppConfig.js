@@ -15,7 +15,7 @@
  */
 
 /**
- * app/common/AppConfig
+ * app/framework/AppConfig
  *
  * Provides application configuration variables.
  *
