@@ -1,111 +1,114 @@
 /*global describe:true, expect:true, it:true, sinon:true */
-/*jshint expr:true, es5:true */
+/*jshint expr:true */
 define([
 
-  'MessageBus'
+    'MessageBus'
 
 ], function(MessageBus) {
-  'use strict';
+    'use strict';
 
-  describe('MessageBus', function() {
+    describe('MessageBus', function() {
 
-    describe('#on()', function() {
+        describe('#on()', function() {
 
-      it('should fire a callback when its event is called', function() {
+            it('should fire a callback when its event is called', function() {
 
-        var spy = sinon.spy();
+                var spy = sinon.spy();
 
-        MessageBus.on('triggeredEvent', spy);
+                MessageBus.on('triggeredEvent', spy);
 
-        MessageBus.trigger('triggeredEvent');
+                MessageBus.trigger('triggeredEvent');
 
-        expect(spy).to.have.been.called;
+                expect(spy).to.have.been.called;
 
-      });
+            });
 
-      it('should fire the callback each time it is called', function() {
+            it('should fire the callback each time it is called', function() {
 
-        var spy = sinon.spy();
+                var spy = sinon.spy();
 
-        MessageBus.on('triggeredEvent', spy);
+                MessageBus.on('triggeredEvent', spy);
 
-        MessageBus.trigger('triggeredEvent');
-        MessageBus.trigger('triggeredEvent');
-        MessageBus.trigger('triggeredEvent');
+                MessageBus.trigger('triggeredEvent');
+                MessageBus.trigger('triggeredEvent');
+                MessageBus.trigger('triggeredEvent');
 
-        expect(spy).to.have.been.calledThrice;
+                expect(spy).to.have.been.calledThrice;
 
-      });
+            });
+
+        });
+
+        describe('#off()', function() {
+
+            it('should prevent the callback from firing after it is called', function() {
+
+                var spy = sinon.spy();
+
+                MessageBus.on('triggeredEvent', spy);
+
+                MessageBus.trigger('triggeredEvent');
+
+                MessageBus.off('triggeredEvent');
+
+                MessageBus.trigger('triggeredEvent');
+                MessageBus.trigger('triggeredEvent');
+
+                expect(spy).to.have.been.calledOnce;
+
+            });
+
+        });
+
+        describe('#trigger()', function() {
+
+            it('should trigger callbacks attached to listeners', function() {
+
+                var spy = sinon.spy();
+
+                MessageBus.on('triggeredEvent', spy);
+
+                MessageBus.trigger('triggeredEvent');
+
+                expect(spy).to.have.been.called;
+
+            });
+
+        });
+
+        describe('#once()', function() {
+
+            it('should throw an exception', function() {
+
+                expect(MessageBus.listenTo).to.
+                throw (/Not Implemented/);
+
+            });
+
+        });
+
+        describe('#listenTo()', function() {
+
+            it('should throw an exception', function() {
+
+                expect(MessageBus.listenTo).to.
+                throw (/Not Implemented/);
+
+            });
+
+        });
+
+        describe('#stopListening()', function() {
+
+            it('should throw an exception', function() {
+
+                expect(MessageBus.listenTo).to.
+                throw (/Not Implemented/);
+
+            });
+
+        });
 
     });
-
-    describe('#off()', function() {
-
-      it('should prevent the callback from firing after it is called', function() {
-
-        var spy = sinon.spy();
-
-        MessageBus.on('triggeredEvent', spy);
-
-        MessageBus.trigger('triggeredEvent');
-
-        MessageBus.off('triggeredEvent');
-
-        MessageBus.trigger('triggeredEvent');
-        MessageBus.trigger('triggeredEvent');
-
-        expect(spy).to.have.been.calledOnce;
-
-      });
-
-    });
-
-    describe('#trigger()', function() {
-
-      it('should trigger callbacks attached to listeners', function() {
-
-        var spy = sinon.spy();
-
-        MessageBus.on('triggeredEvent', spy);
-
-        MessageBus.trigger('triggeredEvent');
-
-        expect(spy).to.have.been.called;
-
-      });
-
-    });
-
-    describe('#once()', function() {
-
-      it('should throw an exception', function() {
-
-        expect(MessageBus.listenTo).to.throw(/Not Implemented/);
-
-      });
-
-    });
-
-    describe('#listenTo()', function() {
-
-      it('should throw an exception', function() {
-
-        expect(MessageBus.listenTo).to.throw(/Not Implemented/);
-
-      });
-
-    });
-
-    describe('#stopListening()', function() {
-
-      it('should throw an exception', function() {
-
-        expect(MessageBus.listenTo).to.throw(/Not Implemented/);
-
-      });
-
-    });
-
-  });
 
 });

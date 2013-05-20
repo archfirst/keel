@@ -1,10 +1,10 @@
 /*global describe:true, expect:true, it:true, sinon:true */
-/*jshint expr:true, es5:true */
+/*jshint expr:true */
 define([
 
-'Message',
-'MessageBus',
-'Router'
+    'Message',
+    'MessageBus',
+    'Router'
 
 ], function(Message, MessageBus, Router) {
 
