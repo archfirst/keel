@@ -5,7 +5,7 @@
   "devDependencies": {
     "grunt": "0.4.x",
     "grunt-contrib-clean": "0.4.x",
-    "grunt-contrib-compass": "~0.1.0",
+    "grunt-contrib-compass": "0.2.x",
     "grunt-contrib-copy": "0.4.x",
     "grunt-contrib-jshint": "0.1.1rc6",
     "grunt-contrib-requirejs": "~0.4.x",
