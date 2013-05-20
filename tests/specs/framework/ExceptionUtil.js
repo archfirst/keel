@@ -1,5 +1,5 @@
 /*global describe:true, expect:true, it:true */
-/*jshint expr:true, es5:true */
+/*jshint expr:true */
 define([
 
     'ExceptionUtil'

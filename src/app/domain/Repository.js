@@ -1,5 +1,5 @@
 /* Repository.js */
 (function() {
-  'use strict';
+    'use strict';
 
 }());

@@ -1,3 +1,4 @@
+/*global mocha:true */
 /*jshint unused:false */
 
 // Set the baseUrl relative to the test runner
@@ -9,6 +10,6 @@ require.deps = null;
 mocha.setup('bdd');
 
 var runMocha = function() {
-  'use strict';
-  mocha.run().globals(['jQuery*']);
+    'use strict';
+    mocha.run().globals(['jQuery*']);
 };
