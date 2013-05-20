@@ -1,5 +1,5 @@
 define(
-  [
+[
 
     'BaseView',
 
@@ -7,31 +7,31 @@ define(
 
     'text!app/widgets/Blue/BlueTemplate.html'
 
-  ],
+],
 
-  function(BaseView, ViewModel, blueTemplate){
+function(BaseView, ViewModel, blueTemplate) {
 
     'use strict';
 
     return BaseView.extend({
 
-      // Set classnames on this widget for styling
-      className: 'widget content-widget widget-three',
+        // Set classnames on this widget for styling
+        className: 'widget content-widget widget-three',
 
-      // Use the template passed in from the define
-      template: {
-        name: 'blueTemplate',
-        source: blueTemplate
-      },
+        // Use the template passed in from the define
+        template: {
+            name: 'blueTemplate',
+            source: blueTemplate
+        },
 
-      initialize: function() {
+        initialize: function() {
 
-        this.model = new ViewModel();
+            this.model = new ViewModel();
 
-      }
+        }
 
     });
 
-  }
+}
 
 );

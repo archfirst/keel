@@ -7,7 +7,7 @@
     "grunt-contrib-clean": "0.4.x",
     "grunt-contrib-compass": "0.2.x",
     "grunt-contrib-copy": "0.4.x",
-    "grunt-contrib-jshint": "0.1.1rc6",
+    "grunt-contrib-jshint": "0.5.x",
     "grunt-contrib-requirejs": "~0.4.x",
     "grunt-contrib-watch": "0.2.x",
     "mocha": "~1.7.4",
