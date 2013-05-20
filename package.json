@@ -4,7 +4,7 @@
   "description": "A stabilizing framework for Backbone applications",
   "devDependencies": {
     "grunt": "0.4.x",
-    "grunt-contrib-clean": "0.4.0rc6",
+    "grunt-contrib-clean": "0.4.x",
     "grunt-contrib-compass": "~0.1.0",
     "grunt-contrib-copy": "0.4.x",
     "grunt-contrib-jshint": "0.1.1rc6",
