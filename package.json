@@ -1,6 +1,6 @@
 {
     "name": "keel",
-    "version": "0.9.0",
+    "version": "1.0.0",
     "description": "A stabilizing framework for Backbone applications",
     "devDependencies": {
         "grunt": "0.4.x",
@@ -13,6 +13,9 @@
         "mocha": "1.9.x",
         "grunt-mocha": "0.3.x",
         "grunt-contrib-yuidoc": "0.4.x"
+    },
+    "engines": {
+        "node": ">=0.8.0"
     },
     "repository": {
         "type": "git",
