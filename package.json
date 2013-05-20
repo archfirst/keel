@@ -10,9 +10,9 @@
         "grunt-contrib-jshint": "0.5.x",
         "grunt-contrib-requirejs": "0.4.x",
         "grunt-contrib-watch": "0.4.x",
-        "mocha": "~1.7.4",
-        "grunt-mocha": "~0.3.x",
-        "grunt-contrib-yuidoc": "~0.4.0rc7"
+        "mocha": "1.9.x",
+        "grunt-mocha": "0.3.x",
+        "grunt-contrib-yuidoc": "0.4.x"
     },
     "repository": {
         "type": "git",
