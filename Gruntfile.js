@@ -147,12 +147,10 @@ module.exports = function(grunt) {
                 files:{
                     src: [
                         'Gruntfile.js',
-                        'src/framework/*.js',
-                        'src/app/domain/**/*.js',
-                        'src/app/pages/**/*.js',
-                        'src/app/widgets/**/*.js',
-                        'src/app/app.js',
-                        'src/app/main.js'
+                        'src/keel/**/*.js',
+                        'src/app/**/*.js',
+                        'src/config.js',
+                        'src/main.js'
                     ]
                 }
             },
@@ -246,7 +244,8 @@ module.exports = function(grunt) {
                 },
                 files: {
                     src: [
-                        'tests/specs/**/*.js'
+                        'tests/specs/**/*.js',
+                        'tests/config.js'
                     ]
                 }
             }
@@ -366,7 +365,7 @@ module.exports = function(grunt) {
         // Will execute the listed targets on file save
         watch: {
             lint: {
-                files: '<%= jshint.beforeconcat %>',
+                files: 'src/**/*.js',
                 tasks: ['jshint'],
                 options: {
                     interrupt: true

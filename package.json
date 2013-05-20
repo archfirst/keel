@@ -1,33 +1,33 @@
 {
-  "name": "keel",
-  "version": "0.9.0",
-  "description": "A stabilizing framework for Backbone applications",
-  "devDependencies": {
-    "grunt": "0.4.x",
-    "grunt-contrib-clean": "0.4.x",
-    "grunt-contrib-compass": "0.2.x",
-    "grunt-contrib-copy": "0.4.x",
-    "grunt-contrib-jshint": "0.5.x",
-    "grunt-contrib-requirejs": "~0.4.x",
-    "grunt-contrib-watch": "0.2.x",
-    "mocha": "~1.7.4",
-    "grunt-mocha": "~0.3.x",
-    "grunt-contrib-yuidoc": "~0.4.0rc7"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/archfirst/keel.git"
-  },
-  "keywords": [
-    "architecture",
-    "backbone",
-    "keel"
-  ],
-  "scripts": {
-    "test": "grunt mocha"
-  },
-  "author": "Bob Holt",
-  "homepage": "http://bobholt.me/",
-  "license": "MIT",
-  "readmeFilename": "README.md"
+    "name": "keel",
+    "version": "0.9.0",
+    "description": "A stabilizing framework for Backbone applications",
+    "devDependencies": {
+        "grunt": "0.4.x",
+        "grunt-contrib-clean": "0.4.x",
+        "grunt-contrib-compass": "0.2.x",
+        "grunt-contrib-copy": "0.4.x",
+        "grunt-contrib-jshint": "0.5.x",
+        "grunt-contrib-requirejs": "0.4.x",
+        "grunt-contrib-watch": "0.4.x",
+        "mocha": "~1.7.4",
+        "grunt-mocha": "~0.3.x",
+        "grunt-contrib-yuidoc": "~0.4.0rc7"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/archfirst/keel.git"
+    },
+    "keywords": [
+            "architecture",
+            "backbone",
+            "keel"
+    ],
+    "scripts": {
+        "test": "grunt mocha"
+    },
+    "author": "Bob Holt",
+    "homepage": "http://bobholt.me/",
+    "license": "MIT",
+    "readmeFilename": "README.md"
 }
