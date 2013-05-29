@@ -42,6 +42,7 @@
                 // attribute, bypass the delegation completely.
                 $(document).on('click', 'a[href]:not([data-bypass])', function(e) {
 
+
                     var relativeURI = app.getRelativeURI(e);
 
                     if (relativeURI) {
@@ -67,7 +68,7 @@
                 var href = $(e.currentTarget).prop('href');
 
                 // Get the absolute root.
-                var root = location.protocol + '//' + location.host + this.appRoot;
+                var root = location.protocol + '//' + location.host + AppConfig.appRoot;
 
                 // Ensure the root is part of the anchor href, meaning it's relative.
                 if (href.slice(0, root.length) === root) {
