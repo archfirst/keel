@@ -10,21 +10,36 @@ define([
 ], function(Backbone, BaseView, $) {
     'use strict';
 
+    var Construct = null;
+    var Construct2 = null;
     var BV = null;
+    var BV2 = null;
 
     describe('BaseView', function() {
 
         beforeEach(function() {
             $('#test').empty();
-            BV = new BaseView({
+            Construct = BaseView.extend({
                 tagName: 'section',
                 className: 'test-base-view'
             });
+
+            Construct2 = BaseView.extend({
+                tagName: 'section',
+                className: 'test-base-view-2',
+                template: null
+            });
+
+            BV = new Construct();
+            BV2 = new Construct2();
         });
 
         afterEach(function() {
             $('#test').empty();
+            Construct = null;
+            Construct2 = null;
             BV = null;
+            BV2 = null;
         });
 
         describe('#addChild()', function() {
@@ -317,6 +332,16 @@ define([
                 // invoke again to get template string
                 // Since the default template has no variables, it should match the template source
                 expect(BV.getTemplate()()).to.equal(BV.template.source);
+
+            });
+
+            it('should handle a null template', function() {
+
+                console.log(BV2.getTemplate()());
+
+                // invoke getTemplate() to get the function that returns the template
+                // invoke again to get template string, which should be empty
+                expect(BV2.getTemplate()()).to.be.undefined;
 
             });
 
