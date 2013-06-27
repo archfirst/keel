@@ -284,6 +284,13 @@ function( ExceptionUtil, Backbone, _, $ ) {
         **/
         getTemplate: function() {
 
+            if (!this.template) {
+                
+                // When applied, this function will return undefined
+                // jQuery.html() shortcuts if the argument is undefined as opposed to null or the empty string
+                return function(){};
+            }
+
             if ( !_templates[this.template.name] ) {
                 _templates[ this.template.name ] = _.template( this.template.source );
             }
