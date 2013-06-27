@@ -1,6 +1,6 @@
 {
     "name": "keel",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "A stabilizing framework for Backbone applications",
     "devDependencies": {
         "grunt": "0.4.x",
