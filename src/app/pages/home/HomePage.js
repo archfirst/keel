@@ -5,7 +5,7 @@ define(
 
     'BaseView',
 
-    'text!app/pages/Home/HomeTemplate.html',
+    'text!app/pages/home/HomeTemplate.html',
 
     'app/widgets/Mainmenu/MainmenuWidget',
 
