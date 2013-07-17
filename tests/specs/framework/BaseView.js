@@ -337,7 +337,7 @@ define([
 
             it('should handle a null template', function() {
 
-                console.log(BV2.getTemplate()());
+                // console.log(BV2.getTemplate()());
 
                 // invoke getTemplate() to get the function that returns the template
                 // invoke again to get template string, which should be empty
