@@ -5,7 +5,7 @@ define(
 
     'BaseView',
 
-    'text!app/pages/Three/ThreeTemplate.html',
+    'text!app/pages/three/ThreeTemplate.html',
 
     'app/widgets/Mainmenu/MainmenuWidget',
 
