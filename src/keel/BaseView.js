@@ -382,13 +382,16 @@ function( ExceptionUtil, Backbone, _, $ ) {
         **/
         render: function() {
 
-            var template = this.getTemplate();
-            var model = this.model || {};
+            var template = this.getTemplate(),
+                // If this.context is defined use instead of this.model
+                context = this.context || this.model || {};
 
-            // If the model contains a toJSON method, call it to create the context.
-            // Otherwise assume that the model contains properties that will be
+            // If the context contains a toJSON method, call it. Otherwise
+            // assume that the context contains properties that will be
             // displayed as is.
-            var context = model.toJSON ? model.toJSON() : model;
+            if (context.toJSON) {
+                context = context.toJSON();
+            }
 
             // Remove existing children
             this.destroyChildren();
